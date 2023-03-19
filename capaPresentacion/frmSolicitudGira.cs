@@ -309,7 +309,8 @@ namespace capaPresentacion
 
             if (!string.IsNullOrEmpty(txtIDLugar.Text))
             {
-                indice = Convert.ToInt32(txtIDLugar.Text) - 1;
+                indice = Convert.ToInt32(txtIDLugar.Text);
+                indice = indice - 1;
                 lugares.RemoveAt(indice);
                 grdLugares.Rows.RemoveAt(indice);
                 limpiarLugares();
@@ -329,13 +330,16 @@ namespace capaPresentacion
             DataGridViewCell celda = grdLugares.Rows[e.RowIndex].Cells[0];
             indice = Convert.ToInt32(celda.Value);
 
-            txtIDLugar.Text = lugares[indice].Id+1.ToString();
+            txtIDLugar.Text = (lugares[indice].Id+1).ToString();
             cboInicio.Text = lugares[indice].HoraInicial.ToString();
             cboFin.Text = lugares[indice].HoraFinal.ToString();
             txtOrigen.Text = lugares[indice].Origen.ToString();
             txtFinal.Text = lugares[indice].Destino.ToString();
             dtpLugar.Value = lugares[indice].Fecha;
         }
+
+
+        //funcion para reiniciar los ids de lugares despues de eliminado un dia
 
         private void limpiarLugares()
         {
