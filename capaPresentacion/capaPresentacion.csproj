@@ -74,6 +74,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -87,6 +88,30 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ina.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ina.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\INA_Logo_Facebook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-question-mark-48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-question-mark-windows-11-color-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-question-mark-windows-11-color-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\capaLógica\capaLógica.csproj">
+      <Project>{b99276d9-f0ba-4b23-9a62-3bf2a55e8b08}</Project>
+      <Name>capaLógica</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
