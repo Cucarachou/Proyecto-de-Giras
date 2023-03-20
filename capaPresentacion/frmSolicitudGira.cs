@@ -239,6 +239,16 @@ namespace capaPresentacion
             lugares.Add(claseLugares);
             grdLugares.Rows.Add(claseLugares.Id, claseLugares.Fecha, claseLugares.HoraInicial, claseLugares.HoraFinal, claseLugares.Origen, claseLugares.Destino);
         }
+
+
+        //la siguiente sobrecarga simplemente repite el añadir una fila de la lista de lugares pero que ya es
+        //existente, por lo tanto no se necesita crear una instancia, simplemente copiar la ya almacenada
+        //mediante un número de índice como argumento
+
+        private void aniadirLugar(int indice)
+        {
+            grdLugares.Rows.Add(lugares[indice].Id, lugares[indice].Fecha, lugares[indice].HoraInicial, lugares[indice].HoraFinal, lugares[indice].Origen, lugares[indice].Destino);
+        }
         /*el evento de añadir lugar primero revisa que no haya alguno de los espacios vacíos y sin datos. Después,
          * verifica que ya hayan sido confirmadas las fechas según los valores por defecto de la fecha de inicio
          * y fin de la gira. Luego de ello, verifica que la fecha seleccionada esté en el rango de la fecha de fin
@@ -259,8 +269,8 @@ namespace capaPresentacion
 
                     if (dtpLugar.Value >= giraFechaInicio && dtpLugar.Value < giraFechaFinal.AddDays(1) && verificarFechasLugares(dtpLugar.Value))
                     {
-
                         aniadirLugar();
+                        ordenarListaLugares();
                         limpiarLugares();
                         MessageBox.Show("Ha sido agregada una de las fechas de la gira. Puede ver la información a la derecha.", "Completado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -313,6 +323,7 @@ namespace capaPresentacion
                 indice = indice - 1;
                 lugares.RemoveAt(indice);
                 grdLugares.Rows.RemoveAt(indice);
+                ordenarListaLugares();
                 limpiarLugares();
             }
             else
@@ -338,8 +349,35 @@ namespace capaPresentacion
             dtpLugar.Value = lugares[indice].Fecha;
         }
 
+        private void label18_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Las solicitudes de las giras deben enviarse antes del miércoles de la semana y con al menos una semana de anticipación, por lo que si se manda después de dichos días de la semana o antes de una semana se debe marcar como extemporánea.", "Giras extemporáneas", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
 
-        //funcion para reiniciar los ids de lugares despues de eliminado un dia
+
+        //funcion para reiniciar los ids de lugares despues de agregado o eliminado un día, de manera que también
+        //ordena los lugares que se muestran en el datagridview así como lo almacenado en la lista de lugares
+        //lo que ayudará a proteger la integridad de los datos a la hora de pasar a la capa lógica
+
+        private void ordenarListaLugares()
+        {
+            grdLugares.Rows.Clear();
+
+            lugares.Sort((x, y) => x.Fecha.Date.CompareTo(y.Fecha.Date));
+
+            for (int i = 0; i < lugares.Count; i++)
+            {
+                lugares[i].Id = i;
+                aniadirLugar(i);
+            }
+        }
+
+        private void btnChofer_Click(object sender, EventArgs e)
+        {
+            frmBusquedaSolicitante form = new frmBusquedaSolicitante();
+            form.Show();
+
+        }
 
         private void limpiarLugares()
         {

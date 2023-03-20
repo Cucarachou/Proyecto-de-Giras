@@ -39,6 +39,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtIDLugar = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.grdLugares = new System.Windows.Forms.DataGridView();
+            this.columnaID = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.columnaFecha = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.columnaHoraInicio = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.columnaHoraFinal = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.columnaOrigen = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.columnaDestino = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.txtLimpiar = new System.Windows.Forms.Button();
@@ -82,20 +91,11 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
-            this.grdLugares = new System.Windows.Forms.DataGridView();
-            this.columnaID = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.columnaFecha = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.columnaHoraInicio = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.columnaHoraFinal = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.columnaOrigen = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.columnaDestino = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.label19 = new System.Windows.Forms.Label();
-            this.txtIDLugar = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdLugares)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdLugares)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -203,6 +203,82 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Lugares de Gira";
+            // 
+            // txtIDLugar
+            // 
+            this.txtIDLugar.Enabled = false;
+            this.txtIDLugar.Location = new System.Drawing.Point(40, 155);
+            this.txtIDLugar.Name = "txtIDLugar";
+            this.txtIDLugar.ReadOnly = true;
+            this.txtIDLugar.Size = new System.Drawing.Size(49, 20);
+            this.txtIDLugar.TabIndex = 16;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(12, 159);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(22, 13);
+            this.label19.TabIndex = 15;
+            this.label19.Text = "N°:";
+            // 
+            // grdLugares
+            // 
+            this.grdLugares.AllowUserToAddRows = false;
+            this.grdLugares.AllowUserToDeleteRows = false;
+            this.grdLugares.AllowUserToResizeColumns = false;
+            this.grdLugares.AllowUserToResizeRows = false;
+            this.grdLugares.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdLugares.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.columnaID,
+            this.columnaFecha,
+            this.columnaHoraInicio,
+            this.columnaHoraFinal,
+            this.columnaOrigen,
+            this.columnaDestino});
+            this.grdLugares.Location = new System.Drawing.Point(348, 16);
+            this.grdLugares.Name = "grdLugares";
+            this.grdLugares.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.grdLugares.Size = new System.Drawing.Size(414, 134);
+            this.grdLugares.TabIndex = 14;
+            this.grdLugares.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdLugares_CellContentDoubleClick);
+            // 
+            // columnaID
+            // 
+            this.columnaID.DataPropertyName = "Id";
+            this.columnaID.HeaderText = "Número";
+            this.columnaID.Name = "columnaID";
+            this.columnaID.Visible = false;
+            // 
+            // columnaFecha
+            // 
+            this.columnaFecha.DataPropertyName = "Fecha";
+            this.columnaFecha.HeaderText = "Fecha";
+            this.columnaFecha.Name = "columnaFecha";
+            // 
+            // columnaHoraInicio
+            // 
+            this.columnaHoraInicio.DataPropertyName = "HoraInicial";
+            this.columnaHoraInicio.HeaderText = "Hora Inicio";
+            this.columnaHoraInicio.Name = "columnaHoraInicio";
+            // 
+            // columnaHoraFinal
+            // 
+            this.columnaHoraFinal.DataPropertyName = "HoraFinal";
+            this.columnaHoraFinal.HeaderText = "Hora Final";
+            this.columnaHoraFinal.Name = "columnaHoraFinal";
+            // 
+            // columnaOrigen
+            // 
+            this.columnaOrigen.DataPropertyName = "Origen";
+            this.columnaOrigen.HeaderText = "Origen";
+            this.columnaOrigen.Name = "columnaOrigen";
+            // 
+            // columnaDestino
+            // 
+            this.columnaDestino.DataPropertyName = "Destino";
+            this.columnaDestino.HeaderText = "Destino";
+            this.columnaDestino.Name = "columnaDestino";
             // 
             // btnEliminar
             // 
@@ -401,6 +477,7 @@
             // txtSolicitante
             // 
             this.txtSolicitante.BackColor = System.Drawing.SystemColors.Info;
+            this.txtSolicitante.Enabled = false;
             this.txtSolicitante.Location = new System.Drawing.Point(82, 25);
             this.txtSolicitante.Name = "txtSolicitante";
             this.txtSolicitante.ReadOnly = true;
@@ -433,10 +510,12 @@
             this.btnChofer.TabIndex = 2;
             this.btnChofer.Text = "Buscar";
             this.btnChofer.UseVisualStyleBackColor = true;
+            this.btnChofer.Click += new System.EventHandler(this.btnChofer_Click);
             // 
             // txtChofer
             // 
             this.txtChofer.BackColor = System.Drawing.SystemColors.Info;
+            this.txtChofer.Enabled = false;
             this.txtChofer.Location = new System.Drawing.Point(82, 57);
             this.txtChofer.Name = "txtChofer";
             this.txtChofer.ReadOnly = true;
@@ -474,6 +553,7 @@
             // 
             // txtEstilo
             // 
+            this.txtEstilo.Enabled = false;
             this.txtEstilo.Location = new System.Drawing.Point(308, 89);
             this.txtEstilo.Name = "txtEstilo";
             this.txtEstilo.ReadOnly = true;
@@ -491,6 +571,7 @@
             // 
             // txtGasolina
             // 
+            this.txtGasolina.Enabled = false;
             this.txtGasolina.Location = new System.Drawing.Point(126, 89);
             this.txtGasolina.Name = "txtGasolina";
             this.txtGasolina.ReadOnly = true;
@@ -508,6 +589,7 @@
             // 
             // txtCapacidad
             // 
+            this.txtCapacidad.Enabled = false;
             this.txtCapacidad.Location = new System.Drawing.Point(308, 60);
             this.txtCapacidad.Name = "txtCapacidad";
             this.txtCapacidad.ReadOnly = true;
@@ -525,6 +607,7 @@
             // 
             // txtModelo
             // 
+            this.txtModelo.Enabled = false;
             this.txtModelo.Location = new System.Drawing.Point(126, 60);
             this.txtModelo.Name = "txtModelo";
             this.txtModelo.ReadOnly = true;
@@ -553,6 +636,7 @@
             // txtPlaca
             // 
             this.txtPlaca.BackColor = System.Drawing.SystemColors.Info;
+            this.txtPlaca.Enabled = false;
             this.txtPlaca.Location = new System.Drawing.Point(118, 24);
             this.txtPlaca.Name = "txtPlaca";
             this.txtPlaca.ReadOnly = true;
@@ -599,7 +683,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(990, 257);
+            this.btnLimpiar.Location = new System.Drawing.Point(987, 257);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(144, 23);
             this.btnLimpiar.TabIndex = 7;
@@ -626,81 +710,7 @@
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(18, 23);
             this.label18.TabIndex = 9;
-            // 
-            // grdLugares
-            // 
-            this.grdLugares.AllowUserToAddRows = false;
-            this.grdLugares.AllowUserToDeleteRows = false;
-            this.grdLugares.AllowUserToResizeColumns = false;
-            this.grdLugares.AllowUserToResizeRows = false;
-            this.grdLugares.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdLugares.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.columnaID,
-            this.columnaFecha,
-            this.columnaHoraInicio,
-            this.columnaHoraFinal,
-            this.columnaOrigen,
-            this.columnaDestino});
-            this.grdLugares.Location = new System.Drawing.Point(348, 16);
-            this.grdLugares.Name = "grdLugares";
-            this.grdLugares.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdLugares.Size = new System.Drawing.Size(414, 134);
-            this.grdLugares.TabIndex = 14;
-            this.grdLugares.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdLugares_CellContentDoubleClick);
-            // 
-            // columnaID
-            // 
-            this.columnaID.DataPropertyName = "Id";
-            this.columnaID.HeaderText = "Número";
-            this.columnaID.Name = "columnaID";
-            this.columnaID.Visible = false;
-            // 
-            // columnaFecha
-            // 
-            this.columnaFecha.DataPropertyName = "Fecha";
-            this.columnaFecha.HeaderText = "Fecha";
-            this.columnaFecha.Name = "columnaFecha";
-            // 
-            // columnaHoraInicio
-            // 
-            this.columnaHoraInicio.DataPropertyName = "HoraInicial";
-            this.columnaHoraInicio.HeaderText = "Hora Inicio";
-            this.columnaHoraInicio.Name = "columnaHoraInicio";
-            // 
-            // columnaHoraFinal
-            // 
-            this.columnaHoraFinal.DataPropertyName = "HoraFinal";
-            this.columnaHoraFinal.HeaderText = "Hora Final";
-            this.columnaHoraFinal.Name = "columnaHoraFinal";
-            // 
-            // columnaOrigen
-            // 
-            this.columnaOrigen.DataPropertyName = "Origen";
-            this.columnaOrigen.HeaderText = "Origen";
-            this.columnaOrigen.Name = "columnaOrigen";
-            // 
-            // columnaDestino
-            // 
-            this.columnaDestino.DataPropertyName = "Destino";
-            this.columnaDestino.HeaderText = "Destino";
-            this.columnaDestino.Name = "columnaDestino";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(12, 159);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(22, 13);
-            this.label19.TabIndex = 15;
-            this.label19.Text = "N°:";
-            // 
-            // txtIDLugar
-            // 
-            this.txtIDLugar.Location = new System.Drawing.Point(40, 155);
-            this.txtIDLugar.Name = "txtIDLugar";
-            this.txtIDLugar.ReadOnly = true;
-            this.txtIDLugar.Size = new System.Drawing.Size(49, 20);
-            this.txtIDLugar.TabIndex = 16;
+            this.label18.Click += new System.EventHandler(this.label18_Click);
             // 
             // frmSolicitudGira
             // 
@@ -726,11 +736,11 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdLugares)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdLugares)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
