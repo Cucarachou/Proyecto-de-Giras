@@ -117,7 +117,7 @@
             this.Controls.Add(this.label1);
             this.MinimizeBox = false;
             this.Name = "frmBusquedaSolicitante";
-            this.Text = "frmBusquedaSolicitante";
+            this.Text = "Búsqueda de Solicitante";
             ((System.ComponentModel.ISupportInitialize)(this.grdSolicitante)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

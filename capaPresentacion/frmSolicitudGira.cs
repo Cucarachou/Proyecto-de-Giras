@@ -151,6 +151,8 @@ namespace capaPresentacion
                     {
                         banderaConfirmarFecha = 0;
                         lugares.Clear();
+                        limpiarLugares();
+                        grdLugares.Rows.Clear();
                         btnConfirmar_Click(sender, e);
                     }
                     else
