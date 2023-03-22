@@ -42,18 +42,10 @@
             this.txtIDLugar = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.grdLugares = new System.Windows.Forms.DataGridView();
-            this.columnaID = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.columnaFecha = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.columnaHoraInicio = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.columnaHoraFinal = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.columnaOrigen = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.columnaDestino = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.txtLimpiar = new System.Windows.Forms.Button();
             this.btnAniadirLugar = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.dtpLugar = new System.Windows.Forms.DateTimePicker();
             this.cboFin = new System.Windows.Forms.ComboBox();
             this.cboInicio = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -91,6 +83,9 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
+            this.columnaID = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.columnaOrigen = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.columnaDestino = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdLugares)).BeginInit();
@@ -107,9 +102,13 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Controls.Add(this.cboInicio);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.cboFin);
+            this.groupBox1.Location = new System.Drawing.Point(12, 7);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(322, 148);
+            this.groupBox1.Size = new System.Drawing.Size(220, 166);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Fechas de Gira";
@@ -117,16 +116,17 @@
             // dtpSolicitud
             // 
             this.dtpSolicitud.Enabled = false;
-            this.dtpSolicitud.Location = new System.Drawing.Point(110, 25);
+            this.dtpSolicitud.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpSolicitud.Location = new System.Drawing.Point(123, 21);
             this.dtpSolicitud.Name = "dtpSolicitud";
-            this.dtpSolicitud.Size = new System.Drawing.Size(200, 20);
+            this.dtpSolicitud.Size = new System.Drawing.Size(88, 20);
             this.dtpSolicitud.TabIndex = 9;
             // 
             // btnConfirmar
             // 
-            this.btnConfirmar.Location = new System.Drawing.Point(210, 118);
+            this.btnConfirmar.Location = new System.Drawing.Point(111, 136);
             this.btnConfirmar.Name = "btnConfirmar";
-            this.btnConfirmar.Size = new System.Drawing.Size(100, 23);
+            this.btnConfirmar.Size = new System.Drawing.Size(100, 24);
             this.btnConfirmar.TabIndex = 8;
             this.btnConfirmar.Text = "Confimar fechas";
             this.btnConfirmar.UseVisualStyleBackColor = true;
@@ -135,25 +135,27 @@
             // dtpFin
             // 
             this.dtpFin.Enabled = false;
-            this.dtpFin.Location = new System.Drawing.Point(110, 92);
+            this.dtpFin.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFin.Location = new System.Drawing.Point(123, 73);
             this.dtpFin.Name = "dtpFin";
-            this.dtpFin.Size = new System.Drawing.Size(200, 20);
+            this.dtpFin.Size = new System.Drawing.Size(88, 20);
             this.dtpFin.TabIndex = 7;
             this.dtpFin.ValueChanged += new System.EventHandler(this.dtpFin_ValueChanged);
             // 
             // dtpInicio
             // 
             this.dtpInicio.Enabled = false;
-            this.dtpInicio.Location = new System.Drawing.Point(110, 57);
+            this.dtpInicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpInicio.Location = new System.Drawing.Point(123, 47);
             this.dtpInicio.Name = "dtpInicio";
-            this.dtpInicio.Size = new System.Drawing.Size(200, 20);
+            this.dtpInicio.Size = new System.Drawing.Size(88, 20);
             this.dtpInicio.TabIndex = 6;
             this.dtpInicio.ValueChanged += new System.EventHandler(this.dtpInicio_ValueChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 98);
+            this.label3.Location = new System.Drawing.Point(6, 79);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 13);
             this.label3.TabIndex = 3;
@@ -162,7 +164,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 63);
+            this.label2.Location = new System.Drawing.Point(6, 53);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(83, 13);
             this.label2.TabIndex = 2;
@@ -171,7 +173,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 28);
+            this.label1.Location = new System.Drawing.Point(6, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(98, 13);
             this.label1.TabIndex = 0;
@@ -187,19 +189,13 @@
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.txtLimpiar);
             this.groupBox2.Controls.Add(this.btnAniadirLugar);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.dtpLugar);
-            this.groupBox2.Controls.Add(this.cboFin);
-            this.groupBox2.Controls.Add(this.cboInicio);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.txtFinal);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.txtOrigen);
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Location = new System.Drawing.Point(351, 12);
+            this.groupBox2.Location = new System.Drawing.Point(238, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(781, 192);
+            this.groupBox2.Size = new System.Drawing.Size(702, 161);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Lugares de Gira";
@@ -207,7 +203,7 @@
             // txtIDLugar
             // 
             this.txtIDLugar.Enabled = false;
-            this.txtIDLugar.Location = new System.Drawing.Point(40, 155);
+            this.txtIDLugar.Location = new System.Drawing.Point(40, 134);
             this.txtIDLugar.Name = "txtIDLugar";
             this.txtIDLugar.ReadOnly = true;
             this.txtIDLugar.Size = new System.Drawing.Size(49, 20);
@@ -216,7 +212,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(12, 159);
+            this.label19.Location = new System.Drawing.Point(12, 137);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(22, 13);
             this.label19.TabIndex = 15;
@@ -231,58 +227,18 @@
             this.grdLugares.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdLugares.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.columnaID,
-            this.columnaFecha,
-            this.columnaHoraInicio,
-            this.columnaHoraFinal,
             this.columnaOrigen,
             this.columnaDestino});
-            this.grdLugares.Location = new System.Drawing.Point(348, 16);
+            this.grdLugares.Location = new System.Drawing.Point(335, 13);
             this.grdLugares.Name = "grdLugares";
             this.grdLugares.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdLugares.Size = new System.Drawing.Size(414, 134);
+            this.grdLugares.Size = new System.Drawing.Size(360, 112);
             this.grdLugares.TabIndex = 14;
             this.grdLugares.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdLugares_CellContentDoubleClick);
             // 
-            // columnaID
-            // 
-            this.columnaID.DataPropertyName = "Id";
-            this.columnaID.HeaderText = "Número";
-            this.columnaID.Name = "columnaID";
-            this.columnaID.Visible = false;
-            // 
-            // columnaFecha
-            // 
-            this.columnaFecha.DataPropertyName = "Fecha";
-            this.columnaFecha.HeaderText = "Fecha";
-            this.columnaFecha.Name = "columnaFecha";
-            // 
-            // columnaHoraInicio
-            // 
-            this.columnaHoraInicio.DataPropertyName = "HoraInicial";
-            this.columnaHoraInicio.HeaderText = "Hora Inicio";
-            this.columnaHoraInicio.Name = "columnaHoraInicio";
-            // 
-            // columnaHoraFinal
-            // 
-            this.columnaHoraFinal.DataPropertyName = "HoraFinal";
-            this.columnaHoraFinal.HeaderText = "Hora Final";
-            this.columnaHoraFinal.Name = "columnaHoraFinal";
-            // 
-            // columnaOrigen
-            // 
-            this.columnaOrigen.DataPropertyName = "Origen";
-            this.columnaOrigen.HeaderText = "Origen";
-            this.columnaOrigen.Name = "columnaOrigen";
-            // 
-            // columnaDestino
-            // 
-            this.columnaDestino.DataPropertyName = "Destino";
-            this.columnaDestino.HeaderText = "Destino";
-            this.columnaDestino.Name = "columnaDestino";
-            // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(687, 156);
+            this.btnEliminar.Location = new System.Drawing.Point(615, 131);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(75, 23);
             this.btnEliminar.TabIndex = 13;
@@ -295,13 +251,13 @@
             this.label9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label9.Location = new System.Drawing.Point(327, 16);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(2, 161);
+            this.label9.Size = new System.Drawing.Size(2, 137);
             this.label9.TabIndex = 2;
             this.label9.Text = " ";
             // 
             // txtLimpiar
             // 
-            this.txtLimpiar.Location = new System.Drawing.Point(149, 154);
+            this.txtLimpiar.Location = new System.Drawing.Point(154, 132);
             this.txtLimpiar.Name = "txtLimpiar";
             this.txtLimpiar.Size = new System.Drawing.Size(75, 23);
             this.txtLimpiar.TabIndex = 11;
@@ -311,7 +267,7 @@
             // 
             // btnAniadirLugar
             // 
-            this.btnAniadirLugar.Location = new System.Drawing.Point(235, 154);
+            this.btnAniadirLugar.Location = new System.Drawing.Point(235, 132);
             this.btnAniadirLugar.Name = "btnAniadirLugar";
             this.btnAniadirLugar.Size = new System.Drawing.Size(75, 23);
             this.btnAniadirLugar.TabIndex = 10;
@@ -319,29 +275,13 @@
             this.btnAniadirLugar.UseVisualStyleBackColor = true;
             this.btnAniadirLugar.Click += new System.EventHandler(this.btnAniadirLugar_Click);
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(13, 121);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(85, 13);
-            this.label8.TabIndex = 9;
-            this.label8.Text = "Fecha de Lugar:";
-            // 
-            // dtpLugar
-            // 
-            this.dtpLugar.Location = new System.Drawing.Point(104, 119);
-            this.dtpLugar.Name = "dtpLugar";
-            this.dtpLugar.Size = new System.Drawing.Size(206, 20);
-            this.dtpLugar.TabIndex = 8;
-            // 
             // cboFin
             // 
             this.cboFin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboFin.FormattingEnabled = true;
-            this.cboFin.Location = new System.Drawing.Point(244, 25);
+            this.cboFin.Location = new System.Drawing.Point(159, 102);
             this.cboFin.Name = "cboFin";
-            this.cboFin.Size = new System.Drawing.Size(63, 21);
+            this.cboFin.Size = new System.Drawing.Size(52, 21);
             this.cboFin.TabIndex = 7;
             // 
             // cboInicio
@@ -357,33 +297,33 @@
             "13:00",
             "14:00",
             "15:00"});
-            this.cboInicio.Location = new System.Drawing.Point(95, 25);
+            this.cboInicio.Location = new System.Drawing.Point(61, 102);
             this.cboInicio.Name = "cboInicio";
-            this.cboInicio.Size = new System.Drawing.Size(63, 21);
+            this.cboInicio.Size = new System.Drawing.Size(52, 21);
             this.cboInicio.TabIndex = 6;
             this.cboInicio.SelectionChangeCommitted += new System.EventHandler(this.cboInicio_SelectionChangeCommitted);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(173, 28);
+            this.label7.Location = new System.Drawing.Point(119, 105);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(65, 13);
+            this.label7.Size = new System.Drawing.Size(38, 13);
             this.label7.TabIndex = 5;
-            this.label7.Text = "Hora de Fin:";
+            this.label7.Text = "H. Fin:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(13, 28);
+            this.label6.Location = new System.Drawing.Point(6, 105);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(76, 13);
+            this.label6.Size = new System.Drawing.Size(49, 13);
             this.label6.TabIndex = 4;
-            this.label6.Text = "Hora de Inicio:";
+            this.label6.Text = "H. Inicio:";
             // 
             // txtFinal
             // 
-            this.txtFinal.Location = new System.Drawing.Point(104, 90);
+            this.txtFinal.Location = new System.Drawing.Point(104, 53);
             this.txtFinal.MaxLength = 200;
             this.txtFinal.Name = "txtFinal";
             this.txtFinal.Size = new System.Drawing.Size(206, 20);
@@ -392,7 +332,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 93);
+            this.label5.Location = new System.Drawing.Point(12, 56);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(77, 13);
             this.label5.TabIndex = 1;
@@ -400,7 +340,7 @@
             // 
             // txtOrigen
             // 
-            this.txtOrigen.Location = new System.Drawing.Point(104, 60);
+            this.txtOrigen.Location = new System.Drawing.Point(104, 27);
             this.txtOrigen.MaxLength = 200;
             this.txtOrigen.Name = "txtOrigen";
             this.txtOrigen.Size = new System.Drawing.Size(206, 20);
@@ -409,7 +349,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 63);
+            this.label4.Location = new System.Drawing.Point(13, 30);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(86, 13);
             this.label4.TabIndex = 0;
@@ -427,7 +367,7 @@
             this.groupBox3.Controls.Add(this.btnChofer);
             this.groupBox3.Controls.Add(this.txtChofer);
             this.groupBox3.Controls.Add(this.label10);
-            this.groupBox3.Location = new System.Drawing.Point(12, 210);
+            this.groupBox3.Location = new System.Drawing.Point(12, 179);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(437, 217);
             this.groupBox3.TabIndex = 2;
@@ -544,9 +484,9 @@
             this.groupBox4.Controls.Add(this.btnPlaca);
             this.groupBox4.Controls.Add(this.txtPlaca);
             this.groupBox4.Controls.Add(this.label13);
-            this.groupBox4.Location = new System.Drawing.Point(455, 213);
+            this.groupBox4.Location = new System.Drawing.Point(455, 179);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(437, 128);
+            this.groupBox4.Size = new System.Drawing.Size(485, 128);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Vehículo de Gira";
@@ -554,7 +494,7 @@
             // txtEstilo
             // 
             this.txtEstilo.Enabled = false;
-            this.txtEstilo.Location = new System.Drawing.Point(308, 89);
+            this.txtEstilo.Location = new System.Drawing.Point(373, 89);
             this.txtEstilo.Name = "txtEstilo";
             this.txtEstilo.ReadOnly = true;
             this.txtEstilo.Size = new System.Drawing.Size(100, 20);
@@ -563,7 +503,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(265, 92);
+            this.label17.Location = new System.Drawing.Point(330, 92);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(35, 13);
             this.label17.TabIndex = 9;
@@ -581,7 +521,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(30, 92);
+            this.label16.Location = new System.Drawing.Point(13, 92);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(90, 13);
             this.label16.TabIndex = 7;
@@ -590,7 +530,7 @@
             // txtCapacidad
             // 
             this.txtCapacidad.Enabled = false;
-            this.txtCapacidad.Location = new System.Drawing.Point(308, 60);
+            this.txtCapacidad.Location = new System.Drawing.Point(373, 60);
             this.txtCapacidad.Name = "txtCapacidad";
             this.txtCapacidad.ReadOnly = true;
             this.txtCapacidad.Size = new System.Drawing.Size(100, 20);
@@ -599,7 +539,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(241, 63);
+            this.label15.Location = new System.Drawing.Point(306, 63);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(61, 13);
             this.label15.TabIndex = 5;
@@ -626,7 +566,7 @@
             // 
             // btnPlaca
             // 
-            this.btnPlaca.Location = new System.Drawing.Point(327, 22);
+            this.btnPlaca.Location = new System.Drawing.Point(369, 21);
             this.btnPlaca.Name = "btnPlaca";
             this.btnPlaca.Size = new System.Drawing.Size(104, 23);
             this.btnPlaca.TabIndex = 2;
@@ -655,7 +595,7 @@
             // chkExtemporanea
             // 
             this.chkExtemporanea.AutoSize = true;
-            this.chkExtemporanea.Location = new System.Drawing.Point(641, 408);
+            this.chkExtemporanea.Location = new System.Drawing.Point(485, 377);
             this.chkExtemporanea.Name = "chkExtemporanea";
             this.chkExtemporanea.Size = new System.Drawing.Size(196, 17);
             this.chkExtemporanea.TabIndex = 4;
@@ -665,7 +605,7 @@
             // btnEnviar
             // 
             this.btnEnviar.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnEnviar.Location = new System.Drawing.Point(843, 404);
+            this.btnEnviar.Location = new System.Drawing.Point(687, 374);
             this.btnEnviar.Name = "btnEnviar";
             this.btnEnviar.Size = new System.Drawing.Size(141, 23);
             this.btnEnviar.TabIndex = 5;
@@ -674,28 +614,28 @@
             // 
             // btnInfo
             // 
-            this.btnInfo.Location = new System.Drawing.Point(987, 228);
+            this.btnInfo.Location = new System.Drawing.Point(834, 316);
             this.btnInfo.Name = "btnInfo";
-            this.btnInfo.Size = new System.Drawing.Size(144, 23);
+            this.btnInfo.Size = new System.Drawing.Size(106, 23);
             this.btnInfo.TabIndex = 6;
             this.btnInfo.Text = "Información Adicional";
             this.btnInfo.UseVisualStyleBackColor = true;
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(987, 257);
+            this.btnLimpiar.Location = new System.Drawing.Point(834, 345);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(144, 23);
+            this.btnLimpiar.Size = new System.Drawing.Size(106, 23);
             this.btnLimpiar.TabIndex = 7;
-            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.Text = "Limpiar Todo";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             // 
             // btnSalir
             // 
             this.btnSalir.BackColor = System.Drawing.Color.LightGray;
-            this.btnSalir.Location = new System.Drawing.Point(990, 404);
+            this.btnSalir.Location = new System.Drawing.Point(834, 374);
             this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(141, 23);
+            this.btnSalir.Size = new System.Drawing.Size(106, 23);
             this.btnSalir.TabIndex = 8;
             this.btnSalir.Text = "Salir";
             this.btnSalir.UseVisualStyleBackColor = false;
@@ -706,17 +646,38 @@
             this.label18.BackColor = System.Drawing.SystemColors.Control;
             this.label18.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label18.Image = global::capaPresentacion.Properties.Resources.icons8_question_mark_windows_11_color_16;
-            this.label18.Location = new System.Drawing.Point(617, 404);
+            this.label18.Location = new System.Drawing.Point(460, 372);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(18, 23);
             this.label18.TabIndex = 9;
             this.label18.Click += new System.EventHandler(this.label18_Click);
             // 
+            // columnaID
+            // 
+            this.columnaID.DataPropertyName = "Id";
+            this.columnaID.HeaderText = "Número";
+            this.columnaID.Name = "columnaID";
+            this.columnaID.Visible = false;
+            // 
+            // columnaOrigen
+            // 
+            this.columnaOrigen.DataPropertyName = "Origen";
+            this.columnaOrigen.HeaderText = "Origen";
+            this.columnaOrigen.Name = "columnaOrigen";
+            this.columnaOrigen.Width = 150;
+            // 
+            // columnaDestino
+            // 
+            this.columnaDestino.DataPropertyName = "Destino";
+            this.columnaDestino.HeaderText = "Destino";
+            this.columnaDestino.Name = "columnaDestino";
+            this.columnaDestino.Width = 150;
+            // 
             // frmSolicitudGira
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1143, 434);
+            this.ClientSize = new System.Drawing.Size(948, 402);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnLimpiar);
@@ -758,8 +719,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button txtLimpiar;
         private System.Windows.Forms.Button btnAniadirLugar;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.DateTimePicker dtpLugar;
         private System.Windows.Forms.ComboBox cboFin;
         private System.Windows.Forms.ComboBox cboInicio;
         private System.Windows.Forms.Label label7;
@@ -801,13 +760,10 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.DateTimePicker dtpSolicitud;
         private System.Windows.Forms.DataGridView grdLugares;
-        private System.Windows.Forms.DataGridViewButtonColumn columnaID;
-        private System.Windows.Forms.DataGridViewButtonColumn columnaFecha;
-        private System.Windows.Forms.DataGridViewButtonColumn columnaHoraInicio;
-        private System.Windows.Forms.DataGridViewButtonColumn columnaHoraFinal;
-        private System.Windows.Forms.DataGridViewButtonColumn columnaOrigen;
-        private System.Windows.Forms.DataGridViewButtonColumn columnaDestino;
         private System.Windows.Forms.TextBox txtIDLugar;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.DataGridViewButtonColumn columnaID;
+        private System.Windows.Forms.DataGridViewButtonColumn columnaOrigen;
+        private System.Windows.Forms.DataGridViewButtonColumn columnaDestino;
     }
 }

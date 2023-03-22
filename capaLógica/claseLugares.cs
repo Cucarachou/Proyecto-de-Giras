@@ -16,13 +16,9 @@ namespace capaLógica
         //la información que el usuario vaya agregando con una herramienta
 
         private int id;
-        private DateTime horaInicial, horaFinal, fecha;
         private string origen, destino;
 
         //propiedades
-        public DateTime HoraInicial { get => horaInicial; set => horaInicial = value; }
-        public DateTime HoraFinal { get => horaFinal; set => horaFinal = value; }
-        public DateTime Fecha { get => fecha; set => fecha = value; }
         public string Origen { get => origen; set => origen = value; }
         public string Destino { get => destino; set => destino = value; }
         public int Id { get => id; set => id = value; }
@@ -34,9 +30,6 @@ namespace capaLógica
         public claseLugares()
         {
             id = 0;
-            horaInicial = DateTime.Now;
-            horaFinal = DateTime.Now;
-            fecha = DateTime.Now;
             origen = string.Empty;
             destino = string.Empty;
         }
@@ -46,9 +39,6 @@ namespace capaLógica
         public claseLugares(int id, DateTime horaInicio, DateTime horaFinal, DateTime fecha, string origen, string destino)
         {
             this.id = id;
-            horaInicial = horaInicio;
-            this.horaFinal = horaFinal;
-            this.fecha = fecha;
             this.origen = origen;
             this.destino = destino;
         }

@@ -19,6 +19,10 @@ namespace capaPresentacion
         //funciones, así como arreglos globales con el objetivo de mostrar la información al usuario
 
         private DateTime giraFechaInicio = DateTime.MinValue, giraFechaFinal = DateTime.MinValue;
+        private string horaInicio = string.Empty, horaFinal = string.Empty;
+
+        //la siguiente variable booleana tiene como función ser bandera, e indicar que el botón de agregar un lugar ha sido accionado ya una vez. Esto para que un mensaje se le muestre al usuario solamente una vez cuando presiona este botón
+        private bool eventoBotonAgregar = false;
         private DateTime fechaSolicitud = DateTime.Now;
         private List<claseLugares> lugares = new List<claseLugares>();
 
@@ -114,7 +118,7 @@ namespace capaPresentacion
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
             if (giraFechaInicio != DateTime.MinValue && giraFechaFinal != DateTime.MinValue &&
-                banderaConfirmarFecha == 0)
+                banderaConfirmarFecha == 0 && cboInicio.SelectedIndex != -1 && cboFin.SelectedIndex != -1)
             {
 
                 banderaConfirmarFecha = 1;
@@ -124,7 +128,9 @@ namespace capaPresentacion
                 {
                     giraFechaInicio = dtpInicio.Value.Date;
                     giraFechaFinal = dtpFin.Value.Date;
-                    MessageBox.Show($"Nuevas fechas confirmadas. Fecha inicio: {giraFechaInicio}- Fecha fin: {giraFechaFinal}", "Fechas confirmadas", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    horaInicio = cboInicio.Text;
+                    horaFinal = cboFin.Text;
+                    MessageBox.Show($"Nuevas fechas confirmadas. Fecha inicio: {giraFechaInicio.Date}- Fecha fin: {giraFechaFinal.Date}, Hora de Inicio: {horaInicio} / Hora de Fin: {horaFinal}", "Fechas confirmadas", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else
                 {
@@ -141,7 +147,7 @@ namespace capaPresentacion
             {
                 if (banderaConfirmarFecha == 0)
                 {
-                    MessageBox.Show("No ha sido insertada ninguna fecha de inicio ni de fin para la gira, asegúrese de introducir los valores o hay un error en los datos.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Es probable que los campos de fecha o de hora no hayan sido llenados, o no se haya confirmado una fecha.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
@@ -206,40 +212,18 @@ namespace capaPresentacion
 
         }
 
-        //la siguiente función es utilizada en el disparo del evento de agregar lugar para verificar que una fecha seleccionada no haya sido ya insertada en el arreglo de lugares
-        private bool verificarFechasLugares(DateTime fecha)
-        {
-
-            if (lugares.Count > 0)
-            {
-                foreach (claseLugares item in lugares)
-                {
-                    if (item.Fecha == fecha)
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
-        }
 
         //la siguiente función sin retorno simplemente añade la instancia al arreglo de lugares
         //y añade una fila con la información de la instancia al gridview
         private void aniadirLugar()
         {
-            claseLugares claseLugares = new claseLugares();
-            DateTime horaInicio = DateTime.ParseExact(cboInicio.Text, "HH:mm", CultureInfo.InvariantCulture);
-            DateTime horaFinal = DateTime.ParseExact(cboFin.Text, "HH:mm", CultureInfo.InvariantCulture);
+            claseLugares claseLugares = new claseLugares();;;
             claseLugares.Id = lugares.Count;
             claseLugares.Origen = txtOrigen.Text;
             claseLugares.Destino = txtFinal.Text;
-            claseLugares.HoraInicial = horaInicio;
-            claseLugares.HoraFinal = horaFinal;
-            claseLugares.Fecha = dtpLugar.Value;
 
             lugares.Add(claseLugares);
-            grdLugares.Rows.Add(claseLugares.Id, claseLugares.Fecha, claseLugares.HoraInicial, claseLugares.HoraFinal, claseLugares.Origen, claseLugares.Destino);
+            grdLugares.Rows.Add(claseLugares.Id, claseLugares.Origen, claseLugares.Destino);
         }
 
 
@@ -249,7 +233,7 @@ namespace capaPresentacion
 
         private void aniadirLugar(int indice)
         {
-            grdLugares.Rows.Add(lugares[indice].Id, lugares[indice].Fecha, lugares[indice].HoraInicial, lugares[indice].HoraFinal, lugares[indice].Origen, lugares[indice].Destino);
+            grdLugares.Rows.Add(lugares[indice].Id, lugares[indice].Origen, lugares[indice].Destino);
         }
         /*el evento de añadir lugar primero revisa que no haya alguno de los espacios vacíos y sin datos. Después,
          * verifica que ya hayan sido confirmadas las fechas según los valores por defecto de la fecha de inicio
@@ -261,25 +245,20 @@ namespace capaPresentacion
         private void btnAniadirLugar_Click(object sender, EventArgs e)
         {
 
-            if ((cboInicio.SelectedIndex >= 0 && cboFin.SelectedIndex >= 0)
-                && !string.IsNullOrEmpty(txtOrigen.Text)
-                && !string.IsNullOrEmpty(txtFinal.Text))
+            if (!string.IsNullOrEmpty(txtOrigen.Text)&& !string.IsNullOrEmpty(txtFinal.Text))
             {
 
                 if (giraFechaInicio != DateTime.MinValue && giraFechaFinal != DateTime.MinValue)
                 {
-
-                    if (dtpLugar.Value >= giraFechaInicio && dtpLugar.Value < giraFechaFinal.AddDays(1) && verificarFechasLugares(dtpLugar.Value))
-                    {
                         aniadirLugar();
                         ordenarListaLugares();
                         limpiarLugares();
-                        MessageBox.Show("Ha sido agregada una de las fechas de la gira. Puede ver la información a la derecha.", "Completado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        MessageBox.Show("La fecha seleccionada ya ha sido digitada, o no es coincidente con el día de inicio y de final de la solicitud.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                        if (eventoBotonAgregar == false)
+                        {
+                            MessageBox.Show("Ha sido agregada una de las fechas de la gira. Puede ver la información a la derecha.", "Completado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            eventoBotonAgregar = true;
+                        }
+
                 }
                 else
                 {
@@ -344,11 +323,8 @@ namespace capaPresentacion
             indice = Convert.ToInt32(celda.Value);
 
             txtIDLugar.Text = (lugares[indice].Id+1).ToString();
-            cboInicio.Text = lugares[indice].HoraInicial.ToString();
-            cboFin.Text = lugares[indice].HoraFinal.ToString();
             txtOrigen.Text = lugares[indice].Origen.ToString();
             txtFinal.Text = lugares[indice].Destino.ToString();
-            dtpLugar.Value = lugares[indice].Fecha;
         }
 
         private void label18_Click(object sender, EventArgs e)
@@ -365,7 +341,7 @@ namespace capaPresentacion
         {
             grdLugares.Rows.Clear();
 
-            lugares.Sort((x, y) => x.Fecha.Date.CompareTo(y.Fecha.Date));
+            //lugares.Sort((x, y) => x.Id.CompareTo(y));
 
             for (int i = 0; i < lugares.Count; i++)
             {
@@ -383,11 +359,8 @@ namespace capaPresentacion
 
         private void limpiarLugares()
         {
-            cboInicio.SelectedIndex = -1;
-            cboFin.SelectedIndex = -1;
             txtOrigen.Text = string.Empty;
             txtFinal.Text = string.Empty;
-            dtpLugar.Value = dtpSolicitud.Value;
             txtIDLugar.Text = string.Empty;
         }
     }
