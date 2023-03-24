@@ -5,9 +5,9 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace capaLógica
+namespace capaEntidades
 {
-    public class claseLugares
+    public class entidadLugar
     {
 
         //atributos.
@@ -27,7 +27,7 @@ namespace capaLógica
         //constructor
 
         //constructor inicializador
-        public claseLugares()
+        public entidadLugar()
         {
             id = 0;
             origen = string.Empty;
@@ -36,7 +36,7 @@ namespace capaLógica
 
         //constructor para almacenar la información que vienen desde la capa de presentación
 
-        public claseLugares(int id, DateTime horaInicio, DateTime horaFinal, DateTime fecha, string origen, string destino)
+        public entidadLugar(int id, DateTime horaInicio, DateTime horaFinal, DateTime fecha, string origen, string destino)
         {
             this.id = id;
             this.origen = origen;

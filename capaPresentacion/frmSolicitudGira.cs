@@ -1,5 +1,4 @@
-﻿using capaLógica;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using capaEntidades;
 
 namespace capaPresentacion
 {
@@ -24,7 +24,7 @@ namespace capaPresentacion
         //la siguiente variable booleana tiene como función ser bandera, e indicar que el botón de agregar un lugar ha sido accionado ya una vez. Esto para que un mensaje se le muestre al usuario solamente una vez cuando presiona este botón
         private bool eventoBotonAgregar = false;
         private DateTime fechaSolicitud = DateTime.Now;
-        private List<claseLugares> lugares = new List<claseLugares>();
+        private List<entidadLugar> lugares = new List<entidadLugar>();
 
         //la siguiente bandera tiene como función verificar si se ha o no confirmado las fechas de la solicitud por parte del usuario
         //para usar dicha información en el disparo del clickear el botón de confirmar fechas.
@@ -217,7 +217,7 @@ namespace capaPresentacion
         //y añade una fila con la información de la instancia al gridview
         private void aniadirLugar()
         {
-            claseLugares claseLugares = new claseLugares();;;
+            entidadLugar claseLugares = new entidadLugar();;;
             claseLugares.Id = lugares.Count;
             claseLugares.Origen = txtOrigen.Text;
             claseLugares.Destino = txtFinal.Text;

@@ -37,8 +37,10 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.cboTipo = new System.Windows.Forms.ComboBox();
             this.lblTipo = new System.Windows.Forms.Label();
-            this.columnaNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnaId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.A = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnaNombreApe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnaCentro = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grdSolicitante)).BeginInit();
@@ -59,7 +61,7 @@
             this.txtInfo.Name = "txtInfo";
             this.txtInfo.Size = new System.Drawing.Size(132, 20);
             this.txtInfo.TabIndex = 1;
-            this.txtInfo.TextChanged += new System.EventHandler(this.txtIdentificacion_TextChanged);
+            this.txtInfo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtInfo_KeyPress);
             // 
             // btnBuscar
             // 
@@ -69,6 +71,7 @@
             this.btnBuscar.TabIndex = 2;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // grdSolicitante
             // 
@@ -78,8 +81,10 @@
             this.grdSolicitante.AllowUserToResizeRows = false;
             this.grdSolicitante.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdSolicitante.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.columnaNum,
             this.columnaId,
+            this.Column2,
+            this.A,
+            this.Column3,
             this.columnaNombreApe,
             this.columnaCentro});
             this.grdSolicitante.Location = new System.Drawing.Point(15, 32);
@@ -137,27 +142,46 @@
             this.lblTipo.TabIndex = 8;
             this.lblTipo.Text = "Identificación:";
             // 
-            // columnaNum
-            // 
-            this.columnaNum.HeaderText = "Num";
-            this.columnaNum.Name = "columnaNum";
-            this.columnaNum.Visible = false;
-            // 
             // columnaId
             // 
+            this.columnaId.DataPropertyName = "Identificacion";
             this.columnaId.HeaderText = "Identificación";
             this.columnaId.Name = "columnaId";
             // 
+            // Column2
+            // 
+            this.Column2.DataPropertyName = "Nombre";
+            this.Column2.HeaderText = "Nombre";
+            this.Column2.Name = "Column2";
+            this.Column2.Visible = false;
+            // 
+            // A
+            // 
+            this.A.DataPropertyName = "ApellidoUno";
+            this.A.HeaderText = "ApellidoUno";
+            this.A.Name = "A";
+            this.A.Visible = false;
+            // 
+            // Column3
+            // 
+            this.Column3.DataPropertyName = "ApellidoDos";
+            this.Column3.HeaderText = "ApellidoDos";
+            this.Column3.Name = "Column3";
+            this.Column3.Visible = false;
+            // 
             // columnaNombreApe
             // 
+            this.columnaNombreApe.DataPropertyName = "NombreApellido";
             this.columnaNombreApe.HeaderText = "Nombre y Apellidos";
             this.columnaNombreApe.Name = "columnaNombreApe";
             this.columnaNombreApe.Width = 200;
             // 
             // columnaCentro
             // 
+            this.columnaCentro.DataPropertyName = "IdCentro";
             this.columnaCentro.HeaderText = "Centro de Formación";
             this.columnaCentro.Name = "columnaCentro";
+            this.columnaCentro.Visible = false;
             this.columnaCentro.Width = 150;
             // 
             // frmBusquedaSolicitante
@@ -195,8 +219,10 @@
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.ComboBox cboTipo;
         private System.Windows.Forms.Label lblTipo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnaNum;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnaId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn A;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnaNombreApe;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnaCentro;
     }

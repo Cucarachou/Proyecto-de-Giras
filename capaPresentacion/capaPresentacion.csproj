@@ -35,6 +35,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SqlClient, Version=4.6.1.5, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SqlClient.4.8.5\lib\net461\System.Data.SqlClient.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuracion.cs" />
     <Compile Include="frmBusquedaSolicitante.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +89,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -117,9 +122,13 @@
     <None Include="Resources\icons8-question-mark-windows-11-color-16.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\capaLógica\capaLógica.csproj">
+    <ProjectReference Include="..\capaLógica\capaEntidades.csproj">
       <Project>{b99276d9-f0ba-4b23-9a62-3bf2a55e8b08}</Project>
-      <Name>capaLógica</Name>
+      <Name>capaEntidades</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\logicaSolicitante\capaLogica.csproj">
+      <Project>{8e8b3777-3150-40da-8040-6ec6aafa6368}</Project>
+      <Name>capaLogica</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
