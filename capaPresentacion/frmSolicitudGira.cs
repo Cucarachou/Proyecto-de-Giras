@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using capaEntidades;
+using capaLogica;
 
 namespace capaPresentacion
 {
@@ -25,6 +26,7 @@ namespace capaPresentacion
         private bool eventoBotonAgregar = false;
         private DateTime fechaSolicitud = DateTime.Now;
         private List<entidadLugar> lugares = new List<entidadLugar>();
+
 
         //la siguiente bandera tiene como función verificar si se ha o no confirmado las fechas de la solicitud por parte del usuario
         //para usar dicha información en el disparo del clickear el botón de confirmar fechas.
@@ -353,8 +355,61 @@ namespace capaPresentacion
         private void btnChofer_Click(object sender, EventArgs e)
         {
             frmBusquedaSolicitante form = new frmBusquedaSolicitante();
+            form.AceptarSolicitante += new EventHandler(AceptarSolicitante);
+
             form.Show();
 
+        }
+
+        private void AceptarSolicitante(object idSolicitante, EventArgs e)
+        {
+            try
+            {
+                string id = idSolicitante.ToString();
+
+                if (id != "-1")
+                {
+                    BuscarSolicitante(id);
+                }
+                else
+                {
+                    MessageBox.Show("No fue seleccionado ningún solicitante.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Error de excepción", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BuscarSolicitante(string idSolicitante)
+        {
+            entidadSolicitante solicitante;
+            logicaSolicitante logica = new logicaSolicitante(Configuracion.getConnectiongString);
+            logica.CadenaConexion = Configuracion.getConnectiongString;
+            string condicion = $"IDENTIFICACION = '{idSolicitante}'";
+
+            try
+            {
+
+                solicitante = logica.ObtenerSolicitante(condicion);
+
+                if (solicitante.Identificacion == idSolicitante)
+                {
+                    txtSolicitante.Text = solicitante.NombreApellido;
+                    txtSolicitante.Tag = solicitante.Identificacion;
+                }
+                else
+                {
+                    MessageBox.Show("No se ha podido cargar el solicitante. Debe haber un error al seleccionarlo.", "Error de carga", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Error de excepción", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
         }
 
         private void limpiarLugares()

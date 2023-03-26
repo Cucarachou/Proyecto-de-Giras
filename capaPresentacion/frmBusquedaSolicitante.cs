@@ -19,24 +19,28 @@ namespace capaPresentacion
         //que eligió en el combo para buscar funcionario
 
         int banderaIdentificacion;
+
+        //la siguiente variable global tipo string guarda la identificacion del solicitante para enviarla posteriormente
+        //al formulario de solicitid de gura.
+        string identificacionSolicitante;
+
+        //evento para pasar la información de un formulario a otro, en este caso de solicitante a la solicitud.
+        public EventHandler AceptarSolicitante;
+
         public frmBusquedaSolicitante()
         {
             InitializeComponent();
             banderaIdentificacion = 0;
         }
 
-        private void txtIdentificacion_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        //evento del formulario al cargar, donde se selecciona el índice por defecto del combo y se carga la lista
+        //de solicitantes
         private void frmBusquedaSolicitante_Load(object sender, EventArgs e)
         {
-            cboTipo.SelectedIndex = 0;
 
             try
             {
-                CargarSolicitantes("");
+                Limpiar();
             }
             catch (Exception ex)
             {
@@ -45,8 +49,14 @@ namespace capaPresentacion
             }
         }
 
+        //el siguiente evento cambia un label de información por identificación o nombre según la opción del combo
+        //seleccionada por el usuario, también limpia el texto de información y cambia la variable global de bandera
+        //segun el indice seleccionado del combo.
         private void cboTipo_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+            txtInfo.Text = string.Empty;
+
             if (cboTipo.SelectedIndex == 0)
             {
                 lblTipo.Text = "Identificación:";
@@ -61,10 +71,11 @@ namespace capaPresentacion
             }
         }
 
+        //el siguiente evento prohibe escribir letras o números en el texto de busqueda según lo elegido en el combobox.
         private void txtInfo_KeyPress(object sender, KeyPressEventArgs e)
-       {
+        {
 
-            if (Char.IsLetter(e.KeyChar) && banderaIdentificacion == 0) 
+            if (Char.IsLetter(e.KeyChar) && banderaIdentificacion == 0)
             {
                 e.Handled = true;
             }
@@ -74,6 +85,8 @@ namespace capaPresentacion
             }
         }
 
+        //el siguiente botón buscar genera la condición conforme a la opción seleccionada en el combo, ya sea buscar por
+        //identificación o buscar por nombre y apellido, para posteriormente hacer la solicitud de búsqueda.
         private void btnBuscar_Click(object sender, EventArgs e)
         {
 
@@ -106,6 +119,7 @@ namespace capaPresentacion
             }
         }
 
+        //la siguiente función cargar los solicitantes conforme a una condición y le pasa los datos al data grid view de solicitantes.
         private void CargarSolicitantes(string condicion = "")
         {
             logicaSolicitante logica = new logicaSolicitante(Configuracion.getConnectiongString);
@@ -125,5 +139,99 @@ namespace capaPresentacion
 
 
         }
+
+        //el siguiente evento muestra la información del solicitante al dar un simple click al data grid view
+        //si el combo box tiene un indice 0 seleccionado pues muestra la identificación y si tiene 1 muestra nombre y apellidos.
+        private void grdSolicitante_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            if (cboTipo.SelectedIndex == 0)
+            {
+                txtInfo.Text = grdSolicitante.Rows[0].Cells[0].Value.ToString();
+            }
+            else
+            {
+                txtInfo.Text = grdSolicitante.Rows[0].Cells[5].Value.ToString();
+            }
+
+            identificacionSolicitante = grdSolicitante.SelectedRows[0].Cells[0].Value.ToString();
+        }
+
+
+        //la siguiente función envía los datos de un formulario a otro.
+        private void SeleccionarSolicitante()
+        {
+            try
+            {
+                if (grdSolicitante.SelectedRows.Count > 0 || !string.IsNullOrEmpty(identificacionSolicitante))
+                {
+                    identificacionSolicitante = grdSolicitante.SelectedRows[0].Cells[0].Value.ToString();
+                    AceptarSolicitante(identificacionSolicitante, null);
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("No hay ningún solicitante seleccionado.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        //la siguiente función ejecuta la función para mandar info de un método a otro al dar doble click al datagrid
+        private void grdSolicitante_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                SeleccionarSolicitante();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Error de excepción", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        //la siguiente función ejecuta la función para mandar info de un método a otro al dar doble click al datagrid.
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SeleccionarSolicitante();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Error al cargar datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //evento de cancelación, no envía ningún dato al formulario
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            identificacionSolicitante = "-1";
+            AceptarSolicitante(identificacionSolicitante, null);
+            Close();
+        }
+
+        //la siguiente función limpia todos los campos y reinicia el combo. Se reutiliza tanto en la carga como en un evento click del botón limpiuar
+
+        private void Limpiar()
+        {
+            cboTipo.SelectedIndex = 0;
+            txtInfo.Text = string.Empty;
+            grdSolicitante.ClearSelection();
+            
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            Limpiar();
+        }
     }
 }
+
