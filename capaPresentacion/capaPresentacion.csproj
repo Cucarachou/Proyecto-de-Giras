@@ -50,6 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuracion.cs" />
+    <Compile Include="frmBusquedaChofer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBusquedaChofer.Designer.cs">
+      <DependentUpon>frmBusquedaChofer.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmBusquedaSolicitante.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +76,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmBusquedaChofer.resx">
+      <DependentUpon>frmBusquedaChofer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmBusquedaSolicitante.resx">
       <DependentUpon>frmBusquedaSolicitante.cs</DependentUpon>
     </EmbeddedResource>
