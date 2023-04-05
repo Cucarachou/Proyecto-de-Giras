@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("hola");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSolicitudGira));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dtpSolicitud = new System.Windows.Forms.DateTimePicker();
@@ -38,26 +37,33 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.cboInicio = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cboFin = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtIDLugar = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.grdLugares = new System.Windows.Forms.DataGridView();
+            this.columnaID = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.columnaOrigen = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.columnaDestino = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.txtLimpiar = new System.Windows.Forms.Button();
             this.btnAniadirLugar = new System.Windows.Forms.Button();
-            this.cboFin = new System.Windows.Forms.ComboBox();
-            this.cboInicio = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.txtFinal = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtOrigen = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtCantidad = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.dgvFuncionarios = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnAgregarFuncionario = new System.Windows.Forms.Button();
             this.btnEliminarFuncionario = new System.Windows.Forms.Button();
-            this.lsvFuncionarios = new System.Windows.Forms.ListView();
             this.btnBuscarDos = new System.Windows.Forms.Button();
             this.txtSolicitante = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -66,6 +72,10 @@
             this.txtChofer = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.txtCentro = new System.Windows.Forms.TextBox();
+            this.txtMarca = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
             this.txtEstilo = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.txtGasolina = new System.Windows.Forms.TextBox();
@@ -83,13 +93,11 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
-            this.columnaID = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.columnaOrigen = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.columnaDestino = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdLugares)).BeginInit();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFuncionarios)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -179,111 +187,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Fecha de Solicitud:";
             // 
-            // groupBox2
-            // 
-            this.groupBox2.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBox2.Controls.Add(this.txtIDLugar);
-            this.groupBox2.Controls.Add(this.label19);
-            this.groupBox2.Controls.Add(this.grdLugares);
-            this.groupBox2.Controls.Add(this.btnEliminar);
-            this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Controls.Add(this.txtLimpiar);
-            this.groupBox2.Controls.Add(this.btnAniadirLugar);
-            this.groupBox2.Controls.Add(this.txtFinal);
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.txtOrigen);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Location = new System.Drawing.Point(238, 12);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(702, 161);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Lugares de Gira";
-            // 
-            // txtIDLugar
-            // 
-            this.txtIDLugar.Enabled = false;
-            this.txtIDLugar.Location = new System.Drawing.Point(40, 134);
-            this.txtIDLugar.Name = "txtIDLugar";
-            this.txtIDLugar.ReadOnly = true;
-            this.txtIDLugar.Size = new System.Drawing.Size(49, 20);
-            this.txtIDLugar.TabIndex = 16;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(12, 137);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(22, 13);
-            this.label19.TabIndex = 15;
-            this.label19.Text = "N°:";
-            // 
-            // grdLugares
-            // 
-            this.grdLugares.AllowUserToAddRows = false;
-            this.grdLugares.AllowUserToDeleteRows = false;
-            this.grdLugares.AllowUserToResizeColumns = false;
-            this.grdLugares.AllowUserToResizeRows = false;
-            this.grdLugares.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdLugares.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.columnaID,
-            this.columnaOrigen,
-            this.columnaDestino});
-            this.grdLugares.Location = new System.Drawing.Point(335, 13);
-            this.grdLugares.Name = "grdLugares";
-            this.grdLugares.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdLugares.Size = new System.Drawing.Size(360, 112);
-            this.grdLugares.TabIndex = 14;
-            this.grdLugares.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdLugares_CellContentDoubleClick);
-            // 
-            // btnEliminar
-            // 
-            this.btnEliminar.Location = new System.Drawing.Point(615, 131);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(75, 23);
-            this.btnEliminar.TabIndex = 13;
-            this.btnEliminar.Text = "Eliminar día";
-            this.btnEliminar.UseVisualStyleBackColor = true;
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
-            // 
-            // label9
-            // 
-            this.label9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label9.Location = new System.Drawing.Point(327, 16);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(2, 137);
-            this.label9.TabIndex = 2;
-            this.label9.Text = " ";
-            // 
-            // txtLimpiar
-            // 
-            this.txtLimpiar.Location = new System.Drawing.Point(154, 132);
-            this.txtLimpiar.Name = "txtLimpiar";
-            this.txtLimpiar.Size = new System.Drawing.Size(75, 23);
-            this.txtLimpiar.TabIndex = 11;
-            this.txtLimpiar.Text = "Limpiar";
-            this.txtLimpiar.UseVisualStyleBackColor = true;
-            this.txtLimpiar.Click += new System.EventHandler(this.txtLimpiar_Click);
-            // 
-            // btnAniadirLugar
-            // 
-            this.btnAniadirLugar.Location = new System.Drawing.Point(235, 132);
-            this.btnAniadirLugar.Name = "btnAniadirLugar";
-            this.btnAniadirLugar.Size = new System.Drawing.Size(75, 23);
-            this.btnAniadirLugar.TabIndex = 10;
-            this.btnAniadirLugar.Text = "Añadir día";
-            this.btnAniadirLugar.UseVisualStyleBackColor = true;
-            this.btnAniadirLugar.Click += new System.EventHandler(this.btnAniadirLugar_Click);
-            // 
-            // cboFin
-            // 
-            this.cboFin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboFin.FormattingEnabled = true;
-            this.cboFin.Location = new System.Drawing.Point(159, 102);
-            this.cboFin.Name = "cboFin";
-            this.cboFin.Size = new System.Drawing.Size(52, 21);
-            this.cboFin.TabIndex = 7;
-            // 
             // cboInicio
             // 
             this.cboInicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -321,6 +224,133 @@
             this.label6.TabIndex = 4;
             this.label6.Text = "H. Inicio:";
             // 
+            // cboFin
+            // 
+            this.cboFin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboFin.FormattingEnabled = true;
+            this.cboFin.Location = new System.Drawing.Point(159, 102);
+            this.cboFin.Name = "cboFin";
+            this.cboFin.Size = new System.Drawing.Size(52, 21);
+            this.cboFin.TabIndex = 7;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox2.Controls.Add(this.txtIDLugar);
+            this.groupBox2.Controls.Add(this.label19);
+            this.groupBox2.Controls.Add(this.grdLugares);
+            this.groupBox2.Controls.Add(this.btnEliminar);
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.txtLimpiar);
+            this.groupBox2.Controls.Add(this.btnAniadirLugar);
+            this.groupBox2.Controls.Add(this.txtFinal);
+            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.txtOrigen);
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Location = new System.Drawing.Point(238, 7);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(702, 166);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Lugares de Gira";
+            // 
+            // txtIDLugar
+            // 
+            this.txtIDLugar.Enabled = false;
+            this.txtIDLugar.Location = new System.Drawing.Point(40, 134);
+            this.txtIDLugar.Name = "txtIDLugar";
+            this.txtIDLugar.ReadOnly = true;
+            this.txtIDLugar.Size = new System.Drawing.Size(49, 20);
+            this.txtIDLugar.TabIndex = 16;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(12, 137);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(22, 13);
+            this.label19.TabIndex = 15;
+            this.label19.Text = "N°:";
+            // 
+            // grdLugares
+            // 
+            this.grdLugares.AllowUserToAddRows = false;
+            this.grdLugares.AllowUserToDeleteRows = false;
+            this.grdLugares.AllowUserToResizeColumns = false;
+            this.grdLugares.AllowUserToResizeRows = false;
+            this.grdLugares.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdLugares.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.columnaID,
+            this.columnaOrigen,
+            this.columnaDestino});
+            this.grdLugares.Location = new System.Drawing.Point(335, 13);
+            this.grdLugares.MultiSelect = false;
+            this.grdLugares.Name = "grdLugares";
+            this.grdLugares.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.grdLugares.Size = new System.Drawing.Size(360, 112);
+            this.grdLugares.TabIndex = 14;
+            this.grdLugares.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdLugares_CellContentDoubleClick);
+            // 
+            // columnaID
+            // 
+            this.columnaID.DataPropertyName = "Id";
+            this.columnaID.HeaderText = "Número";
+            this.columnaID.Name = "columnaID";
+            this.columnaID.Visible = false;
+            // 
+            // columnaOrigen
+            // 
+            this.columnaOrigen.DataPropertyName = "Origen";
+            this.columnaOrigen.HeaderText = "Origen";
+            this.columnaOrigen.Name = "columnaOrigen";
+            this.columnaOrigen.Width = 150;
+            // 
+            // columnaDestino
+            // 
+            this.columnaDestino.DataPropertyName = "Destino";
+            this.columnaDestino.HeaderText = "Destino";
+            this.columnaDestino.Name = "columnaDestino";
+            this.columnaDestino.Width = 150;
+            // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Location = new System.Drawing.Point(611, 132);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(84, 23);
+            this.btnEliminar.TabIndex = 13;
+            this.btnEliminar.Text = "Eliminar lugar";
+            this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            // 
+            // label9
+            // 
+            this.label9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label9.Location = new System.Drawing.Point(327, 16);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(2, 137);
+            this.label9.TabIndex = 2;
+            this.label9.Text = " ";
+            // 
+            // txtLimpiar
+            // 
+            this.txtLimpiar.Location = new System.Drawing.Point(154, 132);
+            this.txtLimpiar.Name = "txtLimpiar";
+            this.txtLimpiar.Size = new System.Drawing.Size(75, 23);
+            this.txtLimpiar.TabIndex = 11;
+            this.txtLimpiar.Text = "Limpiar";
+            this.txtLimpiar.UseVisualStyleBackColor = true;
+            this.txtLimpiar.Click += new System.EventHandler(this.txtLimpiar_Click);
+            // 
+            // btnAniadirLugar
+            // 
+            this.btnAniadirLugar.Location = new System.Drawing.Point(235, 132);
+            this.btnAniadirLugar.Name = "btnAniadirLugar";
+            this.btnAniadirLugar.Size = new System.Drawing.Size(75, 23);
+            this.btnAniadirLugar.TabIndex = 10;
+            this.btnAniadirLugar.Text = "Añadir lugar";
+            this.btnAniadirLugar.UseVisualStyleBackColor = true;
+            this.btnAniadirLugar.Click += new System.EventHandler(this.btnAniadirLugar_Click);
+            // 
             // txtFinal
             // 
             this.txtFinal.Location = new System.Drawing.Point(104, 53);
@@ -357,9 +387,11 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.txtCantidad);
+            this.groupBox3.Controls.Add(this.label8);
+            this.groupBox3.Controls.Add(this.dgvFuncionarios);
             this.groupBox3.Controls.Add(this.btnAgregarFuncionario);
             this.groupBox3.Controls.Add(this.btnEliminarFuncionario);
-            this.groupBox3.Controls.Add(this.lsvFuncionarios);
             this.groupBox3.Controls.Add(this.btnBuscarDos);
             this.groupBox3.Controls.Add(this.txtSolicitante);
             this.groupBox3.Controls.Add(this.label12);
@@ -367,12 +399,62 @@
             this.groupBox3.Controls.Add(this.btnChofer);
             this.groupBox3.Controls.Add(this.txtChofer);
             this.groupBox3.Controls.Add(this.label10);
-            this.groupBox3.Location = new System.Drawing.Point(12, 179);
+            this.groupBox3.Location = new System.Drawing.Point(503, 174);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(437, 217);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Funcionarios de Gira";
+            // 
+            // txtCantidad
+            // 
+            this.txtCantidad.Enabled = false;
+            this.txtCantidad.Location = new System.Drawing.Point(374, 183);
+            this.txtCantidad.Name = "txtCantidad";
+            this.txtCantidad.ReadOnly = true;
+            this.txtCantidad.Size = new System.Drawing.Size(49, 20);
+            this.txtCantidad.TabIndex = 11;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(374, 167);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(52, 13);
+            this.label8.TabIndex = 10;
+            this.label8.Text = "Cantidad:";
+            // 
+            // dgvFuncionarios
+            // 
+            this.dgvFuncionarios.AllowUserToAddRows = false;
+            this.dgvFuncionarios.AllowUserToDeleteRows = false;
+            this.dgvFuncionarios.AllowUserToResizeColumns = false;
+            this.dgvFuncionarios.AllowUserToResizeRows = false;
+            this.dgvFuncionarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvFuncionarios.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2});
+            this.dgvFuncionarios.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvFuncionarios.Location = new System.Drawing.Point(24, 108);
+            this.dgvFuncionarios.MultiSelect = false;
+            this.dgvFuncionarios.Name = "dgvFuncionarios";
+            this.dgvFuncionarios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvFuncionarios.Size = new System.Drawing.Size(340, 103);
+            this.dgvFuncionarios.TabIndex = 9;
+            this.dgvFuncionarios.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFuncionarios_CellContentClick);
+            // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "Identificacion";
+            this.Column1.HeaderText = "Identificación";
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.DataPropertyName = "NombreApellido";
+            this.Column2.HeaderText = "Nombre Completo";
+            this.Column2.Name = "Column2";
+            this.Column2.Width = 180;
             // 
             // btnAgregarFuncionario
             // 
@@ -382,6 +464,7 @@
             this.btnAgregarFuncionario.TabIndex = 8;
             this.btnAgregarFuncionario.Text = "Agregar";
             this.btnAgregarFuncionario.UseVisualStyleBackColor = true;
+            this.btnAgregarFuncionario.Click += new System.EventHandler(this.btnAgregarFuncionario_Click);
             // 
             // btnEliminarFuncionario
             // 
@@ -391,19 +474,7 @@
             this.btnEliminarFuncionario.TabIndex = 8;
             this.btnEliminarFuncionario.Text = "Eliminar";
             this.btnEliminarFuncionario.UseVisualStyleBackColor = true;
-            // 
-            // lsvFuncionarios
-            // 
-            this.lsvFuncionarios.GridLines = true;
-            this.lsvFuncionarios.HideSelection = false;
-            this.lsvFuncionarios.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
-            this.lsvFuncionarios.Location = new System.Drawing.Point(24, 108);
-            this.lsvFuncionarios.Name = "lsvFuncionarios";
-            this.lsvFuncionarios.Size = new System.Drawing.Size(340, 97);
-            this.lsvFuncionarios.TabIndex = 7;
-            this.lsvFuncionarios.UseCompatibleStateImageBehavior = false;
-            this.lsvFuncionarios.View = System.Windows.Forms.View.Details;
+            this.btnEliminarFuncionario.Click += new System.EventHandler(this.btnEliminarFuncionario_Click);
             // 
             // btnBuscarDos
             // 
@@ -413,6 +484,7 @@
             this.btnBuscarDos.TabIndex = 6;
             this.btnBuscarDos.Text = "Buscar";
             this.btnBuscarDos.UseVisualStyleBackColor = true;
+            this.btnBuscarDos.Click += new System.EventHandler(this.btnBuscarDos_Click);
             // 
             // txtSolicitante
             // 
@@ -473,6 +545,10 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.label21);
+            this.groupBox4.Controls.Add(this.txtCentro);
+            this.groupBox4.Controls.Add(this.txtMarca);
+            this.groupBox4.Controls.Add(this.label20);
             this.groupBox4.Controls.Add(this.txtEstilo);
             this.groupBox4.Controls.Add(this.label17);
             this.groupBox4.Controls.Add(this.txtGasolina);
@@ -484,17 +560,53 @@
             this.groupBox4.Controls.Add(this.btnPlaca);
             this.groupBox4.Controls.Add(this.txtPlaca);
             this.groupBox4.Controls.Add(this.label13);
-            this.groupBox4.Location = new System.Drawing.Point(455, 179);
+            this.groupBox4.Location = new System.Drawing.Point(12, 174);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(485, 128);
+            this.groupBox4.Size = new System.Drawing.Size(485, 160);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Vehículo de Gira";
             // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(239, 91);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(108, 13);
+            this.label21.TabIndex = 14;
+            this.label21.Text = "Centro de Formación:";
+            // 
+            // txtCentro
+            // 
+            this.txtCentro.Enabled = false;
+            this.txtCentro.Location = new System.Drawing.Point(353, 88);
+            this.txtCentro.Name = "txtCentro";
+            this.txtCentro.ReadOnly = true;
+            this.txtCentro.Size = new System.Drawing.Size(116, 20);
+            this.txtCentro.TabIndex = 13;
+            // 
+            // txtMarca
+            // 
+            this.txtMarca.Enabled = false;
+            this.txtMarca.Location = new System.Drawing.Point(126, 55);
+            this.txtMarca.Name = "txtMarca";
+            this.txtMarca.ReadOnly = true;
+            this.txtMarca.Size = new System.Drawing.Size(100, 20);
+            this.txtMarca.TabIndex = 12;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(13, 57);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(102, 13);
+            this.label20.TabIndex = 11;
+            this.label20.Text = "Marca del vehículo:";
+            // 
             // txtEstilo
             // 
             this.txtEstilo.Enabled = false;
-            this.txtEstilo.Location = new System.Drawing.Point(373, 89);
+            this.txtEstilo.Location = new System.Drawing.Point(126, 88);
             this.txtEstilo.Name = "txtEstilo";
             this.txtEstilo.ReadOnly = true;
             this.txtEstilo.Size = new System.Drawing.Size(100, 20);
@@ -503,16 +615,16 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(330, 92);
+            this.label17.Location = new System.Drawing.Point(13, 91);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(35, 13);
+            this.label17.Size = new System.Drawing.Size(102, 13);
             this.label17.TabIndex = 9;
-            this.label17.Text = "Estilo:";
+            this.label17.Text = "Licencia Requerida:";
             // 
             // txtGasolina
             // 
             this.txtGasolina.Enabled = false;
-            this.txtGasolina.Location = new System.Drawing.Point(126, 89);
+            this.txtGasolina.Location = new System.Drawing.Point(126, 121);
             this.txtGasolina.Name = "txtGasolina";
             this.txtGasolina.ReadOnly = true;
             this.txtGasolina.Size = new System.Drawing.Size(100, 20);
@@ -521,7 +633,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(13, 92);
+            this.label16.Location = new System.Drawing.Point(14, 124);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(90, 13);
             this.label16.TabIndex = 7;
@@ -530,16 +642,16 @@
             // txtCapacidad
             // 
             this.txtCapacidad.Enabled = false;
-            this.txtCapacidad.Location = new System.Drawing.Point(373, 60);
+            this.txtCapacidad.Location = new System.Drawing.Point(421, 121);
             this.txtCapacidad.Name = "txtCapacidad";
             this.txtCapacidad.ReadOnly = true;
-            this.txtCapacidad.Size = new System.Drawing.Size(100, 20);
+            this.txtCapacidad.Size = new System.Drawing.Size(48, 20);
             this.txtCapacidad.TabIndex = 6;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(306, 63);
+            this.label15.Location = new System.Drawing.Point(354, 124);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(61, 13);
             this.label15.TabIndex = 5;
@@ -548,17 +660,17 @@
             // txtModelo
             // 
             this.txtModelo.Enabled = false;
-            this.txtModelo.Location = new System.Drawing.Point(126, 60);
+            this.txtModelo.Location = new System.Drawing.Point(353, 55);
             this.txtModelo.Name = "txtModelo";
             this.txtModelo.ReadOnly = true;
             this.txtModelo.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtModelo.Size = new System.Drawing.Size(100, 20);
+            this.txtModelo.Size = new System.Drawing.Size(116, 20);
             this.txtModelo.TabIndex = 4;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(13, 63);
+            this.label14.Location = new System.Drawing.Point(238, 58);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(107, 13);
             this.label14.TabIndex = 3;
@@ -566,18 +678,19 @@
             // 
             // btnPlaca
             // 
-            this.btnPlaca.Location = new System.Drawing.Point(369, 21);
+            this.btnPlaca.Location = new System.Drawing.Point(366, 21);
             this.btnPlaca.Name = "btnPlaca";
             this.btnPlaca.Size = new System.Drawing.Size(104, 23);
             this.btnPlaca.TabIndex = 2;
             this.btnPlaca.Text = "Buscar vehículo";
             this.btnPlaca.UseVisualStyleBackColor = true;
+            this.btnPlaca.Click += new System.EventHandler(this.btnPlaca_Click);
             // 
             // txtPlaca
             // 
             this.txtPlaca.BackColor = System.Drawing.SystemColors.Info;
             this.txtPlaca.Enabled = false;
-            this.txtPlaca.Location = new System.Drawing.Point(118, 24);
+            this.txtPlaca.Location = new System.Drawing.Point(126, 23);
             this.txtPlaca.Name = "txtPlaca";
             this.txtPlaca.ReadOnly = true;
             this.txtPlaca.Size = new System.Drawing.Size(100, 20);
@@ -595,7 +708,7 @@
             // chkExtemporanea
             // 
             this.chkExtemporanea.AutoSize = true;
-            this.chkExtemporanea.Location = new System.Drawing.Point(485, 377);
+            this.chkExtemporanea.Location = new System.Drawing.Point(597, 398);
             this.chkExtemporanea.Name = "chkExtemporanea";
             this.chkExtemporanea.Size = new System.Drawing.Size(196, 17);
             this.chkExtemporanea.TabIndex = 4;
@@ -605,7 +718,7 @@
             // btnEnviar
             // 
             this.btnEnviar.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnEnviar.Location = new System.Drawing.Point(687, 374);
+            this.btnEnviar.Location = new System.Drawing.Point(799, 394);
             this.btnEnviar.Name = "btnEnviar";
             this.btnEnviar.Size = new System.Drawing.Size(141, 23);
             this.btnEnviar.TabIndex = 5;
@@ -614,7 +727,7 @@
             // 
             // btnInfo
             // 
-            this.btnInfo.Location = new System.Drawing.Point(834, 316);
+            this.btnInfo.Location = new System.Drawing.Point(260, 394);
             this.btnInfo.Name = "btnInfo";
             this.btnInfo.Size = new System.Drawing.Size(106, 23);
             this.btnInfo.TabIndex = 6;
@@ -623,7 +736,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(834, 345);
+            this.btnLimpiar.Location = new System.Drawing.Point(135, 394);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(106, 23);
             this.btnLimpiar.TabIndex = 7;
@@ -633,7 +746,7 @@
             // btnSalir
             // 
             this.btnSalir.BackColor = System.Drawing.Color.LightGray;
-            this.btnSalir.Location = new System.Drawing.Point(834, 374);
+            this.btnSalir.Location = new System.Drawing.Point(9, 394);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(106, 23);
             this.btnSalir.TabIndex = 8;
@@ -646,38 +759,17 @@
             this.label18.BackColor = System.Drawing.SystemColors.Control;
             this.label18.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label18.Image = global::capaPresentacion.Properties.Resources.icons8_question_mark_windows_11_color_16;
-            this.label18.Location = new System.Drawing.Point(460, 372);
+            this.label18.Location = new System.Drawing.Point(573, 394);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(18, 23);
             this.label18.TabIndex = 9;
             this.label18.Click += new System.EventHandler(this.label18_Click);
             // 
-            // columnaID
-            // 
-            this.columnaID.DataPropertyName = "Id";
-            this.columnaID.HeaderText = "Número";
-            this.columnaID.Name = "columnaID";
-            this.columnaID.Visible = false;
-            // 
-            // columnaOrigen
-            // 
-            this.columnaOrigen.DataPropertyName = "Origen";
-            this.columnaOrigen.HeaderText = "Origen";
-            this.columnaOrigen.Name = "columnaOrigen";
-            this.columnaOrigen.Width = 150;
-            // 
-            // columnaDestino
-            // 
-            this.columnaDestino.DataPropertyName = "Destino";
-            this.columnaDestino.HeaderText = "Destino";
-            this.columnaDestino.Name = "columnaDestino";
-            this.columnaDestino.Width = 150;
-            // 
             // frmSolicitudGira
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(948, 402);
+            this.ClientSize = new System.Drawing.Size(951, 429);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnLimpiar);
@@ -691,7 +783,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "frmSolicitudGira";
-            this.Text = "Solicitud de Gira";
+            this.Text = " ";
             this.Load += new System.EventHandler(this.frmSolicitudGira_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -700,6 +792,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.grdLugares)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFuncionarios)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
@@ -729,7 +822,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.ListView lsvFuncionarios;
         private System.Windows.Forms.Button btnBuscarDos;
         private System.Windows.Forms.TextBox txtSolicitante;
         private System.Windows.Forms.Label label12;
@@ -765,5 +857,14 @@
         private System.Windows.Forms.DataGridViewButtonColumn columnaID;
         private System.Windows.Forms.DataGridViewButtonColumn columnaOrigen;
         private System.Windows.Forms.DataGridViewButtonColumn columnaDestino;
+        private System.Windows.Forms.DataGridView dgvFuncionarios;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.TextBox txtCantidad;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox txtCentro;
+        private System.Windows.Forms.TextBox txtMarca;
+        private System.Windows.Forms.Label label20;
     }
 }

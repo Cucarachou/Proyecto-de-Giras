@@ -41,7 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="logicaSolicitante.cs" />
+    <Compile Include="logicaFuncionario.cs" />
+    <Compile Include="logicaLicencia.cs" />
+    <Compile Include="logicaVehiculo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

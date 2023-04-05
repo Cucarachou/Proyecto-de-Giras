@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using capaEntidades;
 using capaLogica;
+using capaLógica;
+using logicaSolicitante;
 
 namespace capaPresentacion
 {
@@ -26,12 +28,17 @@ namespace capaPresentacion
         private bool eventoBotonAgregar = false;
         private DateTime fechaSolicitud = DateTime.Now;
         private List<entidadLugar> lugares = new List<entidadLugar>();
-
+        private List<entidadFuncionario> funcionarios = new List<entidadFuncionario>();
 
         //la siguiente bandera tiene como función verificar si se ha o no confirmado las fechas de la solicitud por parte del usuario
         //para usar dicha información en el disparo del clickear el botón de confirmar fechas.
 
         private int banderaConfirmarFecha;
+
+        //la siguiente lista almacena las licencias que posee el chofer elegido, esto por si el usuario primeramente elige el chofer, lo que permitirá pasar las licencias y filtrar la búsqueda la buscar un automóvil
+        private List<entidadLicencia> licenciasChofer;
+        private string placa, idChofer, idSolicitante;
+
         public frmSolicitudGira()
         {
             InitializeComponent();
@@ -182,7 +189,8 @@ namespace capaPresentacion
             fechaSolicitud = DateTime.Now;
             giraFechaInicio = DateTime.MinValue;
             giraFechaFinal = DateTime.MinValue;
-
+            txtCantidad.Text = "0";
+            txtCantidad.Tag = string.Empty;
             dtpSolicitud.Value = fechaSolicitud;
             dtpInicio.Value = fechaSolicitud;
             dtpFin.Value = fechaSolicitud;
@@ -219,7 +227,7 @@ namespace capaPresentacion
         //y añade una fila con la información de la instancia al gridview
         private void aniadirLugar()
         {
-            entidadLugar claseLugares = new entidadLugar();;;
+            entidadLugar claseLugares = new entidadLugar();
             claseLugares.Id = lugares.Count;
             claseLugares.Origen = txtOrigen.Text;
             claseLugares.Destino = txtFinal.Text;
@@ -228,7 +236,48 @@ namespace capaPresentacion
             grdLugares.Rows.Add(claseLugares.Id, claseLugares.Origen, claseLugares.Destino);
         }
 
+        //la siguiente función sin retorno añade una entidad de funcionario devuelta desde el formulario de busqueda
+        //a la lista global que guarda la asistentes de la gira, y de paso inserta los datos en el datagrid para permitir
+        //que el usuario sea capaz de verlos
+        private void aniadirFuncionario(entidadFuncionario funcionario)
+        {
+            if (verificarFuncionario(funcionario.Identificacion))
+            {
+                funcionarios.Add(funcionario);
 
+                dgvFuncionarios.Rows.Add(funcionario.Identificacion, funcionario.NombreApellido);
+                txtCantidad.Text = funcionarios.Count.ToString();
+            }
+            else
+            {
+                MessageBox.Show("Ese funcionario ya fue añadido.", "Error al añadir", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private bool verificarFuncionario(string idFuncionario)
+        {
+            int i = 0;
+
+            if (funcionarios.Count > 0)
+            {
+                while (i < funcionarios.Count)
+                {
+
+                    if (idFuncionario == funcionarios[i].Identificacion)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+            }
+
+
+            return true;
+        }
         //la siguiente sobrecarga simplemente repite el añadir una fila de la lista de lugares pero que ya es
         //existente, por lo tanto no se necesita crear una instancia, simplemente copiar la ya almacenada
         //mediante un número de índice como argumento
@@ -236,6 +285,11 @@ namespace capaPresentacion
         private void aniadirLugar(int indice)
         {
             grdLugares.Rows.Add(lugares[indice].Id, lugares[indice].Origen, lugares[indice].Destino);
+        }
+
+        private void aniadirFuncionario(int indice)
+        {
+            dgvFuncionarios.Rows.Add(funcionarios[indice].Identificacion, funcionarios[indice].NombreApellido);
         }
         /*el evento de añadir lugar primero revisa que no haya alguno de los espacios vacíos y sin datos. Después,
          * verifica que ya hayan sido confirmadas las fechas según los valores por defecto de la fecha de inicio
@@ -352,9 +406,20 @@ namespace capaPresentacion
             }
         }
 
+        private void ordenarListaFuncionarios()
+        {
+            dgvFuncionarios.Rows.Clear();
+
+            for (int i = 0; i < funcionarios.Count; i++)
+            {
+                aniadirFuncionario(i);
+            }
+        }
+
         private void btnChofer_Click(object sender, EventArgs e)
         {
-            frmBusquedaSolicitante form = new frmBusquedaSolicitante();
+            frmBusquedaFuncionario form = new frmBusquedaFuncionario();
+            form.TipoBusqueda = 1;
             form.AceptarSolicitante += new EventHandler(AceptarSolicitante);
 
             form.Show();
@@ -383,10 +448,79 @@ namespace capaPresentacion
             }
         }
 
+        private void AceptarFuncionario(object idFuncionario, EventArgs e)
+        {
+            try
+            {
+                string id = idFuncionario.ToString();
+
+                if (id != "-1")
+                {
+                    BuscarFuncionario(id);
+                }
+                else
+                {
+                    MessageBox.Show("No fue seleccionado ningún funcionario.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Error de excepción", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void AceptarChofer(object idSolicitante, EventArgs e)
+        {
+            try
+            {
+                string id = idSolicitante.ToString();
+
+                if (id != "-1")
+                {
+                    BuscarChofer(id);
+                }
+                else
+                {
+                    MessageBox.Show("No fue seleccionado ningún solicitante.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Error de excepción", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnBuscarDos_Click(object sender, EventArgs e)
+        {
+
+            if (giraFechaInicio != DateTime.MinValue && giraFechaFinal != DateTime.MinValue)
+            {
+
+                frmBusquedaChofer form = new frmBusquedaChofer();
+                form.FechaInicio = giraFechaInicio.ToString();
+                form.AceptarChofer += new EventHandler(AceptarChofer);
+                form.FechaFin = giraFechaFinal.ToString();
+                if (!string.IsNullOrEmpty(txtPlaca.Text))
+                {
+                    form.LicenciaVehiculo = txtEstilo.Text; 
+                }
+                form.Show();
+
+
+            }
+            else
+            {
+                MessageBox.Show("Para registrar un chofer en la solicitud debe primero confirmar unas fechas válidas para la gira", "Error de fecha", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
         private void BuscarSolicitante(string idSolicitante)
         {
             entidadSolicitante solicitante;
-            logicaSolicitante logica = new logicaSolicitante(Configuracion.getConnectiongString);
+            logicaFuncionario logica = new logicaFuncionario(Configuracion.getConnectiongString);
             logica.CadenaConexion = Configuracion.getConnectiongString;
             string condicion = $"IDENTIFICACION = '{idSolicitante}'";
 
@@ -399,6 +533,7 @@ namespace capaPresentacion
                 {
                     txtSolicitante.Text = solicitante.NombreApellido;
                     txtSolicitante.Tag = solicitante.Identificacion;
+                    idSolicitante = solicitante.Identificacion;
                 }
                 else
                 {
@@ -412,6 +547,208 @@ namespace capaPresentacion
             }
         }
 
+        private void BuscarFuncionario(string idFuncionario)
+        {
+            entidadFuncionario funcionario;
+            logicaFuncionario logica = new logicaFuncionario(Configuracion.getConnectiongString);
+            logica.CadenaConexion = Configuracion.getConnectiongString;
+            string condicion = $"IDENTIFICACION = '{idFuncionario}'";
+
+            try
+            {
+
+                funcionario = logica.ObtenerSolicitante(condicion);
+
+                if (funcionario.Identificacion == idFuncionario)
+                {
+                    aniadirFuncionario(funcionario);
+                }
+                else
+                {
+                    MessageBox.Show("No se ha podido cargar el solicitante. Debe haber un error al seleccionarlo.", "Error de carga", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Error de excepción", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
+        private void btnAgregarFuncionario_Click(object sender, EventArgs e)
+        {
+            if (giraFechaInicio != DateTime.MinValue || giraFechaFinal != DateTime.MinValue)
+            {
+                frmBusquedaFuncionario form = new frmBusquedaFuncionario();
+                form.TipoBusqueda = 2;
+                form.FechaInicio = giraFechaInicio;
+                form.FechaFinal = giraFechaFinal;
+                form.AceptarFuncionario += new EventHandler(AceptarFuncionario);
+
+                form.Show();
+            }
+            else
+            {
+                MessageBox.Show("Para seleccionar una funcionario primero debe asignar a la gira una fecha de inicio y final, esto pues se debe verificar la disponibilidad de los funcionarios en dichas fechas", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+
+        }
+
+        private void btnEliminarFuncionario_Click(object sender, EventArgs e)
+        {
+            int indice = 0;
+
+            if (!string.IsNullOrEmpty(txtCantidad.Tag.ToString()))
+            {
+
+                indice = Convert.ToInt32(txtCantidad.Tag);
+                funcionarios.RemoveAt(indice);
+                txtCantidad.Tag = string.Empty;
+                txtCantidad.Text = funcionarios.Count.ToString();
+                ordenarListaFuncionarios();
+            }
+            else
+            {
+                MessageBox.Show("No hay ningún funcionario seleccionado.", "Error de ejecución", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvFuncionarios_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int indice = -1;
+
+            if (dgvFuncionarios.SelectedRows.Count > 0)
+            {
+                indice = dgvFuncionarios.SelectedRows[0].Index;
+                txtCantidad.Tag = indice;
+            }
+            else
+            {
+                MessageBox.Show("No hay ningún funcionario seleccionado. Debe hacer doble click en el que desea eliminar.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+
+        }
+
+        private void btnPlaca_Click(object sender, EventArgs e)
+        {
+
+
+            if (giraFechaInicio != DateTime.MinValue && giraFechaFinal != DateTime.MinValue)
+            {
+                frmBusquedaVehiculo form;
+
+
+                if (funcionarios.Count > 0)
+                {
+                    form = new frmBusquedaVehiculo(funcionarios.Count);
+                }
+                else
+                {
+                    form = new frmBusquedaVehiculo(-1);
+                }
+
+
+                form.GiraFechaFinal = giraFechaFinal;
+                form.GiraFechaInicio = giraFechaInicio;
+                form.AceptarVehiculo += new EventHandler(AceptarVehiculo);
+                form.Show();
+
+            }
+            else
+            {
+                MessageBox.Show("Para registrar un vehículo en la solicitud debe primero confirmar unas fechas válidas para la gira", "Error de fecha", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+        }
+
+        private void AceptarVehiculo(object placa, EventArgs e)
+        {
+            try
+            {
+                string id = placa.ToString();
+
+                if (id != "-1")
+                {
+                    BuscarVehiculo(id);
+                }
+                else
+                {
+                    MessageBox.Show("No fue seleccionado ningún vehículo.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Error de excepción", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void BuscarChofer(string idChofer)
+        {
+            entidadChofer chofer;
+            logicaFuncionario logica = new logicaFuncionario(Configuracion.getConnectiongString);
+            logicaLicencia logicaLicencia = new logicaLicencia(Configuracion.getConnectiongString);
+            logica.CadenaConexion = Configuracion.getConnectiongString;
+            string condicion = $"IDENTIFICACION = '{idChofer}'";
+
+            try
+            {
+
+                chofer = logica.ObtenerChofer(condicion);
+
+                if (chofer.Identificacion == idChofer)
+                {
+                    txtChofer.Text = chofer.NombreApellido;
+                    txtChofer.Tag = chofer.Identificacion;
+                    licenciasChofer = logicaLicencia.ListarLicencias(chofer.Identificacion);
+                    idChofer = chofer.Identificacion;
+                }
+                else
+                {
+                    MessageBox.Show("No se ha podido cargar el solicitante. Debe haber un error al seleccionarlo.", "Error de carga", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Error de excepción", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
+        private void BuscarVehiculo(string placa)
+        {
+            entidadVehiculo vehiculo;
+            logicaVehiculo logica = new logicaVehiculo(Configuracion.getConnectiongString);
+            logica.CadenaConexion = Configuracion.getConnectiongString;
+            string condicion = $"PLACA = '{placa}'";
+
+            try
+            {
+
+                vehiculo = logica.ObtenerVehiculo(condicion);
+
+                if (vehiculo.Placa == placa)
+                {
+                    txtPlaca.Text = vehiculo.Placa;
+                    txtModelo.Text = vehiculo.Modelo;
+                    txtGasolina.Text = vehiculo.Combustible;
+                    txtCapacidad.Text = vehiculo.Capacidad.ToString();
+                    txtCentro.Text = vehiculo.Id_Centro.ToString();
+                    txtMarca.Text = vehiculo.Marca;
+                    txtEstilo.Text = vehiculo.LicenciaRequerida;
+                    placa = vehiculo.Placa;
+                }
+                else
+                {
+                    MessageBox.Show("No se ha podido cargar el solicitante. Debe haber un error al seleccionarlo.", "Error de carga", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Error de excepción", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
         private void limpiarLugares()
         {
             txtOrigen.Text = string.Empty;

@@ -1,5 +1,6 @@
-﻿using capaAccesoDatos;
+﻿  using capaAccesoDatos;
 using capaEntidades;
+using capaLógica;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace capaLogica
 {
-    public class logicaSolicitante
+    public class logicaFuncionario
     {
 
         private string cadenaConexion;
 
         public string CadenaConexion { get => cadenaConexion; set => cadenaConexion = value; }
 
-        public logicaSolicitante(string _cadenaConexion)
+        public logicaFuncionario(string _cadenaConexion)
         {
             CadenaConexion = _cadenaConexion;
         }
@@ -49,6 +50,44 @@ namespace capaLogica
             try
             {
                 resultado = accesoDatos.ObtenerSolicitante(condicion);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return resultado;
+        }
+
+        //método que obtiene una lista de funcionarios que son chóferes y cumplen una condición
+
+        public List<entidadChofer> ListarChoferes(string condicion = "")
+        {
+            List<entidadChofer> resultado;
+            datosFuncionario accesoDatos = new datosFuncionario(CadenaConexion);
+
+            try
+            {
+                resultado = accesoDatos.ListarChoferes(condicion);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return resultado;
+        }
+
+        public entidadChofer ObtenerChofer(string condicion)
+        {
+            entidadChofer resultado;
+            datosFuncionario accesoDatos = new datosFuncionario(CadenaConexion);
+
+            try
+            {
+                resultado = accesoDatos.ObtenerChofer(condicion);
             }
             catch (Exception ex)
             {

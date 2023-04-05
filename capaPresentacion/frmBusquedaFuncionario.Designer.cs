@@ -1,6 +1,6 @@
 ﻿namespace capaPresentacion
 {
-    partial class frmBusquedaSolicitante
+    partial class frmBusquedaFuncionario
     {
         /// <summary>
         /// Required designer variable.
@@ -37,7 +37,11 @@
             this.A = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnaNombreApe = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnaCentro = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Activo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Correo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
@@ -86,8 +90,14 @@
             this.A,
             this.Column3,
             this.columnaNombreApe,
-            this.columnaCentro});
+            this.Activo,
+            this.Column1,
+            this.Correo,
+            this.Column4,
+            this.Column5});
+            this.grdSolicitante.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.grdSolicitante.Location = new System.Drawing.Point(15, 32);
+            this.grdSolicitante.MultiSelect = false;
             this.grdSolicitante.Name = "grdSolicitante";
             this.grdSolicitante.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grdSolicitante.Size = new System.Drawing.Size(519, 164);
@@ -125,17 +135,44 @@
             // columnaNombreApe
             // 
             this.columnaNombreApe.DataPropertyName = "NombreApellido";
-            this.columnaNombreApe.HeaderText = "Nombre y Apellidos";
+            this.columnaNombreApe.HeaderText = "Nombre Completo";
             this.columnaNombreApe.Name = "columnaNombreApe";
             this.columnaNombreApe.Width = 200;
             // 
-            // columnaCentro
+            // Activo
             // 
-            this.columnaCentro.DataPropertyName = "IdCentro";
-            this.columnaCentro.HeaderText = "Centro de Formación";
-            this.columnaCentro.Name = "columnaCentro";
-            this.columnaCentro.Visible = false;
-            this.columnaCentro.Width = 150;
+            this.Activo.DataPropertyName = "Activo";
+            this.Activo.HeaderText = "Activo";
+            this.Activo.Name = "Activo";
+            this.Activo.Visible = false;
+            // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "Telefono";
+            this.Column1.HeaderText = "Telefono";
+            this.Column1.Name = "Column1";
+            this.Column1.Visible = false;
+            // 
+            // Correo
+            // 
+            this.Correo.DataPropertyName = "Correo";
+            this.Correo.HeaderText = "Correo";
+            this.Correo.Name = "Correo";
+            this.Correo.Visible = false;
+            // 
+            // Column4
+            // 
+            this.Column4.DataPropertyName = "Aprobador";
+            this.Column4.HeaderText = "Aprobador";
+            this.Column4.Name = "Column4";
+            this.Column4.Visible = false;
+            // 
+            // Column5
+            // 
+            this.Column5.DataPropertyName = "IdCentro";
+            this.Column5.HeaderText = "IdCentro";
+            this.Column5.Name = "Column5";
+            this.Column5.Visible = false;
             // 
             // btnAceptar
             // 
@@ -189,7 +226,7 @@
             this.lblTipo.TabIndex = 8;
             this.lblTipo.Text = "Identificación:";
             // 
-            // frmBusquedaSolicitante
+            // frmBusquedaFuncionario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -204,7 +241,7 @@
             this.Controls.Add(this.txtInfo);
             this.Controls.Add(this.label1);
             this.MinimizeBox = false;
-            this.Name = "frmBusquedaSolicitante";
+            this.Name = "frmBusquedaFuncionario";
             this.Text = "Búsqueda de Solicitante";
             this.Load += new System.EventHandler(this.frmBusquedaSolicitante_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grdSolicitante)).EndInit();
@@ -229,6 +266,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn A;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnaNombreApe;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnaCentro;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Activo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Correo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
     }
 }

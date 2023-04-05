@@ -56,11 +56,17 @@
     <Compile Include="frmBusquedaChofer.Designer.cs">
       <DependentUpon>frmBusquedaChofer.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmBusquedaSolicitante.cs">
+    <Compile Include="frmBusquedaFuncionario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmBusquedaSolicitante.Designer.cs">
-      <DependentUpon>frmBusquedaSolicitante.cs</DependentUpon>
+    <Compile Include="frmBusquedaFuncionario.Designer.cs">
+      <DependentUpon>frmBusquedaFuncionario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmBusquedaVehiculo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBusquedaVehiculo.Designer.cs">
+      <DependentUpon>frmBusquedaVehiculo.cs</DependentUpon>
     </Compile>
     <Compile Include="frmInicio.cs">
       <SubType>Form</SubType>
@@ -79,8 +85,11 @@
     <EmbeddedResource Include="frmBusquedaChofer.resx">
       <DependentUpon>frmBusquedaChofer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmBusquedaSolicitante.resx">
-      <DependentUpon>frmBusquedaSolicitante.cs</DependentUpon>
+    <EmbeddedResource Include="frmBusquedaFuncionario.resx">
+      <DependentUpon>frmBusquedaFuncionario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBusquedaVehiculo.resx">
+      <DependentUpon>frmBusquedaVehiculo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmInicio.resx">
       <DependentUpon>frmInicio.cs</DependentUpon>

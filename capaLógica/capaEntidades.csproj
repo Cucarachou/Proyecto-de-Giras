@@ -44,8 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="entidadChofer.cs" />
+    <Compile Include="entidadFuncionario.cs" />
+    <Compile Include="entidadLicencia.cs" />
     <Compile Include="entidadLugar.cs" />
     <Compile Include="entidadSolicitante.cs" />
+    <Compile Include="entidadVehiculo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -12,22 +12,35 @@ using System.Windows.Forms;
 
 namespace capaPresentacion
 {
-    public partial class frmBusquedaSolicitante : Form
+    public partial class frmBusquedaFuncionario : Form
     {
 
         //la siguiente variable global funciona de bandera para evitar que el usuario escriba números o letras según la opción
         //que eligió en el combo para buscar funcionario
 
-        int banderaIdentificacion;
+        private int banderaIdentificacion;
+
+        //la siguiente variable global indica que tipo de busqueda se está haciendo: si (1) de solicitante o (2) de funcionario.
+
+        private int tipoBusqueda;
 
         //la siguiente variable global tipo string guarda la identificacion del solicitante para enviarla posteriormente
         //al formulario de solicitid de gura.
-        string identificacionSolicitante;
+        private string identificacionSolicitante;
 
+        //fechas de inicio y final de la gira, se utilizan para verificar que un funcionario sí está disponible 
+        //en caso de búsqueda de funcionario (no solicitante)
+
+        private DateTime fechaInicio, fechaFinal;
         //evento para pasar la información de un formulario a otro, en este caso de solicitante a la solicitud.
         public EventHandler AceptarSolicitante;
+        public EventHandler AceptarFuncionario;
 
-        public frmBusquedaSolicitante()
+        public int TipoBusqueda { get => tipoBusqueda; set => tipoBusqueda = value; }
+        public DateTime FechaInicio { get => fechaInicio; set => fechaInicio = value; }
+        public DateTime FechaFinal { get => fechaFinal; set => fechaFinal = value; }
+
+        public frmBusquedaFuncionario()
         {
             InitializeComponent();
             banderaIdentificacion = 0;
@@ -99,11 +112,24 @@ namespace capaPresentacion
                 {
                     if (cboTipo.SelectedIndex == 1)
                     {
-                        condicion = $"CONCAT(NOMBRE, ' ', APELLIDO_UNO, ' ', APELLIDO_DOS) LIKE '%{txtInfo.Text}%' AND ACTIVO = 0 AND APROBADOR = 1";
+
+                        condicion = $"CONCAT(NOMBRE, ' ', APELLIDO_UNO, ' ', APELLIDO_DOS) LIKE '%{txtInfo.Text}%' AND ACTIVO = 0";
+       
                     }
                     else
                     {
-                        condicion = $"IDENTIFICACION LIKE '%{txtInfo.Text}%' AND ACTIVO = 0 AND APROBADOR = 1";
+                        
+                        if (tipoBusqueda == 1)
+                        {
+                            condicion = $"IDENTIFICACION LIKE '%{txtInfo.Text}%' AND ACTIVO = 0";
+                        }
+                        else
+                        {
+
+                        condicion = $"IDENTIFICACION NOT IN (SELECT IDENTIFICACION FROM ACOMPANIANTES A INNER JOIN SOLICITUDES_GIRAS SG ON SG.ID_GIRA = A.ID_GIRA WHERE DIA_INICIO BETWEEN '{fechaInicio.ToString("yyyy/MM/dd")}' and '{fechaFinal.ToString("yyyy/MM/dd")}' OR DIA_FINAL BETWEEN '{fechaInicio.ToString("yyyy/MM/dd")}' and '{fechaFinal.ToString("yyyy/MM/dd")}') AND ACTIVO = 0";
+
+                        }
+
                     }
                     CargarSolicitantes(condicion);
                 }
@@ -122,7 +148,7 @@ namespace capaPresentacion
         //la siguiente función cargar los solicitantes conforme a una condición y le pasa los datos al data grid view de solicitantes.
         private void CargarSolicitantes(string condicion = "")
         {
-            logicaSolicitante logica = new logicaSolicitante(Configuracion.getConnectiongString);
+            logicaFuncionario logica = new logicaFuncionario(Configuracion.getConnectiongString);
             List<entidadSolicitante> lista;
 
             try
@@ -147,14 +173,14 @@ namespace capaPresentacion
 
             if (cboTipo.SelectedIndex == 0)
             {
-                txtInfo.Text = grdSolicitante.Rows[0].Cells[0].Value.ToString();
+                txtInfo.Text = grdSolicitante.SelectedRows[0].Cells[1].Value.ToString();
             }
             else
             {
-                txtInfo.Text = grdSolicitante.Rows[0].Cells[5].Value.ToString();
+                txtInfo.Text = grdSolicitante.SelectedRows[0].Cells[9].Value.ToString();
             }
 
-            identificacionSolicitante = grdSolicitante.SelectedRows[0].Cells[0].Value.ToString();
+            identificacionSolicitante = grdSolicitante.SelectedRows[0].Cells[1].Value.ToString();
         }
 
 
@@ -165,7 +191,7 @@ namespace capaPresentacion
             {
                 if (grdSolicitante.SelectedRows.Count > 0 || !string.IsNullOrEmpty(identificacionSolicitante))
                 {
-                    identificacionSolicitante = grdSolicitante.SelectedRows[0].Cells[0].Value.ToString();
+                    identificacionSolicitante = grdSolicitante.SelectedRows[0].Cells[1].Value.ToString();
                     AceptarSolicitante(identificacionSolicitante, null);
                     Close();
                 }
@@ -181,12 +207,42 @@ namespace capaPresentacion
             }
         }
 
+        private void SeleccionarFuncionario() 
+        {
+            try
+            {
+                if (grdSolicitante.SelectedRows.Count > 0 || !string.IsNullOrEmpty(identificacionSolicitante))
+                {
+                    identificacionSolicitante = grdSolicitante.SelectedRows[0].Cells[1].Value.ToString();
+                    AceptarFuncionario(identificacionSolicitante, null);
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("No hay ningún solicitante seleccionado.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+                throw;
+            }
+        }
+
         //la siguiente función ejecuta la función para mandar info de un método a otro al dar doble click al datagrid
         private void grdSolicitante_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             try
             {
-                SeleccionarSolicitante();
+                if (tipoBusqueda == 1)
+                {
+                    SeleccionarSolicitante();
+                }
+                else
+                {
+                    SeleccionarFuncionario();
+                }
+
             }
             catch (Exception ex)
             {
@@ -201,7 +257,15 @@ namespace capaPresentacion
         {
             try
             {
-                SeleccionarSolicitante();
+                if (tipoBusqueda == 1)
+                {
+                    SeleccionarSolicitante();
+                }
+                else
+                {
+                    SeleccionarFuncionario();
+                }
+
             }
             catch (Exception ex)
             {
@@ -214,8 +278,10 @@ namespace capaPresentacion
         private void btnSalir_Click(object sender, EventArgs e)
         {
             identificacionSolicitante = "-1";
-            AceptarSolicitante(identificacionSolicitante, null);
+
+            AceptarFuncionario(identificacionSolicitante, null);
             Close();
+
         }
 
         //la siguiente función limpia todos los campos y reinicia el combo. Se reutiliza tanto en la carga como en un evento click del botón limpiuar
