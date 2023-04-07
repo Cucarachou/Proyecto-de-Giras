@@ -31,10 +31,13 @@ namespace capaPresentacion
         //
         private DateTime giraFechaInicio, giraFechaFinal;
         //
+        List<entidadLicencia> licenciaLista = null;
+        //
         public EventHandler AceptarVehiculo;
         public int CantidadAsistentes { get => cantidadAsistentes; set => cantidadAsistentes = value; }
         public DateTime GiraFechaInicio { get => giraFechaInicio; set => giraFechaInicio = value; }
         public DateTime GiraFechaFinal { get => giraFechaFinal; set => giraFechaFinal = value; }
+        public List<entidadLicencia> LicenciaLista { get => licenciaLista; set => licenciaLista = value; }
 
         public frmBusquedaVehiculo(int _cantidadAsistentes)
         {
@@ -168,8 +171,28 @@ namespace capaPresentacion
                 if (dgvVehiculos.SelectedRows.Count > 0 || !string.IsNullOrEmpty(placa))
                 {
                     placa = dgvVehiculos.SelectedRows[0].Cells[0].Value.ToString();
-                    AceptarVehiculo(placa, null);
-                    Close();
+
+                    if (LicenciaLista != null)
+                    {
+
+                        if (VerificarLicencia())
+                        {
+                            AceptarVehiculo(placa, null);
+                            Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ha seleccionado un chofer de antemano, por lo que dicho chofer debe tener la licencia requerida por el vehículo que seleccionó.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        placa = dgvVehiculos.SelectedRows[0].Cells[0].Value.ToString();
+                        AceptarVehiculo(placa, null);
+                        Close();
+                    }
+
+
                 }
                 else
                 {
@@ -181,6 +204,95 @@ namespace capaPresentacion
 
                 throw ex;
             }
+        }
+
+        private bool VerificarLicencia()
+        {
+            logicaLicencia logica = new logicaLicencia(Configuracion.getConnectiongString);
+
+
+            for (int i = 0; i < LicenciaLista.Count; i++)
+            {
+                if (dgvVehiculos.SelectedRows[0].Cells[5].Value.ToString() == "A2")
+                {
+                    if (LicenciaLista[i].TipoLicencia == "A2" || LicenciaLista[i].TipoLicencia == "A3" || LicenciaLista[i].TipoLicencia == "E1" || LicenciaLista[i].TipoLicencia == "E1=2")
+                    {
+                        return true;
+                    }
+                }
+                else if (dgvVehiculos.SelectedRows[0].Cells[5].Value.ToString() == "A3")
+                {
+                    if (LicenciaLista[i].TipoLicencia == "A3" || LicenciaLista[i].TipoLicencia == "E1" || LicenciaLista[i].TipoLicencia == "E2")
+                    {
+                        return true;
+                    }
+                }
+                else if (dgvVehiculos.SelectedRows[0].Cells[5].Value.ToString() == "B1")
+                {
+                    if (LicenciaLista[i].TipoLicencia == "B1" || LicenciaLista[i].TipoLicencia == "B2" || LicenciaLista[i].TipoLicencia == "B3" || LicenciaLista[i].TipoLicencia == "B4" || LicenciaLista[i].TipoLicencia == "E1" || LicenciaLista[i].TipoLicencia == "E2")
+                    {
+                        return true;
+                    }
+                }
+                else if (dgvVehiculos.SelectedRows[0].Cells[5].Value.ToString() == "B2")
+                {
+                    if (LicenciaLista[i].TipoLicencia == "B2" || LicenciaLista[i].TipoLicencia == "B3" || LicenciaLista[i].TipoLicencia == "B4" || LicenciaLista[i].TipoLicencia == "E1" || LicenciaLista[i].TipoLicencia == "E2")
+                    {
+                        return true;
+                    }
+                }
+                else if (dgvVehiculos.SelectedRows[0].Cells[5].Value.ToString() == "B3")
+                {
+                    if (LicenciaLista[i].TipoLicencia == "B3" || LicenciaLista[i].TipoLicencia == "B4" || LicenciaLista[i].TipoLicencia == "E1" || LicenciaLista[i].TipoLicencia == "E2")
+                    {
+                        return true;
+                    }
+                }
+                else if (dgvVehiculos.SelectedRows[0].Cells[5].Value.ToString() == "B4")
+                {
+                    if (LicenciaLista[i].TipoLicencia == "B4" || LicenciaLista[i].TipoLicencia == "E1" || LicenciaLista[i].TipoLicencia == "E2")
+                    {
+                        return true;
+                    }
+                }
+                else if (dgvVehiculos.SelectedRows[0].Cells[5].Value.ToString() == "C1")
+                {
+                    if (LicenciaLista[i].TipoLicencia == "C1")
+                    {
+                        return true;
+                    }
+                }
+                else if (dgvVehiculos.SelectedRows[0].Cells[5].Value.ToString() == "C2")
+                {
+                    if (LicenciaLista[i].TipoLicencia == "C2")
+                    {
+                        return true;
+                    }
+                }
+                else if (dgvVehiculos.SelectedRows[0].Cells[5].Value.ToString() == "D1")
+                {
+                    if (LicenciaLista[i].TipoLicencia == "D1" || LicenciaLista[i].TipoLicencia == "E2")
+                    {
+                        return true;
+                    }
+                }
+                else if (dgvVehiculos.SelectedRows[0].Cells[5].Value.ToString() == "D2")
+                {
+                    if (LicenciaLista[i].TipoLicencia == "D2" || LicenciaLista[i].TipoLicencia == "E2")
+                    {
+                        return true;
+                    }
+                }
+                else if (dgvVehiculos.SelectedRows[0].Cells[5].Value.ToString() == "D3")
+                {
+                    if (LicenciaLista[i].TipoLicencia == "D3" || LicenciaLista[i].TipoLicencia == "E2")
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         private void dgvVehiculos_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)

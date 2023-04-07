@@ -22,7 +22,7 @@ namespace capaPresentacion
         string fechaInicio, fechaFin;
         public EventHandler AceptarChofer;
         private string licenciaVehiculo;
-
+        private string justificacionExtemporanea;
         //las siguientes propiedades son valores que se obtienen al abrir este formulario desde el principal de solicitud gira,
         //el de licencia de vehiculo es opcional, pues se da el valor solo si el usuario ha seleccionado un automovil antes
         public string FechaInicio { get => fechaInicio; set => fechaInicio = value; }
@@ -39,6 +39,7 @@ namespace capaPresentacion
             txtInicio.Text = fechaInicio;
             txtFinal.Text = fechaFin;
             cboTipo.SelectedIndex = 0;
+            justificacionExtemporanea = string.Empty;
         }
 
         private void Limpiar()

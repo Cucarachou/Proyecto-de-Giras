@@ -714,6 +714,7 @@
             this.chkExtemporanea.TabIndex = 4;
             this.chkExtemporanea.Text = "Enviar como solicitud extemporánea";
             this.chkExtemporanea.UseVisualStyleBackColor = true;
+            this.chkExtemporanea.CheckedChanged += new System.EventHandler(this.chkExtemporanea_CheckedChanged);
             // 
             // btnEnviar
             // 
@@ -724,6 +725,7 @@
             this.btnEnviar.TabIndex = 5;
             this.btnEnviar.Text = "Enviar Solicitud";
             this.btnEnviar.UseVisualStyleBackColor = false;
+            this.btnEnviar.Click += new System.EventHandler(this.btnEnviar_Click);
             // 
             // btnInfo
             // 
@@ -733,6 +735,7 @@
             this.btnInfo.TabIndex = 6;
             this.btnInfo.Text = "Información Adicional";
             this.btnInfo.UseVisualStyleBackColor = true;
+            this.btnInfo.Click += new System.EventHandler(this.btnInfo_Click);
             // 
             // btnLimpiar
             // 
@@ -742,6 +745,7 @@
             this.btnLimpiar.TabIndex = 7;
             this.btnLimpiar.Text = "Limpiar Todo";
             this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // btnSalir
             // 

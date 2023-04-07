@@ -68,6 +68,12 @@
     <Compile Include="frmBusquedaVehiculo.Designer.cs">
       <DependentUpon>frmBusquedaVehiculo.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmExtemporanea.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmExtemporanea.Designer.cs">
+      <DependentUpon>frmExtemporanea.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmInicio.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +96,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmBusquedaVehiculo.resx">
       <DependentUpon>frmBusquedaVehiculo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmExtemporanea.resx">
+      <DependentUpon>frmExtemporanea.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmInicio.resx">
       <DependentUpon>frmInicio.cs</DependentUpon>

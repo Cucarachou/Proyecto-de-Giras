@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="datosFuncionario.cs" />
     <Compile Include="datosLicencia.cs" />
+    <Compile Include="datosSolicitudGira.cs" />
     <Compile Include="datosVehiculo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

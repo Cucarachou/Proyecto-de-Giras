@@ -49,6 +49,7 @@
     <Compile Include="entidadLicencia.cs" />
     <Compile Include="entidadLugar.cs" />
     <Compile Include="entidadSolicitante.cs" />
+    <Compile Include="entidadSolicitudGira.cs" />
     <Compile Include="entidadVehiculo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

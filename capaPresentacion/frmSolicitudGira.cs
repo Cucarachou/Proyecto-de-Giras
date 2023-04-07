@@ -37,7 +37,12 @@ namespace capaPresentacion
 
         //la siguiente lista almacena las licencias que posee el chofer elegido, esto por si el usuario primeramente elige el chofer, lo que permitirá pasar las licencias y filtrar la búsqueda la buscar un automóvil
         private List<entidadLicencia> licenciasChofer;
-        private string placa, idChofer, idSolicitante;
+        private string placa, idChofer, idSolicitante, justificacionExtemporaneidad;
+
+        public string Placa { get => placa; set => placa = value; }
+        public string IdChofer { get => idChofer; set => idChofer = value; }
+        public string IdSolicitante { get => idSolicitante; set => idSolicitante = value; }
+        public string JustificacionExtemporaneidad { get => justificacionExtemporaneidad; set => justificacionExtemporaneidad = value; }
 
         public frmSolicitudGira()
         {
@@ -185,6 +190,7 @@ namespace capaPresentacion
 
         private void frmSolicitudGira_Load(object sender, EventArgs e)
         {
+            licenciasChofer = null;
             banderaConfirmarFecha = 0;
             fechaSolicitud = DateTime.Now;
             giraFechaInicio = DateTime.MinValue;
@@ -301,19 +307,19 @@ namespace capaPresentacion
         private void btnAniadirLugar_Click(object sender, EventArgs e)
         {
 
-            if (!string.IsNullOrEmpty(txtOrigen.Text)&& !string.IsNullOrEmpty(txtFinal.Text))
+            if (!string.IsNullOrEmpty(txtOrigen.Text) && !string.IsNullOrEmpty(txtFinal.Text))
             {
 
                 if (giraFechaInicio != DateTime.MinValue && giraFechaFinal != DateTime.MinValue)
                 {
-                        aniadirLugar();
-                        ordenarListaLugares();
-                        limpiarLugares();
-                        if (eventoBotonAgregar == false)
-                        {
-                            MessageBox.Show("Ha sido agregada una de las fechas de la gira. Puede ver la información a la derecha.", "Completado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            eventoBotonAgregar = true;
-                        }
+                    aniadirLugar();
+                    ordenarListaLugares();
+                    limpiarLugares();
+                    if (eventoBotonAgregar == false)
+                    {
+                        MessageBox.Show("Ha sido agregada una de las fechas de la gira. Puede ver la información a la derecha.", "Completado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        eventoBotonAgregar = true;
+                    }
 
                 }
                 else
@@ -378,7 +384,7 @@ namespace capaPresentacion
             DataGridViewCell celda = grdLugares.Rows[e.RowIndex].Cells[0];
             indice = Convert.ToInt32(celda.Value);
 
-            txtIDLugar.Text = (lugares[indice].Id+1).ToString();
+            txtIDLugar.Text = (lugares[indice].Id + 1).ToString();
             txtOrigen.Text = lugares[indice].Origen.ToString();
             txtFinal.Text = lugares[indice].Destino.ToString();
         }
@@ -504,7 +510,7 @@ namespace capaPresentacion
                 form.FechaFin = giraFechaFinal.ToString();
                 if (!string.IsNullOrEmpty(txtPlaca.Text))
                 {
-                    form.LicenciaVehiculo = txtEstilo.Text; 
+                    form.LicenciaVehiculo = txtEstilo.Text;
                 }
                 form.Show();
 
@@ -533,7 +539,7 @@ namespace capaPresentacion
                 {
                     txtSolicitante.Text = solicitante.NombreApellido;
                     txtSolicitante.Tag = solicitante.Identificacion;
-                    idSolicitante = solicitante.Identificacion;
+                    IdSolicitante = solicitante.Identificacion;
                 }
                 else
                 {
@@ -647,6 +653,10 @@ namespace capaPresentacion
                     form = new frmBusquedaVehiculo(-1);
                 }
 
+                if (licenciasChofer != null)
+                {
+                    form.LicenciaLista = licenciasChofer;
+                }
 
                 form.GiraFechaFinal = giraFechaFinal;
                 form.GiraFechaInicio = giraFechaInicio;
@@ -660,6 +670,121 @@ namespace capaPresentacion
             }
 
 
+        }
+
+        private void chkExtemporanea_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkExtemporanea.Checked == true)
+            {
+                RecibirJustificacion();
+            }
+        }
+
+        private void btnEnviar_Click(object sender, EventArgs e)
+        {
+            entidadSolicitudGira solicitud;
+            int retorno;
+            logicaSolicitudGira logica = new logicaSolicitudGira(Configuracion.getConnectiongString);
+
+            try
+            {
+
+                if (giraFechaInicio != DateTime.MinValue || giraFechaFinal != DateTime.MinValue)
+                {
+                    if (lugares.Count > 0)
+                    {
+                        if (!string.IsNullOrEmpty(placa) && !string.IsNullOrEmpty(idSolicitante) && !string.IsNullOrEmpty(idChofer))
+                        {
+                            if (funcionarios.Count > 0)
+                            {
+                                solicitud = GenerarSolicitud();
+                                retorno = logica.InsertarSolicitudGira(solicitud);
+
+                                if (retorno == 0)
+                                {
+                                      MessageBox.Show("La solicitud fue enviada satisfactoriamente, ", "Mensaje",            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                else if (retorno ==1 )
+                                {
+                                        MessageBox.Show("Hubo un error al insertar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+
+                                ReiniciarTodo();
+
+                            }
+                            else
+                            {
+                                MessageBox.Show("Debe añadir por lo menos un (1) asistente para enviar una gira.", "Error de datos.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Hace falta buscar un vehículo, un solicitante o un chofer para enviar la gira.", "Error de datos.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Debe añadir por lo menos un (1) lugar para enviar una gira.", "Error de datos.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Para enviar una solicitud debe haber declarado la fecha de inicio y final para la gira, así como la hora.", "Error de datos.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de excepción", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //la siguiente función genera la solicitud con la respectiva información y la devuelve para su posterior inserción en la base de datos
+
+        private entidadSolicitudGira GenerarSolicitud()
+        {
+            entidadSolicitudGira solicitud = new entidadSolicitudGira();
+
+
+            solicitud.DiaSolicitud = fechaSolicitud;
+            solicitud.DiaInicio = giraFechaInicio;
+            solicitud.DiaFinal = giraFechaFinal;
+            solicitud.HoraInicio = horaInicio;
+            solicitud.HoraFin = horaFinal;
+            solicitud.Placa = Placa;
+            solicitud.Solicitante = IdSolicitante;
+            solicitud.Chofer = IdChofer;
+            solicitud.CantidadFuncionarios = Convert.ToInt32(txtCantidad.Text);
+            solicitud.IdCentro = Convert.ToInt32(txtCentro.Text);
+            return solicitud;
+        }
+        private void btnInfo_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Para enviar una solicitud de gira requiere: una fecha de inicio y final para la gira, así como los respectivos horarios de inicio y final (8 horas máximo por dia). Puede agregar los lugares que desee. Debe agregar un solicitante, quien responderá a nombre de la gira y no necesariamente debe asistir. También, debe agregar un chofer a cargo que coincida con la licencia requerida para manejar el vehículo que seleccione. Puede agregar los funcionarios que asistirán a la gira. Importante: solamente se mostrarán los choferes, funcionarios y vehículos que estén disponibles de acuerdo a las fechas que asignó a la gira, por lo que si no aparece un resultado determinado, intente cambiando las fechas.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            ReiniciarTodo();
+        }
+
+        private string RecibirJustificacion()
+        {
+            frmExtemporanea form = new frmExtemporanea();
+            string justificacion;
+            DialogResult resultado = form.ShowDialog();
+
+            if (resultado == DialogResult.OK)
+            {
+                justificacion = form.Justificacion;
+            }
+            else
+            {
+                MessageBox.Show("Para proceder debe digitar una justificación pues la solicitud es extemporánea.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                justificacion = string.Empty;
+            }
+
+            return justificacion;
         }
 
         private void AceptarVehiculo(object placa, EventArgs e)
@@ -700,8 +825,8 @@ namespace capaPresentacion
                 {
                     txtChofer.Text = chofer.NombreApellido;
                     txtChofer.Tag = chofer.Identificacion;
-                    licenciasChofer = logicaLicencia.ListarLicencias(chofer.Identificacion);
-                    idChofer = chofer.Identificacion;
+                    licenciasChofer = logicaLicencia.ListarLicencias($"IDENTIFICACION = '{chofer.Identificacion}'");
+                    IdChofer = chofer.Identificacion;
                 }
                 else
                 {
@@ -736,7 +861,7 @@ namespace capaPresentacion
                     txtCentro.Text = vehiculo.Id_Centro.ToString();
                     txtMarca.Text = vehiculo.Marca;
                     txtEstilo.Text = vehiculo.LicenciaRequerida;
-                    placa = vehiculo.Placa;
+                    Placa = vehiculo.Placa;
                 }
                 else
                 {
@@ -755,5 +880,46 @@ namespace capaPresentacion
             txtFinal.Text = string.Empty;
             txtIDLugar.Text = string.Empty;
         }
+
+        private void limpiarVehiculo()
+        {
+            txtPlaca.Text = string.Empty;
+            txtGasolina.Text = string.Empty;
+            txtEstilo.Text = string.Empty;
+            txtModelo.Text = string.Empty;
+            txtCapacidad.Text = string.Empty;
+            txtCentro.Text = string.Empty;
+            txtMarca.Text = string.Empty;
+        }   
+
+        private void ReiniciarTodo()
+        {
+            dtpInicio.Value = dtpSolicitud.Value;
+            dtpFin.Value = dtpSolicitud.Value;
+            giraFechaInicio = DateTime.MinValue;
+            horaFinal = string.Empty;
+            horaInicio = string.Empty;
+            giraFechaFinal = DateTime.MinValue;
+            cboInicio.SelectedIndex = 0;
+            asignarHorasFin("08:00");
+            limpiarLugares();
+            grdLugares.Rows.Clear();
+            txtSolicitante.Text = string.Empty;
+            txtSolicitante.Tag = string.Empty;
+            Placa = string.Empty;
+            IdChofer = string.Empty;
+            IdSolicitante = string.Empty;
+            JustificacionExtemporaneidad = string.Empty;
+            txtChofer.Text = string.Empty;
+            txtChofer.Tag = string.Empty;
+            dgvFuncionarios.Rows.Clear();
+            txtCantidad.Text = "0";
+            licenciasChofer = null;
+            eventoBotonAgregar = false;
+            lugares.Clear();
+            funcionarios.Clear();
+            banderaConfirmarFecha = 0;
+            limpiarVehiculo();
     }
+}
 }
