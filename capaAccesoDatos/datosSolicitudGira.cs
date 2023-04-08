@@ -24,7 +24,7 @@ namespace capaAccesoDatos
 
         public int InsertarSolicitudGira(entidadSolicitudGira solicitud)
         {
-            int resultado = -1, retorno = 0;
+            int resultado = -1;
             SqlConnection cnn = new SqlConnection(cadenaConexion);
             SqlCommand comando = new SqlCommand();
             comando.Connection = cnn;
@@ -41,6 +41,7 @@ namespace capaAccesoDatos
                 comando.Parameters.AddWithValue("@HORA_INICIO", solicitud.HoraInicio);
                 comando.Parameters.AddWithValue("@HORA_FINAL", solicitud.HoraFin);
                 comando.Parameters.AddWithValue("@EXTEMPORANEA", solicitud.Extemporanea);
+                comando.Parameters.AddWithValue("@JUSTIFICACION", solicitud.Justificacion);
                 comando.Parameters.AddWithValue("@CHOFER", solicitud.Chofer);
                 comando.Parameters.AddWithValue("@SOLICITANTE", solicitud.Solicitante);
                 comando.Parameters.AddWithValue("@PLACA", solicitud.Placa);
@@ -51,13 +52,71 @@ namespace capaAccesoDatos
                 //parametros de salida
                 comando.Parameters.Add("@ID_GIRA", SqlDbType.Int).Direction = ParameterDirection.Output;
                 cnn.Open();
-                retorno = comando.ExecuteNonQuery();
+                comando.ExecuteNonQuery();
 
-                if (retorno == -1)
-                {
-                    throw new Exception("No fue posible añadir la gira.");
-                }
                 resultado = Convert.ToInt32(comando.Parameters["@ID_GIRA"].Value);
+                cnn.Close();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return resultado;
+        }
+
+        public int InsertarAcompaniantes(string idFuncionario, int idGira)
+        {
+            int resultado = -1;
+            SqlConnection cnn = new SqlConnection(cadenaConexion);
+            SqlCommand cmn = new SqlCommand();
+            cmn.Connection = cnn;
+            string sentencia;
+
+            try
+            {
+                cnn.Open();
+
+                sentencia = $"INSERT INTO ACOMPANIANTES(IDENTIFICACION, ID_GIRA) VALUES (@IDFUNCIONARIO, @IDGIRA)";
+                cmn.CommandText = sentencia;
+                cmn.Parameters.AddWithValue("@IDFUNCIONARIO", idFuncionario);
+                cmn.Parameters.AddWithValue("@IDGIRA", idGira);
+                cmn.ExecuteNonQuery();
+
+                resultado = 0;
+                cnn.Close();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return resultado;
+        }
+
+        public int InsertarLugares(string origen, string destino, int idGira)
+        {
+            int resultado = -1;
+            SqlConnection cnn = new SqlConnection(cadenaConexion);
+            SqlCommand cmn = new SqlCommand();
+            cmn.Connection = cnn;
+            string sentencia;
+
+            try
+            {
+                cnn.Open();
+
+                sentencia = $"INSERT INTO LUGARES_VISITA(ORIGEN, DESTINO, ID_GIRA) VALUES (@ORIGEN, @DESTINO, @ID_GIRA)";
+                cmn.CommandText = sentencia;
+                cmn.Parameters.AddWithValue("@ORIGEN", origen);
+                cmn.Parameters.AddWithValue("@DESTINO", destino);
+
+                cmn.Parameters.AddWithValue("@ID_GIRA", idGira);
+                cmn.ExecuteNonQuery();
+
+                resultado = 0;
                 cnn.Close();
             }
             catch (Exception ex)

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="datosCentroFormacion.cs" />
     <Compile Include="datosFuncionario.cs" />
     <Compile Include="datosLicencia.cs" />
     <Compile Include="datosSolicitudGira.cs" />

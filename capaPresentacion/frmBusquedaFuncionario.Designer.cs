@@ -242,7 +242,7 @@
             this.Controls.Add(this.label1);
             this.MinimizeBox = false;
             this.Name = "frmBusquedaFuncionario";
-            this.Text = "Búsqueda de Solicitante";
+            this.Text = "Búsqueda de Funcionarios";
             this.Load += new System.EventHandler(this.frmBusquedaSolicitante_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grdSolicitante)).EndInit();
             this.ResumeLayout(false);

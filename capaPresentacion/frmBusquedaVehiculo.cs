@@ -103,19 +103,19 @@ namespace capaPresentacion
                 {
                     if (cboTipo.SelectedIndex == 0)
                     {
-                        condicion = $"CAPACIDAD >= {nudCantidadF.Value} AND DISPONIBILIDAD = 1";
+                        condicion = $"CAPACIDAD >= {nudCantidadF.Value} AND DISPONIBILIDAD = 1 AND PLACA IN (SELECT PLACA FROM MARCHAMOS WHERE YEAR(FECHA) = YEAR('{giraFechaInicio.ToString("yyyy/MM/dd")}')) AND PLACA NOT IN (SELECT PLACA FROM REVISIONES_TALLER WHERE PROXIMA_REVISION BETWEEN '{giraFechaInicio.ToString("yyyy/MM/dd")}' AND '{giraFechaFinal.ToString("yyyy/MM/dd")}') AND PLACA NOT IN (SELECT PLACA FROM REVISIONES_TECNICAS WHERE PROXIMA_FECHA BETWEEN '{giraFechaInicio.ToString("yyyy/MM/dd")}' AND '{giraFechaFinal.ToString("yyyy/MM/dd")}') AND PLACA IN (SELECT PLACA FROM SEGUROS_VEHICULOS WHERE VENCIMIENTO >  '{giraFechaInicio.ToString("yyyy/MM/dd")}' AND VENCIMIENTO > '{giraFechaFinal.ToString("yyyy/MM/dd")}') AND PLACA NOT IN (SELECT PLACA FROM SOLICITUDES_GIRAS WHERE ESTADO = 'APROBADA' AND (('{giraFechaInicio.ToString("yyyy/MM/dd")}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{giraFechaFinal.ToString("yyyy/MM/dd")}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{giraFechaInicio.ToString("yyyy/MM/dd")}' AND '{giraFechaFinal.ToString("yyyy/MM/dd")}') OR (DIA_FINAL BETWEEN '{giraFechaInicio.ToString("yyyy/MM/dd")}' AND '{giraFechaFinal.ToString("yyyy/MM/dd")}')))";
                     }
                     else if (cboTipo.SelectedIndex == 1)
                     {
-                        condicion = $"ID_CENTRO = (SELECT 1 FROM CENTROS_DE_FORMACION WHERE NOMBRE LIKE '%{txtInfo.Text}%') AND DISPONIBILIDAD = 1";
+                        condicion = $"ID_CENTRO = (SELECT 1 FROM CENTROS_DE_FORMACION WHERE NOMBRE LIKE '%{txtInfo.Text}%') AND DISPONIBILIDAD = 1 AND PLACA IN(SELECT PLACA FROM MARCHAMOS WHERE YEAR(FECHA) = YEAR('{giraFechaInicio.ToString("yyyy/MM/dd")}')) AND PLACA NOT IN(SELECT PLACA FROM REVISIONES_TALLER WHERE PROXIMA_REVISION BETWEEN '{giraFechaInicio.ToString("yyyy/MM/dd")}' AND '{giraFechaFinal.ToString("yyyy/MM/dd")}') AND PLACA NOT IN(SELECT PLACA FROM REVISIONES_TECNICAS WHERE PROXIMA_FECHA BETWEEN '{giraFechaInicio.ToString("yyyy/MM/dd")}' AND '{giraFechaFinal.ToString("yyyy/MM/dd")}') AND PLACA IN(SELECT PLACA FROM SEGUROS_VEHICULOS WHERE VENCIMIENTO > '{giraFechaInicio.ToString("yyyy/MM/dd")}' AND VENCIMIENTO > '{giraFechaFinal.ToString("yyyy/MM/dd")}') AND PLACA NOT IN (SELECT PLACA FROM SOLICITUDES_GIRAS WHERE ESTADO = 'APROBADA' AND (('{giraFechaInicio.ToString("yyyy/MM/dd")}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{giraFechaFinal.ToString("yyyy/MM/dd")}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{giraFechaInicio.ToString("yyyy/MM/dd")}' AND '{giraFechaFinal.ToString("yyyy/MM/dd")}') OR (DIA_FINAL BETWEEN '{giraFechaInicio.ToString("yyyy/MM/dd")}' AND '{giraFechaFinal.ToString("yyyy/MM/dd")}')))";
                     }
                     else if (cboTipo.SelectedIndex == 2)
                     {
-                        condicion = $"PLACA LIKE '%{txtInfo.Text}%' AND DISPONIBILIDAD = 1";
+                        condicion = $"PLACA LIKE '%{txtInfo.Text}%' AND DISPONIBILIDAD = 1 AND PLACA IN (SELECT PLACA FROM MARCHAMOS WHERE YEAR(FECHA) = YEAR('{giraFechaInicio.ToString("yyyy/MM/dd")}')) AND PLACA NOT IN (SELECT PLACA FROM REVISIONES_TALLER WHERE PROXIMA_REVISION BETWEEN '{giraFechaInicio.ToString("yyyy/MM/dd")}' AND '{giraFechaFinal.ToString("yyyy/MM/dd")}') AND PLACA NOT IN (SELECT PLACA FROM REVISIONES_TECNICAS WHERE PROXIMA_FECHA BETWEEN '{giraFechaInicio.ToString("yyyy/MM/dd")}' AND '{giraFechaFinal.ToString("yyyy/MM/dd")}') AND PLACA IN (SELECT PLACA FROM SEGUROS_VEHICULOS WHERE VENCIMIENTO >  '{giraFechaInicio.ToString("yyyy/MM/dd")}' AND VENCIMIENTO > '{giraFechaFinal.ToString("yyyy/MM/dd")}') AND PLACA NOT IN (SELECT PLACA FROM SOLICITUDES_GIRAS WHERE ESTADO = 'APROBADA' AND (('{giraFechaInicio.ToString("yyyy/MM/dd")}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{giraFechaFinal.ToString("yyyy/MM/dd")}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{giraFechaInicio.ToString("yyyy/MM/dd")}' AND '{giraFechaFinal.ToString("yyyy/MM/dd")}') OR (DIA_FINAL BETWEEN '{giraFechaInicio.ToString("yyyy/MM/dd")}' AND '{giraFechaFinal.ToString("yyyy/MM/dd")}')))";
                     }
                     else
                     {
-                        condicion = $"LICENCIA_REQUERIDA LIKE '%{txtInfo.Text}%' AND DISPONIBILIDAD = 1";
+                        condicion = $"LICENCIA_REQUERIDA LIKE '%{txtInfo.Text}%' AND DISPONIBILIDAD = 1 AND PLACA IN (SELECT PLACA FROM MARCHAMOS WHERE YEAR(FECHA) = YEAR('{giraFechaInicio.ToString("yyyy/MM/dd")}')) AND PLACA NOT IN (SELECT PLACA FROM REVISIONES_TALLER WHERE PROXIMA_REVISION BETWEEN '{giraFechaInicio.ToString("yyyy/MM/dd")}' AND '{giraFechaFinal.ToString("yyyy/MM/dd")}') AND PLACA NOT IN (SELECT PLACA FROM REVISIONES_TECNICAS WHERE PROXIMA_FECHA BETWEEN '{giraFechaInicio.ToString("yyyy/MM/dd")}' AND '{giraFechaFinal.ToString("yyyy/MM/dd")}') AND PLACA IN (SELECT PLACA FROM SEGUROS_VEHICULOS WHERE VENCIMIENTO >  '{giraFechaInicio.ToString("yyyy/MM/dd")}' AND VENCIMIENTO > '{giraFechaFinal.ToString("yyyy/MM/dd")}') AND PLACA NOT IN (SELECT PLACA FROM SOLICITUDES_GIRAS WHERE ESTADO = 'APROBADA' AND (('{giraFechaInicio.ToString("yyyy/MM/dd")}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{giraFechaFinal.ToString("yyyy/MM/dd")}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{giraFechaInicio.ToString("yyyy/MM/dd")}' AND '{giraFechaFinal.ToString("yyyy/MM/dd")}') OR (DIA_FINAL BETWEEN '{giraFechaInicio.ToString("yyyy/MM/dd")}' AND '{giraFechaFinal.ToString("yyyy/MM/dd")}')))";
                     }
                     CargarVehiculos(condicion);
                 }
@@ -196,7 +196,7 @@ namespace capaPresentacion
                 }
                 else
                 {
-                    MessageBox.Show("No hay ningún solicitante seleccionado.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No hay ningún vehículo seleccionado.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)

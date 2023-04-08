@@ -110,27 +110,36 @@ namespace capaPresentacion
 
                 if (!string.IsNullOrEmpty(txtInfo.Text))
                 {
-                    if (cboTipo.SelectedIndex == 1)
+                    if (tipoBusqueda == 1)
                     {
+                        if (cboTipo.SelectedIndex == 1)
+                        {
 
-                        condicion = $"CONCAT(NOMBRE, ' ', APELLIDO_UNO, ' ', APELLIDO_DOS) LIKE '%{txtInfo.Text}%' AND ACTIVO = 0";
-       
+                            condicion = $"CONCAT(NOMBRE, ' ', APELLIDO_UNO, ' ', APELLIDO_DOS) LIKE '%{txtInfo.Text}%' AND ACTIVO = 0";
+
+                        }
+                        else
+                        {
+                            condicion = $"IDENTIFICACION LIKE '%{txtInfo.Text}%' AND ACTIVO = 0";
+                        }
                     }
                     else
                     {
-                        
-                        if (tipoBusqueda == 1)
+                        if (cboTipo.SelectedIndex == 1)
                         {
-                            condicion = $"IDENTIFICACION LIKE '%{txtInfo.Text}%' AND ACTIVO = 0";
+
+                            condicion = $"CONCAT(NOMBRE, ' ', APELLIDO_UNO, ' ', APELLIDO_DOS) LIKE '%{txtInfo.Text}%' AND ACTIVO = 0 AND IDENTIFICACION NOT IN (SELECT CHOFER FROM SOLICITUDES_GIRAS WHERE ESTADO='APROBADA' AND (('{fechaInicio}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFinal}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFinal}') OR (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFinal}'))) AND IDENTIFICACION NOT IN (SELECT IDENTIFICACION FROM ACOMPANIANTES INNER JOIN SOLICITUDES_GIRAS ON ACOMPANIANTES.ID_GIRA = SOLICITUDES_GIRAS.ID_GIRA WHERE  ESTADO='APROBADA' AND  (('{fechaFinal}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFinal}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFinal}') OR  (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFinal}')))";
+
                         }
                         else
                         {
 
-                        condicion = $"IDENTIFICACION NOT IN (SELECT IDENTIFICACION FROM ACOMPANIANTES A INNER JOIN SOLICITUDES_GIRAS SG ON SG.ID_GIRA = A.ID_GIRA WHERE DIA_INICIO BETWEEN '{fechaInicio.ToString("yyyy/MM/dd")}' and '{fechaFinal.ToString("yyyy/MM/dd")}' OR DIA_FINAL BETWEEN '{fechaInicio.ToString("yyyy/MM/dd")}' and '{fechaFinal.ToString("yyyy/MM/dd")}') AND ACTIVO = 0";
+                            condicion = $"IDENTIFICACION LIKE '%{txtInfo.Text}%' AND ACTIVO = 0 AND IDENTIFICACION NOT IN (SELECT CHOFER FROM SOLICITUDES_GIRAS WHERE  ESTADO='APROBADA' AND  (('{fechaInicio}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFinal}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFinal}') OR (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFinal}'))) AND IDENTIFICACION NOT IN (SELECT IDENTIFICACION FROM ACOMPANIANTES INNER JOIN SOLICITUDES_GIRAS ON ACOMPANIANTES.ID_GIRA = SOLICITUDES_GIRAS.ID_GIRA WHERE  ESTADO='APROBADA' AND  (('{fechaFinal}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFinal}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFinal}') OR  (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFinal}')))" +
+                                $"";
 
                         }
-
                     }
+
                     CargarSolicitantes(condicion);
                 }
                 else

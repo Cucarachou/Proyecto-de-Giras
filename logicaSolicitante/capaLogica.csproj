@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="logicaCentroFormacion.cs" />
     <Compile Include="logicaFuncionario.cs" />
     <Compile Include="logicaLicencia.cs" />
     <Compile Include="logicaSolicitudGira.cs" />

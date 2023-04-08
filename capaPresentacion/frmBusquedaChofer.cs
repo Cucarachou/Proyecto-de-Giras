@@ -111,11 +111,11 @@ namespace capaPresentacion
                 {
                     if (cboTipo.SelectedIndex == 1)
                     {
-                        condicion = $"CONCAT(NOMBRE, ' ', APELLIDO_UNO, ' ', APELLIDO_DOS) LIKE '%{txtInfo.Text}%' AND ACTIVO = 0 AND CHOFER = 1";
+                        condicion = $"CONCAT(NOMBRE, ' ', APELLIDO_UNO, ' ', APELLIDO_DOS) LIKE '%{txtInfo.Text}%' AND ACTIVO = 0 AND CHOFER = 1 AND IDENTIFICACION NOT IN (SELECT CHOFER FROM SOLICITUDES_GIRAS WHERE  ESTADO='APROBADA' AND  (('{fechaInicio}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFin}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFin}') OR (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFin}'))) AND IDENTIFICACION NOT IN (SELECT IDENTIFICACION FROM ACOMPANIANTES INNER JOIN SOLICITUDES_GIRAS ON ACOMPANIANTES.ID_GIRA = SOLICITUDES_GIRAS.ID_GIRA WHERE ESTADO='APROBADA' AND  (('{fechaFin}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFin}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFin}') OR  (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFin}')))";
                     }
                     else
                     {
-                        condicion = $"IDENTIFICACION LIKE '%{txtInfo.Text}%' AND ACTIVO = 0 AND CHOFER = 1";
+                        condicion = $"IDENTIFICACION LIKE '%{txtInfo.Text}%' AND ACTIVO = 0 AND CHOFER = 1 AND IDENTIFICACION NOT IN (SELECT CHOFER FROM SOLICITUDES_GIRAS WHERE ESTADO='APROBADA' AND (('{fechaInicio}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFin}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFin}') OR (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFin}'))) AND IDENTIFICACION NOT IN (SELECT IDENTIFICACION FROM ACOMPANIANTES INNER JOIN SOLICITUDES_GIRAS ON ACOMPANIANTES.ID_GIRA = SOLICITUDES_GIRAS.ID_GIRA WHERE ESTADO='APROBADA' AND (('{fechaFin}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFin}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFin}') OR  (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFin}')))";
                     }
                     CargarChoferes(condicion);
                 }
@@ -349,6 +349,13 @@ namespace capaPresentacion
             }
 
             return mensaje;
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            List<entidadChofer> listaVacia = new List<entidadChofer>();
+            grdLista.DataSource = listaVacia;
+            txtInfo.Text = string.Empty;
         }
 
         private void grdLista_CellContentClick(object sender, DataGridViewCellEventArgs e)

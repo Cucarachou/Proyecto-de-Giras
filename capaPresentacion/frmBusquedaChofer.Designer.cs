@@ -52,8 +52,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtFinal = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnLicencias = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.grdLista)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -223,6 +223,7 @@
             this.btnLimpiar.TabIndex = 7;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // btnSalir
             // 
@@ -291,6 +292,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Chófer de la Gira";
             // 
+            // btnLicencias
+            // 
+            this.btnLicencias.Location = new System.Drawing.Point(419, 221);
+            this.btnLicencias.Name = "btnLicencias";
+            this.btnLicencias.Size = new System.Drawing.Size(119, 23);
+            this.btnLicencias.TabIndex = 8;
+            this.btnLicencias.Text = "Consultar Licencias";
+            this.btnLicencias.UseVisualStyleBackColor = true;
+            this.btnLicencias.Click += new System.EventHandler(this.btnLicencias_Click);
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label2);
@@ -303,16 +314,6 @@
             this.groupBox2.TabIndex = 14;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Fechas de Gira";
-            // 
-            // btnLicencias
-            // 
-            this.btnLicencias.Location = new System.Drawing.Point(419, 221);
-            this.btnLicencias.Name = "btnLicencias";
-            this.btnLicencias.Size = new System.Drawing.Size(119, 23);
-            this.btnLicencias.TabIndex = 8;
-            this.btnLicencias.Text = "Consultar Licencias";
-            this.btnLicencias.UseVisualStyleBackColor = true;
-            this.btnLicencias.Click += new System.EventHandler(this.btnLicencias_Click);
             // 
             // frmBusquedaChofer
             // 

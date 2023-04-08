@@ -10,7 +10,7 @@ namespace capaLógica
     {
 
         //atributos
-        private string estado, horaInicio, horaFin, solicitante, chofer, aprobador, placa;
+        private string estado, horaInicio, horaFin, solicitante, chofer, aprobador, placa, justificacion;
         private int idGira, idCentro, extemporanea, cantidadFuncionarios;
         private DateTime diaInicio, diaFinal, diaSolicitud;
 
@@ -26,6 +26,7 @@ namespace capaLógica
         public int IdGira { get => idGira; set => idGira = value; }
         public int IdCentro { get => idCentro; set => idCentro = value; }
         public int Extemporanea { get => extemporanea; set => extemporanea = value; }
+        public string Justificacion { get => justificacion; set => justificacion = value; }
         public DateTime DiaSolicitud { get => diaSolicitud; set => diaSolicitud = value; }
         public DateTime DiaInicio { get => diaInicio; set => diaInicio = value; }
         public DateTime DiaFinal { get => diaFinal; set => diaFinal = value; }

@@ -37,12 +37,14 @@ namespace capaPresentacion
 
         //la siguiente lista almacena las licencias que posee el chofer elegido, esto por si el usuario primeramente elige el chofer, lo que permitirá pasar las licencias y filtrar la búsqueda la buscar un automóvil
         private List<entidadLicencia> licenciasChofer;
-        private string placa, idChofer, idSolicitante, justificacionExtemporaneidad;
+        private string placa, idChofer, idSolicitante, justificacionExtemporanea;
+        private int idCentro;
 
         public string Placa { get => placa; set => placa = value; }
         public string IdChofer { get => idChofer; set => idChofer = value; }
         public string IdSolicitante { get => idSolicitante; set => idSolicitante = value; }
-        public string JustificacionExtemporaneidad { get => justificacionExtemporaneidad; set => justificacionExtemporaneidad = value; }
+        public string JustificacionExtemporanea { get => justificacionExtemporanea; set => justificacionExtemporanea  = value; }
+        public int IdCentro { get => idCentro; set => idCentro = value; }
 
         public frmSolicitudGira()
         {
@@ -140,11 +142,26 @@ namespace capaPresentacion
                 if (dtpInicio.Value <= dtpFin.Value && dtpInicio.Value > dtpSolicitud.Value &&
                     dtpFin.Value > dtpSolicitud.Value)
                 {
-                    giraFechaInicio = dtpInicio.Value.Date;
-                    giraFechaFinal = dtpFin.Value.Date;
-                    horaInicio = cboInicio.Text;
-                    horaFinal = cboFin.Text;
-                    MessageBox.Show($"Nuevas fechas confirmadas. Fecha inicio: {giraFechaInicio.Date}- Fecha fin: {giraFechaFinal.Date}, Hora de Inicio: {horaInicio} / Hora de Fin: {horaFinal}", "Fechas confirmadas", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                    if (CompararFechas(dtpSolicitud.Value, dtpInicio.Value))
+                    {
+                        giraFechaInicio = dtpInicio.Value.Date;
+                        giraFechaFinal = dtpFin.Value.Date;
+                        horaInicio = cboInicio.Text;
+                        horaFinal = cboFin.Text;
+                        MessageBox.Show($"Nuevas fechas confirmadas. Fecha inicio: {giraFechaInicio.Date.ToString("dd-MM-yyyy")} / Fecha fin: {giraFechaFinal.Date.ToString("dd-MM-yyyy")}. Hora de Inicio: {horaInicio} / Hora de Fin: {horaFinal}", "Fechas confirmadas", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                    else
+                    {
+                        giraFechaInicio = dtpInicio.Value.Date;
+                        giraFechaFinal = dtpFin.Value.Date;
+                        horaInicio = cboInicio.Text;
+                        horaFinal = cboFin.Text;
+                        MessageBox.Show($"Atención, la solicitud de gira debe mandarse como extemporánea pues está a menos de siete días del día de inicio. Por favor, digite la respectiva justificación a continuación", "Fecha extemporánea", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        justificacionExtemporanea = RecibirJustificacion();
+                        chkExtemporanea.Checked = true;
+                    }
+
                 }
                 else
                 {
@@ -170,10 +187,9 @@ namespace capaPresentacion
                     if (advertencia == DialogResult.Yes)
                     {
                         banderaConfirmarFecha = 0;
-                        lugares.Clear();
                         limpiarLugares();
-                        grdLugares.Rows.Clear();
                         btnConfirmar_Click(sender, e);
+                        ReiniciarTodo(true);
                     }
                     else
                     {
@@ -202,7 +218,7 @@ namespace capaPresentacion
             dtpFin.Value = fechaSolicitud;
             dtpInicio.Enabled = true;
             dtpFin.Enabled = true;
-
+            IdCentro = -1;
         }
 
         /* el siguiente evento sucede cuando el datetimepicker de inicio de gira es cambiado, de modo que verifique si se ha insertado una fecha menor a la fecha de solicitud, además de asignar a la variable global de inicio el valor elegido por el usuario */
@@ -498,6 +514,30 @@ namespace capaPresentacion
             }
         }
 
+        private void AceptarCentro(object idCentro, EventArgs e)
+        {
+            try
+            {
+                int id = Convert.ToInt32(idCentro);
+
+                if (id != -1)
+                {
+                    BuscarCentro(id);
+                }
+                else
+                {
+                    MessageBox.Show("No fue seleccionado ningún centro de formación.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Error de excepción", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+
         private void btnBuscarDos_Click(object sender, EventArgs e)
         {
 
@@ -505,9 +545,9 @@ namespace capaPresentacion
             {
 
                 frmBusquedaChofer form = new frmBusquedaChofer();
-                form.FechaInicio = giraFechaInicio.ToString();
+                form.FechaInicio = giraFechaInicio.ToString("yyyy-MM-dd");
                 form.AceptarChofer += new EventHandler(AceptarChofer);
-                form.FechaFin = giraFechaFinal.ToString();
+                form.FechaFin = giraFechaFinal.ToString("yyyy-MM-dd");
                 if (!string.IsNullOrEmpty(txtPlaca.Text))
                 {
                     form.LicenciaVehiculo = txtEstilo.Text;
@@ -585,13 +625,34 @@ namespace capaPresentacion
         {
             if (giraFechaInicio != DateTime.MinValue || giraFechaFinal != DateTime.MinValue)
             {
-                frmBusquedaFuncionario form = new frmBusquedaFuncionario();
-                form.TipoBusqueda = 2;
-                form.FechaInicio = giraFechaInicio;
-                form.FechaFinal = giraFechaFinal;
-                form.AceptarFuncionario += new EventHandler(AceptarFuncionario);
+                if (string.IsNullOrEmpty(txtCapacidad.Text))
+                {
+                    frmBusquedaFuncionario form = new frmBusquedaFuncionario();
+                    form.TipoBusqueda = 2;
+                    form.FechaInicio = giraFechaInicio;
+                    form.FechaFinal = giraFechaFinal;
+                    form.AceptarFuncionario += new EventHandler(AceptarFuncionario);
 
-                form.Show();
+                    form.Show();
+                }
+                else
+                {
+                    if (Convert.ToInt32(txtCantidad.Text) + 2 <= Convert.ToInt32(txtCapacidad.Text))
+                    {
+                        frmBusquedaFuncionario form = new frmBusquedaFuncionario();
+                        form.TipoBusqueda = 2;
+                        form.FechaInicio = giraFechaInicio;
+                        form.FechaFinal = giraFechaFinal;
+                        form.AceptarFuncionario += new EventHandler(AceptarFuncionario);
+
+                        form.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("La cantidad de funciones seleccionados no puede superar la capacidad del vehículo seleccionado. Tome en cuenta que el chofer se toma en cuenta respecto a la cantidad de funcionarios que asisten a la gira. Por favor, asegúrese de elegir un vehículo con más capacidad.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+                    }
+                }
             }
             else
             {
@@ -674,16 +735,13 @@ namespace capaPresentacion
 
         private void chkExtemporanea_CheckedChanged(object sender, EventArgs e)
         {
-            if (chkExtemporanea.Checked == true)
-            {
-                RecibirJustificacion();
-            }
         }
 
         private void btnEnviar_Click(object sender, EventArgs e)
         {
             entidadSolicitudGira solicitud;
             int retorno;
+            int resultado;
             logicaSolicitudGira logica = new logicaSolicitudGira(Configuracion.getConnectiongString);
 
             try
@@ -695,38 +753,58 @@ namespace capaPresentacion
                     {
                         if (!string.IsNullOrEmpty(placa) && !string.IsNullOrEmpty(idSolicitante) && !string.IsNullOrEmpty(idChofer))
                         {
-                            if (funcionarios.Count > 0)
+
+                            if (idCentro > -1)
                             {
-                                solicitud = GenerarSolicitud();
-                                retorno = logica.InsertarSolicitudGira(solicitud);
+                                if (funcionarios.Count > 0)
+                                {
+                                    solicitud = GenerarSolicitud();
+                                    retorno = logica.InsertarSolicitudGira(solicitud);
 
-                                if (retorno == 0)
-                                {
-                                      MessageBox.Show("La solicitud fue enviada satisfactoriamente, ", "Mensaje",            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                }
-                                else if (retorno ==1 )
-                                {
+                                    if (retorno > 0)
+                                    {
+
+                                        foreach (entidadFuncionario item in funcionarios)
+                                        {
+                                            resultado = logica.InsertarAcompaniante(item.Identificacion, retorno);
+                                        }
+
+                                        foreach (entidadLugar item in lugares)
+                                        {
+                                            resultado = logica.InsertarLugares(item.Origen, item.Destino, retorno);
+                                        }
+                                        MessageBox.Show($"La solicitud fue enviada satisfactoriamente, puede consultarla con la id: {retorno}", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        ReiniciarTodo();
+                                    }
+                                    else
+                                    {
                                         MessageBox.Show("Hubo un error al insertar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
                                 }
+                                else
+                                {
+                                    MessageBox.Show("Debe añadir por lo menos un (1) asistente para enviar una gira.", "Error de datos.", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                                ReiniciarTodo();
-
+                                }
                             }
                             else
                             {
-                                MessageBox.Show("Debe añadir por lo menos un (1) asistente para enviar una gira.", "Error de datos.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("Asegúrese añadir el centro de formación desde donde se envía la solicitud de la gira.", "Error de datos.", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                             }
+
                         }
                         else
                         {
-                            MessageBox.Show("Hace falta buscar un vehículo, un solicitante o un chofer para enviar la gira.", "Error de datos.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Hace falta buscar un vehículo, un solicitante, un chofer o agregar el centro de formación para enviar la gira.", "Error de datos.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
+
                     }
                     else
                     {
                         MessageBox.Show("Debe añadir por lo menos un (1) lugar para enviar una gira.", "Error de datos.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+
                 }
                 else
                 {
@@ -755,7 +833,18 @@ namespace capaPresentacion
             solicitud.Solicitante = IdSolicitante;
             solicitud.Chofer = IdChofer;
             solicitud.CantidadFuncionarios = Convert.ToInt32(txtCantidad.Text);
-            solicitud.IdCentro = Convert.ToInt32(txtCentro.Text);
+            solicitud.IdCentro = IdCentro;
+            solicitud.Extemporanea = (string.IsNullOrEmpty(justificacionExtemporanea)) ? 0 : 1;
+
+            if (solicitud.Extemporanea == 1)
+            {
+                solicitud.Justificacion = justificacionExtemporanea;
+            }
+            else
+            {
+                solicitud.Justificacion = string.Empty;
+
+            }
             return solicitud;
         }
         private void btnInfo_Click(object sender, EventArgs e)
@@ -808,6 +897,18 @@ namespace capaPresentacion
                 MessageBox.Show(ex.Message, "Error de excepción", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void btnBuscarCentro_Click(object sender, EventArgs e)
+        {
+
+            frmBusquedaCentro form = new frmBusquedaCentro();
+            form.AceptarCentro += new EventHandler(AceptarCentro);
+            form.Show();
+
+        }
+
+
+
         private void BuscarChofer(string idChofer)
         {
             entidadChofer chofer;
@@ -843,7 +944,9 @@ namespace capaPresentacion
         private void BuscarVehiculo(string placa)
         {
             entidadVehiculo vehiculo;
+            entidadCentroFormacion centro;
             logicaVehiculo logica = new logicaVehiculo(Configuracion.getConnectiongString);
+            logicaCentroFormacion logicaCentro = new logicaCentroFormacion(Configuracion.getConnectiongString);
             logica.CadenaConexion = Configuracion.getConnectiongString;
             string condicion = $"PLACA = '{placa}'";
 
@@ -851,21 +954,21 @@ namespace capaPresentacion
             {
 
                 vehiculo = logica.ObtenerVehiculo(condicion);
-
+                centro = logicaCentro.ObtenerCentroFormacion($"ID_CENTRO = '{vehiculo.Id_Centro}'");
                 if (vehiculo.Placa == placa)
                 {
                     txtPlaca.Text = vehiculo.Placa;
                     txtModelo.Text = vehiculo.Modelo;
                     txtGasolina.Text = vehiculo.Combustible;
                     txtCapacidad.Text = vehiculo.Capacidad.ToString();
-                    txtCentro.Text = vehiculo.Id_Centro.ToString();
+                    txtCentro.Text = centro.Nombre;
                     txtMarca.Text = vehiculo.Marca;
                     txtEstilo.Text = vehiculo.LicenciaRequerida;
                     Placa = vehiculo.Placa;
                 }
                 else
                 {
-                    MessageBox.Show("No se ha podido cargar el solicitante. Debe haber un error al seleccionarlo.", "Error de carga", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No se ha podido cargar el vehículo. Debe haber un error al seleccionarlo.", "Error de carga", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
@@ -874,6 +977,37 @@ namespace capaPresentacion
                 MessageBox.Show(ex.Message, "Error de excepción", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
+
+        private void BuscarCentro(int idCentro)
+        {
+            entidadCentroFormacion centro;
+            logicaCentroFormacion logica = new logicaCentroFormacion(Configuracion.getConnectiongString);
+            logica.CadenaConexion = Configuracion.getConnectiongString;
+            string condicion = $"ID_CENTRO = '{idCentro}'";
+
+            try
+            {
+
+                centro = logica.ObtenerCentroFormacion(condicion);
+
+                if (centro.IdCentro == idCentro)
+                {
+                    txtCentroDeForm.Text = centro.Nombre;
+                    txtCentroDeForm.Tag = centro.IdCentro;
+                    IdCentro = centro.IdCentro;
+                }
+                else
+                {
+                    MessageBox.Show("No se ha podido cargar el centro de formación. Debe haber un error al seleccionarlo.", "Error de carga", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Error de excepción", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
         private void limpiarLugares()
         {
             txtOrigen.Text = string.Empty;
@@ -890,18 +1024,30 @@ namespace capaPresentacion
             txtCapacidad.Text = string.Empty;
             txtCentro.Text = string.Empty;
             txtMarca.Text = string.Empty;
-        }   
+        }
 
-        private void ReiniciarTodo()
+        private void ReiniciarPorFechas()
         {
-            dtpInicio.Value = dtpSolicitud.Value;
-            dtpFin.Value = dtpSolicitud.Value;
-            giraFechaInicio = DateTime.MinValue;
-            horaFinal = string.Empty;
-            horaInicio = string.Empty;
-            giraFechaFinal = DateTime.MinValue;
-            cboInicio.SelectedIndex = 0;
-            asignarHorasFin("08:00");
+
+        }
+        private void ReiniciarTodo(bool reinicioFechas = false)
+        {
+            if (!reinicioFechas)
+            {
+                dtpInicio.Value = dtpSolicitud.Value;
+                dtpFin.Value = dtpSolicitud.Value;
+                giraFechaInicio = DateTime.MinValue;
+                horaFinal = string.Empty;
+                horaInicio = string.Empty;
+                giraFechaFinal = DateTime.MinValue;
+                cboInicio.SelectedIndex = 0;
+                asignarHorasFin("08:00");
+                chkExtemporanea.Checked = false;
+                JustificacionExtemporanea = string.Empty;
+            }
+
+
+
             limpiarLugares();
             grdLugares.Rows.Clear();
             txtSolicitante.Text = string.Empty;
@@ -909,7 +1055,7 @@ namespace capaPresentacion
             Placa = string.Empty;
             IdChofer = string.Empty;
             IdSolicitante = string.Empty;
-            JustificacionExtemporaneidad = string.Empty;
+
             txtChofer.Text = string.Empty;
             txtChofer.Tag = string.Empty;
             dgvFuncionarios.Rows.Clear();
@@ -920,6 +1066,31 @@ namespace capaPresentacion
             funcionarios.Clear();
             banderaConfirmarFecha = 0;
             limpiarVehiculo();
+            idCentro = -1;
+            txtCentroDeForm.Text = string.Empty;
+
+        }
+
+        //la siguiente función verifica si la día de solicitud y la fecha de inicio tienen siete días menos de diferencia
+        //y si es lunes o martes, para de esta manera declarar la solicitud como extemporánea
+
+        public bool CompararFechas(DateTime fechaSolicitud, DateTime fechaInicio)
+        {
+            TimeSpan diferencia = fechaInicio - fechaSolicitud;
+
+            if (diferencia.TotalDays <= 7)
+            {
+                if (fechaSolicitud.DayOfWeek == DayOfWeek.Monday || fechaSolicitud.DayOfWeek == DayOfWeek.Tuesday)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
-}
 }

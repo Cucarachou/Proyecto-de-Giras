@@ -42,5 +42,40 @@ namespace logicaSolicitante
             return resultado;
         }
 
+        public int InsertarAcompaniante(string idAcompaniante, int idGira)
+        {
+            int resultado;
+
+            datosSolicitudGira datos = new datosSolicitudGira(cadenaConexion);
+            try
+            {
+                resultado = datos.InsertarAcompaniantes(idAcompaniante, idGira);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return resultado;
+        }
+
+        public int InsertarLugares(string origen, string destino, int idGira)
+        {
+            int resultado;
+
+            datosSolicitudGira datos = new datosSolicitudGira(cadenaConexion);
+            try
+            {
+                resultado = datos.InsertarLugares(origen, destino, idGira);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return resultado;
+        }
     }
 }
