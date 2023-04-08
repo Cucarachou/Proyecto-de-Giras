@@ -323,7 +323,7 @@
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(84, 23);
             this.btnEliminar.TabIndex = 13;
-            this.btnEliminar.Text = "E&liminar lugar";
+            this.btnEliminar.Text = "Eli&minar lugar";
             this.btnEliminar.UseVisualStyleBackColor = true;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
