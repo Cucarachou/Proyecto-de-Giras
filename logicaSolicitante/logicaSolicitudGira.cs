@@ -114,5 +114,23 @@ namespace logicaSolicitante
 
             return resultado;
         }
+
+        public bool AprobarSolicitud(string condicion, string aprobador)
+        {
+            bool resultado = false;
+            datosSolicitudGira accesoDatos = new datosSolicitudGira(CadenaConexion);
+
+            try
+            {
+                resultado = accesoDatos.AprobarSolicitud(condicion, aprobador);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return resultado;
+        } 
     }
 }

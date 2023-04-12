@@ -106,5 +106,41 @@ namespace capaAccesoDatos
 
             return vehiculo;
         }
+
+
+        public bool VerificarDisponibilidadVehiculo(string condicion)
+        {
+            bool resultado = false;
+
+            SqlConnection connection = new SqlConnection(cadenaConexion);
+            SqlCommand command = new SqlCommand();
+            command.Connection = connection;
+            SqlDataReader datos;
+            string sentencia = "SELECT V.PLACA FROM VEHICULOS";
+
+            sentencia = $"{sentencia} {condicion}";
+
+            command.CommandText = sentencia;
+
+            try
+            {
+                connection.Open();
+                datos = command.ExecuteReader();
+
+                if (datos.HasRows)
+                {
+                    resultado = true;
+                }
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return resultado;
+        }
     }
 }

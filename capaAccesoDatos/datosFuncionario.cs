@@ -327,7 +327,6 @@ namespace capaAccesoDatos
         {
             bool resultado = false;
 
-            entidadFuncionario funcionario = new entidadChofer();
             SqlConnection connection = new SqlConnection(cadenaConexion);
             SqlCommand command = new SqlCommand();
             command.Connection = connection;

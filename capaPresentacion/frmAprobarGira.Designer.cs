@@ -33,7 +33,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnConsultar = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnRechazar = new System.Windows.Forms.Button();
             this.btnAprobar = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
             this.btnBuscarGira = new System.Windows.Forms.Button();
@@ -93,7 +93,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btnConsultar);
-            this.groupBox2.Controls.Add(this.button3);
+            this.groupBox2.Controls.Add(this.btnRechazar);
             this.groupBox2.Controls.Add(this.btnAprobar);
             this.groupBox2.Controls.Add(this.btnSalir);
             this.groupBox2.Controls.Add(this.btnBuscarGira);
@@ -118,14 +118,15 @@
             this.btnConsultar.UseVisualStyleBackColor = true;
             this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
             // 
-            // button3
+            // btnRechazar
             // 
-            this.button3.Location = new System.Drawing.Point(286, 231);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "&Rechazar";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnRechazar.Location = new System.Drawing.Point(286, 231);
+            this.btnRechazar.Name = "btnRechazar";
+            this.btnRechazar.Size = new System.Drawing.Size(75, 23);
+            this.btnRechazar.TabIndex = 6;
+            this.btnRechazar.Text = "&Rechazar";
+            this.btnRechazar.UseVisualStyleBackColor = true;
+            this.btnRechazar.Click += new System.EventHandler(this.btnRechazar_Click);
             // 
             // btnAprobar
             // 
@@ -336,7 +337,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView dgvSolicitudes;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnRechazar;
         private System.Windows.Forms.Button btnAprobar;
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.Button btnBuscarGira;

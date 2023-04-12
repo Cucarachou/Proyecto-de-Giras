@@ -232,5 +232,20 @@ namespace capaAccesoDatos
 
             return solicitud;
         }
+
+        public bool AprobarSolicitud(string condicion, string aprobador)
+        {
+
+            string sentencia = $"UPDATE SOLICITUDES_GIRAS SET ESTADO = 'APROBADA', APROBADOR = '{aprobador}' WHERE {condicion}";
+            SqlConnection connection = new SqlConnection(cadenaConexion);
+            SqlCommand command = new SqlCommand(sentencia, connection);
+            
+            connection.Open();
+            int filasAfectadas = command.ExecuteNonQuery();
+            connection.Close();
+
+            if (filasAfectadas > 0) { return true; } else { return false; }
+
+        }
     }
 }

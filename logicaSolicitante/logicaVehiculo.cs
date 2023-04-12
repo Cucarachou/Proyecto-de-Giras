@@ -61,5 +61,23 @@ namespace logicaSolicitante
 
             return resultado;
         }
+
+        public bool VerificarDisponibilidadVehiculo(string condicion)
+        {
+            bool resultado = false;
+            datosVehiculo accesoDatos = new datosVehiculo(CadenaConexion);
+
+            try
+            {
+                resultado = accesoDatos.VerificarDisponibilidadVehiculo(condicion);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return resultado;
+        }
     }
 }
