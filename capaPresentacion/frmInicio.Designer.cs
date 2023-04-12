@@ -33,33 +33,33 @@
             this.mnuSolicitar = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAprobar = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuRegistroSoli = new System.Windows.Forms.ToolStripMenuItem();
+            this.finalizarGiraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuVehiculos = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAgVehiculo = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuAgMante = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuAgMarch = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuAgPoli = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuModVeh = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuModMant = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuModMarch = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuModPoli = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuRegVeh = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuRegMant = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuAgMante = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuModMant = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuAgMarch = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuModMarch = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuRegMarch = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuAgPoli = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuModPoli = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuRegPoli = new System.Windows.Forms.ToolStripMenuItem();
-            this.finalizarGiraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFuncionarios = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAgFuncionario = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuModFuncionario = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuRegFuncionarios = new System.Windows.Forms.ToolStripMenuItem();
             this.talleresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.añadirTallerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.modificarTallerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.registroDeTalleresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.añadirMantenimientoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.modificarMantenimientoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.registroDeMantenimientosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.añadirRevisiónTécnicaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modificarRevisiónTécnicaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modificarTallerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modificarMantenimientoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registroDeTalleresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registroDeMantenimientosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registroDeRevisionesTécnicasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.centrosDeFormaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.añadirCentroDeFormaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -107,12 +107,19 @@
             this.mnuAprobar.Name = "mnuAprobar";
             this.mnuAprobar.Size = new System.Drawing.Size(194, 22);
             this.mnuAprobar.Text = "Aprobar/denegar gira..";
+            this.mnuAprobar.Click += new System.EventHandler(this.mnuAprobar_Click);
             // 
             // mnuRegistroSoli
             // 
             this.mnuRegistroSoli.Name = "mnuRegistroSoli";
             this.mnuRegistroSoli.Size = new System.Drawing.Size(194, 22);
             this.mnuRegistroSoli.Text = "Registro de solicitudes";
+            // 
+            // finalizarGiraToolStripMenuItem
+            // 
+            this.finalizarGiraToolStripMenuItem.Name = "finalizarGiraToolStripMenuItem";
+            this.finalizarGiraToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.finalizarGiraToolStripMenuItem.Text = "Finalizar gira..";
             // 
             // mnuVehiculos
             // 
@@ -139,11 +146,47 @@
             this.mnuAgVehiculo.Size = new System.Drawing.Size(223, 22);
             this.mnuAgVehiculo.Text = "Agregar nuevo vehículo..";
             // 
+            // mnuAgMante
+            // 
+            this.mnuAgMante.Name = "mnuAgMante";
+            this.mnuAgMante.Size = new System.Drawing.Size(223, 22);
+            this.mnuAgMante.Text = "Añadir mantenimiento..";
+            // 
+            // mnuAgMarch
+            // 
+            this.mnuAgMarch.Name = "mnuAgMarch";
+            this.mnuAgMarch.Size = new System.Drawing.Size(223, 22);
+            this.mnuAgMarch.Text = "Añadir marchamo..";
+            // 
+            // mnuAgPoli
+            // 
+            this.mnuAgPoli.Name = "mnuAgPoli";
+            this.mnuAgPoli.Size = new System.Drawing.Size(223, 22);
+            this.mnuAgPoli.Text = "Añadir póliza..";
+            // 
             // mnuModVeh
             // 
             this.mnuModVeh.Name = "mnuModVeh";
             this.mnuModVeh.Size = new System.Drawing.Size(223, 22);
             this.mnuModVeh.Text = "Modificar vehículo..";
+            // 
+            // mnuModMant
+            // 
+            this.mnuModMant.Name = "mnuModMant";
+            this.mnuModMant.Size = new System.Drawing.Size(223, 22);
+            this.mnuModMant.Text = "Modificar mantenimiento..";
+            // 
+            // mnuModMarch
+            // 
+            this.mnuModMarch.Name = "mnuModMarch";
+            this.mnuModMarch.Size = new System.Drawing.Size(223, 22);
+            this.mnuModMarch.Text = "Modificar marchamo..";
+            // 
+            // mnuModPoli
+            // 
+            this.mnuModPoli.Name = "mnuModPoli";
+            this.mnuModPoli.Size = new System.Drawing.Size(223, 22);
+            this.mnuModPoli.Text = "Modificar póliza..";
             // 
             // MnuRegVeh
             // 
@@ -157,59 +200,17 @@
             this.mnuRegMant.Size = new System.Drawing.Size(223, 22);
             this.mnuRegMant.Text = "Registro de mantenimientos";
             // 
-            // mnuAgMante
-            // 
-            this.mnuAgMante.Name = "mnuAgMante";
-            this.mnuAgMante.Size = new System.Drawing.Size(223, 22);
-            this.mnuAgMante.Text = "Añadir mantenimiento..";
-            // 
-            // mnuModMant
-            // 
-            this.mnuModMant.Name = "mnuModMant";
-            this.mnuModMant.Size = new System.Drawing.Size(223, 22);
-            this.mnuModMant.Text = "Modificar mantenimiento..";
-            // 
-            // mnuAgMarch
-            // 
-            this.mnuAgMarch.Name = "mnuAgMarch";
-            this.mnuAgMarch.Size = new System.Drawing.Size(223, 22);
-            this.mnuAgMarch.Text = "Añadir marchamo..";
-            // 
-            // mnuModMarch
-            // 
-            this.mnuModMarch.Name = "mnuModMarch";
-            this.mnuModMarch.Size = new System.Drawing.Size(223, 22);
-            this.mnuModMarch.Text = "Modificar marchamo..";
-            // 
             // mnuRegMarch
             // 
             this.mnuRegMarch.Name = "mnuRegMarch";
             this.mnuRegMarch.Size = new System.Drawing.Size(223, 22);
             this.mnuRegMarch.Text = "Registro de marchamos";
             // 
-            // mnuAgPoli
-            // 
-            this.mnuAgPoli.Name = "mnuAgPoli";
-            this.mnuAgPoli.Size = new System.Drawing.Size(223, 22);
-            this.mnuAgPoli.Text = "Añadir póliza..";
-            // 
-            // mnuModPoli
-            // 
-            this.mnuModPoli.Name = "mnuModPoli";
-            this.mnuModPoli.Size = new System.Drawing.Size(223, 22);
-            this.mnuModPoli.Text = "Modificar póliza..";
-            // 
             // mnuRegPoli
             // 
             this.mnuRegPoli.Name = "mnuRegPoli";
             this.mnuRegPoli.Size = new System.Drawing.Size(223, 22);
             this.mnuRegPoli.Text = "Registro de pólizas";
-            // 
-            // finalizarGiraToolStripMenuItem
-            // 
-            this.finalizarGiraToolStripMenuItem.Name = "finalizarGiraToolStripMenuItem";
-            this.finalizarGiraToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
-            this.finalizarGiraToolStripMenuItem.Text = "Finalizar gira..";
             // 
             // mnuFuncionarios
             // 
@@ -261,35 +262,11 @@
             this.añadirTallerToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
             this.añadirTallerToolStripMenuItem.Text = "Añadir taller..";
             // 
-            // modificarTallerToolStripMenuItem
-            // 
-            this.modificarTallerToolStripMenuItem.Name = "modificarTallerToolStripMenuItem";
-            this.modificarTallerToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
-            this.modificarTallerToolStripMenuItem.Text = "Modificar taller..";
-            // 
-            // registroDeTalleresToolStripMenuItem
-            // 
-            this.registroDeTalleresToolStripMenuItem.Name = "registroDeTalleresToolStripMenuItem";
-            this.registroDeTalleresToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
-            this.registroDeTalleresToolStripMenuItem.Text = "Registro de talleres";
-            // 
             // añadirMantenimientoToolStripMenuItem
             // 
             this.añadirMantenimientoToolStripMenuItem.Name = "añadirMantenimientoToolStripMenuItem";
             this.añadirMantenimientoToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
             this.añadirMantenimientoToolStripMenuItem.Text = "Añadir mantenimiento..";
-            // 
-            // modificarMantenimientoToolStripMenuItem
-            // 
-            this.modificarMantenimientoToolStripMenuItem.Name = "modificarMantenimientoToolStripMenuItem";
-            this.modificarMantenimientoToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
-            this.modificarMantenimientoToolStripMenuItem.Text = "Modificar mantenimiento..";
-            // 
-            // registroDeMantenimientosToolStripMenuItem
-            // 
-            this.registroDeMantenimientosToolStripMenuItem.Name = "registroDeMantenimientosToolStripMenuItem";
-            this.registroDeMantenimientosToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
-            this.registroDeMantenimientosToolStripMenuItem.Text = "Registro de mantenimientos";
             // 
             // añadirRevisiónTécnicaToolStripMenuItem
             // 
@@ -302,6 +279,30 @@
             this.modificarRevisiónTécnicaToolStripMenuItem.Name = "modificarRevisiónTécnicaToolStripMenuItem";
             this.modificarRevisiónTécnicaToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
             this.modificarRevisiónTécnicaToolStripMenuItem.Text = "Modificar revisión técnica..";
+            // 
+            // modificarTallerToolStripMenuItem
+            // 
+            this.modificarTallerToolStripMenuItem.Name = "modificarTallerToolStripMenuItem";
+            this.modificarTallerToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.modificarTallerToolStripMenuItem.Text = "Modificar taller..";
+            // 
+            // modificarMantenimientoToolStripMenuItem
+            // 
+            this.modificarMantenimientoToolStripMenuItem.Name = "modificarMantenimientoToolStripMenuItem";
+            this.modificarMantenimientoToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.modificarMantenimientoToolStripMenuItem.Text = "Modificar mantenimiento..";
+            // 
+            // registroDeTalleresToolStripMenuItem
+            // 
+            this.registroDeTalleresToolStripMenuItem.Name = "registroDeTalleresToolStripMenuItem";
+            this.registroDeTalleresToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.registroDeTalleresToolStripMenuItem.Text = "Registro de talleres";
+            // 
+            // registroDeMantenimientosToolStripMenuItem
+            // 
+            this.registroDeMantenimientosToolStripMenuItem.Name = "registroDeMantenimientosToolStripMenuItem";
+            this.registroDeMantenimientosToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.registroDeMantenimientosToolStripMenuItem.Text = "Registro de mantenimientos";
             // 
             // registroDeRevisionesTécnicasToolStripMenuItem
             // 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,8 +11,9 @@ namespace capaLógica
     {
 
         //atributos
-        private string estado, horaInicio, horaFin, solicitante, chofer, aprobador, placa, justificacion;
-        private int idGira, idCentro, extemporanea, cantidadFuncionarios;
+        private string estado, horaInicio, horaFin, solicitante, chofer, aprobador, placa, justificacion, nombreCentro;
+        private int idGira, idCentro;
+        private bool extemporanea;
         private DateTime diaInicio, diaFinal, diaSolicitud;
 
 
@@ -25,13 +27,12 @@ namespace capaLógica
         public string HoraFin { get => horaFin; set => horaFin = value; }
         public int IdGira { get => idGira; set => idGira = value; }
         public int IdCentro { get => idCentro; set => idCentro = value; }
-        public int Extemporanea { get => extemporanea; set => extemporanea = value; }
+        public bool Extemporanea { get => extemporanea; set => extemporanea = value; }
         public string Justificacion { get => justificacion; set => justificacion = value; }
         public DateTime DiaSolicitud { get => diaSolicitud; set => diaSolicitud = value; }
         public DateTime DiaInicio { get => diaInicio; set => diaInicio = value; }
         public DateTime DiaFinal { get => diaFinal; set => diaFinal = value; }
-        public int CantidadFuncionarios { get => cantidadFuncionarios; set => cantidadFuncionarios = value; }
-
+        public string NombreCentro { get => nombreCentro;  set => nombreCentro = value; }
         public entidadSolicitudGira()
         {
             Estado = string.Empty;
@@ -43,11 +44,11 @@ namespace capaLógica
             HoraFin = string.Empty;
             IdGira = -1;
             IdCentro = -1;
-            Extemporanea = 0;
+            Extemporanea = false;
             DiaSolicitud = DateTime.MinValue;
             DiaInicio = DateTime.MinValue;
-            DiaFinal = DateTime.MinValue;   
-            CantidadFuncionarios = -1;
+            DiaFinal = DateTime.MinValue;
+            NombreCentro = string.Empty;
         }
     }
 }

@@ -35,6 +35,7 @@ namespace capaPresentacion
         //evento para pasar la información de un formulario a otro, en este caso de solicitante a la solicitud.
         public EventHandler AceptarSolicitante;
         public EventHandler AceptarFuncionario;
+        public EventHandler AceptarAprobador;
 
         public int TipoBusqueda { get => tipoBusqueda; set => tipoBusqueda = value; }
         public DateTime FechaInicio { get => fechaInicio; set => fechaInicio = value; }
@@ -123,7 +124,7 @@ namespace capaPresentacion
                             condicion = $"IDENTIFICACION LIKE '%{txtInfo.Text}%' AND ACTIVO = 0";
                         }
                     }
-                    else
+                    else if (tipoBusqueda == 2)
                     {
                         if (cboTipo.SelectedIndex == 1)
                         {
@@ -136,6 +137,21 @@ namespace capaPresentacion
 
                             condicion = $"IDENTIFICACION LIKE '%{txtInfo.Text}%' AND ACTIVO = 0 AND IDENTIFICACION NOT IN (SELECT CHOFER FROM SOLICITUDES_GIRAS WHERE  ESTADO='APROBADA' AND  (('{fechaInicio}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFinal}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFinal}') OR (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFinal}'))) AND IDENTIFICACION NOT IN (SELECT IDENTIFICACION FROM ACOMPANIANTES INNER JOIN SOLICITUDES_GIRAS ON ACOMPANIANTES.ID_GIRA = SOLICITUDES_GIRAS.ID_GIRA WHERE  ESTADO='APROBADA' AND  (('{fechaFinal}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFinal}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFinal}') OR  (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFinal}')))" +
                                 $"";
+
+                        }
+                    }
+                    else
+                    {
+                        if (cboTipo.SelectedIndex == 1)
+                        {
+
+                            condicion = $"CONCAT(NOMBRE, ' ', APELLIDO_UNO, ' ', APELLIDO_DOS) LIKE '%{txtInfo.Text}%' AND ACTIVO = 0 AND APROBADOR = 1";
+
+                        }
+                        else
+                        {
+
+                            condicion = $"IDENTIFICACION LIKE '%{txtInfo.Text}%' AND ACTIVO = 0 AND APROBADOR = 1";
 
                         }
                     }
@@ -228,7 +244,7 @@ namespace capaPresentacion
                 }
                 else
                 {
-                    MessageBox.Show("No hay ningún solicitante seleccionado.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No hay ningún funcionario seleccionado.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
@@ -238,6 +254,27 @@ namespace capaPresentacion
             }
         }
 
+        private void SeleccionarAprobador()
+        {
+            try
+            {
+                if (grdSolicitante.SelectedRows.Count > 0 || !string.IsNullOrEmpty(identificacionSolicitante))
+                {
+                    identificacionSolicitante = grdSolicitante.SelectedRows[0].Cells[1].Value.ToString();
+                    AceptarAprobador(identificacionSolicitante, null);
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("No hay ningún aprobador seleccionado.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+                throw;
+            }
+        }
         //la siguiente función ejecuta la función para mandar info de un método a otro al dar doble click al datagrid
         private void grdSolicitante_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -247,9 +284,13 @@ namespace capaPresentacion
                 {
                     SeleccionarSolicitante();
                 }
-                else
+                else if (tipoBusqueda == 2)
                 {
                     SeleccionarFuncionario();
+                }
+                else if (tipoBusqueda == 3)
+                {
+                    SeleccionarAprobador();
                 }
 
             }
@@ -270,9 +311,13 @@ namespace capaPresentacion
                 {
                     SeleccionarSolicitante();
                 }
-                else
+                else if (tipoBusqueda == 2)
                 {
                     SeleccionarFuncionario();
+                }
+                else if (tipoBusqueda==3)
+                {
+                    SeleccionarAprobador();
                 }
 
             }
@@ -288,7 +333,19 @@ namespace capaPresentacion
         {
             identificacionSolicitante = "-1";
 
-            AceptarFuncionario(identificacionSolicitante, null);
+            if (tipoBusqueda == 1)
+            {
+                AceptarSolicitante(identificacionSolicitante, null);
+            }
+            else if (tipoBusqueda == 2)
+            {
+                AceptarFuncionario(identificacionSolicitante, null);
+            }
+            else if (tipoBusqueda == 3)
+            {
+                AceptarSolicitante(identificacionSolicitante, null);
+            }
+
             Close();
 
         }

@@ -97,5 +97,58 @@ namespace capaLogica
 
             return resultado;
         }
+
+        public entidadFuncionario ObtenerAprobador(string condicion)
+        {
+            entidadFuncionario resultado;
+            datosFuncionario accesoDatos = new datosFuncionario(CadenaConexion);
+
+            try
+            {
+                resultado = accesoDatos.ObtenerAprobador(condicion);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return resultado;
+        }
+
+        public List<entidadFuncionario> ListarAcompaniantes(string condicion)
+        {
+            List<entidadFuncionario> resultado;
+            datosFuncionario accesoDatos = new datosFuncionario(CadenaConexion);
+
+            try
+            {
+                resultado = accesoDatos.ListarAcompaniantes(condicion);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return resultado;
+        }
+        public bool VerificarDisponibilidadFuncionario(string condicion)
+        {
+            bool resultado = false;
+            datosFuncionario accesoDatos = new datosFuncionario(CadenaConexion);
+
+            try
+            {
+                resultado = accesoDatos.VerificarDisponibilidadFuncionario(condicion);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return resultado;
+        }
     }
 }

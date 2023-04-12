@@ -1,4 +1,5 @@
 ﻿using capaAccesoDatos;
+using capaEntidades;
 using capaLógica;
 using System;
 using System.Collections.Generic;
@@ -68,6 +69,42 @@ namespace logicaSolicitante
             try
             {
                 resultado = datos.InsertarLugares(origen, destino, idGira);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return resultado;
+        }
+
+        public List<entidadSolicitudGira> ListarSolicitudes(string condicion = "")
+        {
+            List<entidadSolicitudGira> resultado;
+            datosSolicitudGira accesoDatos = new datosSolicitudGira(CadenaConexion);
+
+            try
+            {
+                resultado = accesoDatos.ListarSolicitudes(condicion);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return resultado;
+        }
+
+        public entidadSolicitudGira ObtenerSolicitud(string condicion)
+        {
+            entidadSolicitudGira resultado;
+            datosSolicitudGira accesoDatos = new datosSolicitudGira(CadenaConexion);
+
+            try
+            {
+                resultado = accesoDatos.ObtenerSolicitud(condicion);
             }
             catch (Exception ex)
             {

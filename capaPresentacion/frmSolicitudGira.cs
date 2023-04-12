@@ -63,8 +63,127 @@ namespace capaPresentacion
         {
             ComboBox comboFin = new ComboBox();
             cboFin.Items.Clear();
-
-            if (hora == "08:00")
+            if (hora == "00:00")
+            {
+                cboFin.Items.Add("01:00");
+                cboFin.Items.Add("02:00");
+                cboFin.Items.Add("03:00");
+                cboFin.Items.Add("04:00");
+                cboFin.Items.Add("05:00");
+                cboFin.Items.Add("06:00");
+                cboFin.Items.Add("07:00");
+                cboFin.Items.Add("08:00");
+                cboFin.Items.Add("09:00");
+                cboFin.Items.Add("10:00");
+                cboFin.Items.Add("11:00");
+                cboFin.Items.Add("12:00");
+            }
+            else if (hora == "01:00")
+            {
+                cboFin.Items.Add("02:00");
+                cboFin.Items.Add("03:00");
+                cboFin.Items.Add("04:00");
+                cboFin.Items.Add("05:00");
+                cboFin.Items.Add("06:00");
+                cboFin.Items.Add("07:00");
+                cboFin.Items.Add("08:00");
+                cboFin.Items.Add("09:00");
+                cboFin.Items.Add("10:00");
+                cboFin.Items.Add("11:00");
+                cboFin.Items.Add("12:00");
+                cboFin.Items.Add("13:00");
+            }
+            else if (hora == "02:00")
+            {
+                cboFin.Items.Add("03:00");
+                cboFin.Items.Add("04:00");
+                cboFin.Items.Add("05:00");
+                cboFin.Items.Add("06:00");
+                cboFin.Items.Add("07:00");
+                cboFin.Items.Add("08:00");
+                cboFin.Items.Add("09:00");
+                cboFin.Items.Add("10:00");
+                cboFin.Items.Add("11:00");
+                cboFin.Items.Add("12:00");
+                cboFin.Items.Add("13:00");
+                cboFin.Items.Add("14:00");
+            }
+            else if (hora == "03:00")
+            {
+                cboFin.Items.Add("04:00");
+                cboFin.Items.Add("05:00");
+                cboFin.Items.Add("06:00");
+                cboFin.Items.Add("07:00");
+                cboFin.Items.Add("08:00");
+                cboFin.Items.Add("09:00");
+                cboFin.Items.Add("10:00");
+                cboFin.Items.Add("11:00");
+                cboFin.Items.Add("12:00");
+                cboFin.Items.Add("13:00");
+                cboFin.Items.Add("14:00");
+                cboFin.Items.Add("15:00");
+            }
+            else if (hora == "04:00")
+            {
+                cboFin.Items.Add("05:00");
+                cboFin.Items.Add("06:00");
+                cboFin.Items.Add("07:00");
+                cboFin.Items.Add("08:00");
+                cboFin.Items.Add("09:00");
+                cboFin.Items.Add("10:00");
+                cboFin.Items.Add("11:00");
+                cboFin.Items.Add("12:00");
+                cboFin.Items.Add("13:00");
+                cboFin.Items.Add("14:00");
+                cboFin.Items.Add("15:00");
+                cboFin.Items.Add("16:00");
+            }
+            else if (hora == "05:00")
+            {
+                cboFin.Items.Add("06:00");
+                cboFin.Items.Add("07:00");
+                cboFin.Items.Add("08:00");
+                cboFin.Items.Add("09:00");
+                cboFin.Items.Add("10:00");
+                cboFin.Items.Add("11:00");
+                cboFin.Items.Add("12:00");
+                cboFin.Items.Add("13:00");
+                cboFin.Items.Add("14:00");
+                cboFin.Items.Add("15:00");
+                cboFin.Items.Add("16:00");
+                cboFin.Items.Add("17:00");
+            }
+            else if (hora == "06:00")
+            {
+                cboFin.Items.Add("07:00");
+                cboFin.Items.Add("08:00");
+                cboFin.Items.Add("09:00");
+                cboFin.Items.Add("10:00");
+                cboFin.Items.Add("11:00");
+                cboFin.Items.Add("12:00");
+                cboFin.Items.Add("13:00");
+                cboFin.Items.Add("14:00");
+                cboFin.Items.Add("15:00");
+                cboFin.Items.Add("16:00");
+                cboFin.Items.Add("17:00");
+                cboFin.Items.Add("18:00");
+            }
+            else if (hora == "07:00")
+            {
+                cboFin.Items.Add("08:00");
+                cboFin.Items.Add("09:00");
+                cboFin.Items.Add("10:00");
+                cboFin.Items.Add("11:00");
+                cboFin.Items.Add("12:00");
+                cboFin.Items.Add("13:00");
+                cboFin.Items.Add("14:00");
+                cboFin.Items.Add("15:00");
+                cboFin.Items.Add("16:00");
+                cboFin.Items.Add("17:00");
+                cboFin.Items.Add("18:00");
+                cboFin.Items.Add("19:00");
+            }
+            else if (hora == "08:00")
             {
                 cboFin.Items.Add("09:00");
                 cboFin.Items.Add("10:00");
@@ -74,6 +193,10 @@ namespace capaPresentacion
                 cboFin.Items.Add("14:00");
                 cboFin.Items.Add("15:00");
                 cboFin.Items.Add("16:00");
+                cboFin.Items.Add("17:00");
+                cboFin.Items.Add("18:00");
+                cboFin.Items.Add("19:00");
+                cboFin.Items.Add("20:00");
             }
             else if (hora == "09:00")
             {
@@ -84,6 +207,11 @@ namespace capaPresentacion
                 cboFin.Items.Add("14:00");
                 cboFin.Items.Add("15:00");
                 cboFin.Items.Add("16:00");
+                cboFin.Items.Add("17:00");
+                cboFin.Items.Add("18:00");
+                cboFin.Items.Add("19:00");
+                cboFin.Items.Add("20:00");
+                cboFin.Items.Add("21:00");
             }
             else if (hora == "10:00")
             {
@@ -93,6 +221,12 @@ namespace capaPresentacion
                 cboFin.Items.Add("14:00");
                 cboFin.Items.Add("15:00");
                 cboFin.Items.Add("16:00");
+                cboFin.Items.Add("17:00");
+                cboFin.Items.Add("18:00");
+                cboFin.Items.Add("19:00");
+                cboFin.Items.Add("20:00");
+                cboFin.Items.Add("21:00");
+                cboFin.Items.Add("22:00");
             }
             else if (hora == "11:00")
             {
@@ -101,6 +235,13 @@ namespace capaPresentacion
                 cboFin.Items.Add("14:00");
                 cboFin.Items.Add("15:00");
                 cboFin.Items.Add("16:00");
+                cboFin.Items.Add("17:00");
+                cboFin.Items.Add("18:00");
+                cboFin.Items.Add("19:00");
+                cboFin.Items.Add("20:00");
+                cboFin.Items.Add("21:00");
+                cboFin.Items.Add("22:00");
+                cboFin.Items.Add("23:00");
             }
             else if (hora == "12:00")
             {
@@ -108,21 +249,215 @@ namespace capaPresentacion
                 cboFin.Items.Add("14:00");
                 cboFin.Items.Add("15:00");
                 cboFin.Items.Add("16:00");
+                cboFin.Items.Add("17:00");
+                cboFin.Items.Add("18:00");
+                cboFin.Items.Add("19:00");
+                cboFin.Items.Add("20:00");
+                cboFin.Items.Add("21:00");
+                cboFin.Items.Add("22:00");
+                cboFin.Items.Add("23:00");
+                cboFin.Items.Add("00:00");
             }
             else if (hora == "13:00")
             {
                 cboFin.Items.Add("14:00");
                 cboFin.Items.Add("15:00");
                 cboFin.Items.Add("16:00");
+                cboFin.Items.Add("17:00");
+                cboFin.Items.Add("18:00");
+                cboFin.Items.Add("19:00");
+                cboFin.Items.Add("20:00");
+                cboFin.Items.Add("21:00");
+                cboFin.Items.Add("22:00");
+                cboFin.Items.Add("23:00");
+                cboFin.Items.Add("00:00");
+                cboFin.Items.Add("01:00");
             }
             else if (hora == "14:00")
             {
                 cboFin.Items.Add("15:00");
                 cboFin.Items.Add("16:00");
+                cboFin.Items.Add("17:00");
+                cboFin.Items.Add("18:00");
+                cboFin.Items.Add("19:00");
+                cboFin.Items.Add("20:00");
+                cboFin.Items.Add("21:00");
+                cboFin.Items.Add("22:00");
+                cboFin.Items.Add("23:00");
+                cboFin.Items.Add("00:00");
+                cboFin.Items.Add("01:00");
+                cboFin.Items.Add("02:00");
             }
-            else
+            else if (hora == "15:00")
             {
                 cboFin.Items.Add("16:00");
+                cboFin.Items.Add("17:00");
+                cboFin.Items.Add("18:00");
+                cboFin.Items.Add("19:00");
+                cboFin.Items.Add("20:00");
+                cboFin.Items.Add("21:00");
+                cboFin.Items.Add("22:00");
+                cboFin.Items.Add("23:00");
+                cboFin.Items.Add("00:00");
+                cboFin.Items.Add("01:00");
+                cboFin.Items.Add("02:00");
+                cboFin.Items.Add("03:00");
+            }
+            else if (hora == "16:00")
+            {
+                cboFin.Items.Add("16:00");
+                cboFin.Items.Add("17:00");
+                cboFin.Items.Add("18:00");
+                cboFin.Items.Add("19:00");
+                cboFin.Items.Add("20:00");
+                cboFin.Items.Add("21:00");
+                cboFin.Items.Add("22:00");
+                cboFin.Items.Add("23:00");
+                cboFin.Items.Add("00:00");
+                cboFin.Items.Add("01:00");
+                cboFin.Items.Add("02:00");
+                cboFin.Items.Add("03:00");
+                cboFin.Items.Add("04:00");
+            }
+            else if (hora == "17:00")
+            {
+                cboFin.Items.Add("16:00");
+                cboFin.Items.Add("17:00");
+                cboFin.Items.Add("18:00");
+                cboFin.Items.Add("19:00");
+                cboFin.Items.Add("20:00");
+                cboFin.Items.Add("21:00");
+                cboFin.Items.Add("22:00");
+                cboFin.Items.Add("23:00");
+                cboFin.Items.Add("00:00");
+                cboFin.Items.Add("01:00");
+                cboFin.Items.Add("02:00");
+                cboFin.Items.Add("03:00");
+                cboFin.Items.Add("04:00");
+                cboFin.Items.Add("05:00");
+            }
+            else if (hora == "18:00")
+            {
+                cboFin.Items.Add("16:00");
+                cboFin.Items.Add("17:00");
+                cboFin.Items.Add("18:00");
+                cboFin.Items.Add("19:00");
+                cboFin.Items.Add("20:00");
+                cboFin.Items.Add("21:00");
+                cboFin.Items.Add("22:00");
+                cboFin.Items.Add("23:00");
+                cboFin.Items.Add("00:00");
+                cboFin.Items.Add("01:00");
+                cboFin.Items.Add("02:00");
+                cboFin.Items.Add("03:00");
+                cboFin.Items.Add("04:00");
+                cboFin.Items.Add("05:00");
+                cboFin.Items.Add("06:00");
+            }
+            else if (hora == "19:00")
+            {
+                cboFin.Items.Add("16:00");
+                cboFin.Items.Add("17:00");
+                cboFin.Items.Add("18:00");
+                cboFin.Items.Add("19:00");
+                cboFin.Items.Add("20:00");
+                cboFin.Items.Add("21:00");
+                cboFin.Items.Add("22:00");
+                cboFin.Items.Add("23:00");
+                cboFin.Items.Add("00:00");
+                cboFin.Items.Add("01:00");
+                cboFin.Items.Add("02:00");
+                cboFin.Items.Add("03:00");
+                cboFin.Items.Add("04:00");
+                cboFin.Items.Add("05:00");
+                cboFin.Items.Add("06:00");
+                cboFin.Items.Add("07:00");
+            }
+            else if (hora == "20:00")
+            {
+                cboFin.Items.Add("16:00");
+                cboFin.Items.Add("17:00");
+                cboFin.Items.Add("18:00");
+                cboFin.Items.Add("19:00");
+                cboFin.Items.Add("20:00");
+                cboFin.Items.Add("21:00");
+                cboFin.Items.Add("22:00");
+                cboFin.Items.Add("23:00");
+                cboFin.Items.Add("00:00");
+                cboFin.Items.Add("01:00");
+                cboFin.Items.Add("02:00");
+                cboFin.Items.Add("03:00");
+                cboFin.Items.Add("04:00");
+                cboFin.Items.Add("05:00");
+                cboFin.Items.Add("06:00");
+                cboFin.Items.Add("07:00");
+                cboFin.Items.Add("08:00");
+            }
+            else if (hora == "21:00")
+            {
+                cboFin.Items.Add("16:00");
+                cboFin.Items.Add("17:00");
+                cboFin.Items.Add("18:00");
+                cboFin.Items.Add("19:00");
+                cboFin.Items.Add("20:00");
+                cboFin.Items.Add("21:00");
+                cboFin.Items.Add("22:00");
+                cboFin.Items.Add("23:00");
+                cboFin.Items.Add("00:00");
+                cboFin.Items.Add("01:00");
+                cboFin.Items.Add("02:00");
+                cboFin.Items.Add("03:00");
+                cboFin.Items.Add("04:00");
+                cboFin.Items.Add("05:00");
+                cboFin.Items.Add("06:00");
+                cboFin.Items.Add("07:00");
+                cboFin.Items.Add("08:00");
+                cboFin.Items.Add("09:00");
+            }
+            else if (hora == "22:00")
+            {
+                cboFin.Items.Add("16:00");
+                cboFin.Items.Add("17:00");
+                cboFin.Items.Add("18:00");
+                cboFin.Items.Add("19:00");
+                cboFin.Items.Add("20:00");
+                cboFin.Items.Add("21:00");
+                cboFin.Items.Add("22:00");
+                cboFin.Items.Add("23:00");
+                cboFin.Items.Add("00:00");
+                cboFin.Items.Add("01:00");
+                cboFin.Items.Add("02:00");
+                cboFin.Items.Add("03:00");
+                cboFin.Items.Add("04:00");
+                cboFin.Items.Add("05:00");
+                cboFin.Items.Add("06:00");
+                cboFin.Items.Add("07:00");
+                cboFin.Items.Add("08:00");
+                cboFin.Items.Add("09:00");
+                cboFin.Items.Add("10:00");
+            }
+            else if (hora == "23:00")
+            {
+                cboFin.Items.Add("16:00");
+                cboFin.Items.Add("17:00");
+                cboFin.Items.Add("18:00");
+                cboFin.Items.Add("19:00");
+                cboFin.Items.Add("20:00");
+                cboFin.Items.Add("21:00");
+                cboFin.Items.Add("22:00");
+                cboFin.Items.Add("23:00");
+                cboFin.Items.Add("00:00");
+                cboFin.Items.Add("01:00");
+                cboFin.Items.Add("02:00");
+                cboFin.Items.Add("03:00");
+                cboFin.Items.Add("04:00");
+                cboFin.Items.Add("05:00");
+                cboFin.Items.Add("06:00");
+                cboFin.Items.Add("07:00");
+                cboFin.Items.Add("08:00");
+                cboFin.Items.Add("09:00");
+                cboFin.Items.Add("10:00");
+                cboFin.Items.Add("11:00");
             }
         }
 
@@ -831,18 +1166,18 @@ namespace capaPresentacion
             solicitud.HoraFin = horaFinal;
             solicitud.Placa = Placa;
             solicitud.Solicitante = IdSolicitante;
+            solicitud.Aprobador = "N/A";
             solicitud.Chofer = IdChofer;
-            solicitud.CantidadFuncionarios = Convert.ToInt32(txtCantidad.Text);
             solicitud.IdCentro = IdCentro;
-            solicitud.Extemporanea = (string.IsNullOrEmpty(justificacionExtemporanea)) ? 0 : 1;
+            solicitud.Extemporanea = (string.IsNullOrEmpty(justificacionExtemporanea)) ? false : true;
 
-            if (solicitud.Extemporanea == 1)
+            if (solicitud.Extemporanea == true)
             {
                 solicitud.Justificacion = justificacionExtemporanea;
             }
             else
             {
-                solicitud.Justificacion = string.Empty;
+                solicitud.Justificacion = "N/A";
 
             }
             return solicitud;
@@ -1078,9 +1413,9 @@ namespace capaPresentacion
         {
             TimeSpan diferencia = fechaInicio - fechaSolicitud;
 
-            if (diferencia.TotalDays <= 7)
+            if (diferencia.TotalDays <= 12)
             {
-                if (fechaSolicitud.DayOfWeek == DayOfWeek.Monday || fechaSolicitud.DayOfWeek == DayOfWeek.Tuesday)
+                if (fechaSolicitud.DayOfWeek - 7 != DayOfWeek.Monday || fechaSolicitud.DayOfWeek - 7 != DayOfWeek.Tuesday)
                 {
                     return true;
                 }
