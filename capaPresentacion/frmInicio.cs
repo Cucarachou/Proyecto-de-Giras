@@ -38,5 +38,17 @@ namespace capaPresentacion
             frmAprobarGira frmAprobarGira = new frmAprobarGira();
             frmAprobarGira.Show();
         }
+
+        private void finalizarGira_Click(object sender, EventArgs e)
+        {
+            frmCerrarGira frmCerrarGira = new frmCerrarGira();
+            frmCerrarGira.Show();
+        }
+
+        private void mnuMantFuncionarios_Click(object sender, EventArgs e)
+        {
+            frmMantenimientoFuncionarios frmMantenimiento = new frmMantenimientoFuncionarios();
+            frmMantenimiento.Show();
+        }
     }
 }

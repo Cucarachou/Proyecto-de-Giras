@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmConsultaSolicitud));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtIdSolicitud = new System.Windows.Forms.TextBox();
@@ -45,33 +46,33 @@
             this.chkExtemporanea = new System.Windows.Forms.CheckBox();
             this.rtbJustificacion = new System.Windows.Forms.RichTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.txtSolicitante = new System.Windows.Forms.TextBox();
-            this.txtChofer = new System.Windows.Forms.TextBox();
-            this.txtAprobador = new System.Windows.Forms.TextBox();
-            this.dgvFuncionarios = new System.Windows.Forms.DataGridView();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.txtCentro = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.dgvFuncionarios = new System.Windows.Forms.DataGridView();
+            this.txtAprobador = new System.Windows.Forms.TextBox();
+            this.txtChofer = new System.Windows.Forms.TextBox();
+            this.txtSolicitante = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.txtPlaca = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.txtMarca = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.txtCentroVeh = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.txtGasolina = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.txtLicencia = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
+            this.txtLicencia = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.txtGasolina = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txtCentroVeh = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.txtMarca = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtPlaca = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.btnSalir = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -232,6 +233,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Extemporaneidad";
             // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(11, 37);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(68, 13);
+            this.label19.TabIndex = 16;
+            this.label19.Text = "Justificación:";
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label2);
@@ -283,56 +293,30 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Información de Funcionarios";
             // 
-            // label8
+            // txtCentro
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 89);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(59, 13);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "Aprobador:";
+            this.txtCentro.Location = new System.Drawing.Point(121, 120);
+            this.txtCentro.Name = "txtCentro";
+            this.txtCentro.Size = new System.Drawing.Size(164, 20);
+            this.txtCentro.TabIndex = 9;
             // 
-            // label9
+            // label12
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 25);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(59, 13);
-            this.label9.TabIndex = 1;
-            this.label9.Text = "Solicitante:";
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(7, 123);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(108, 13);
+            this.label12.TabIndex = 8;
+            this.label12.Text = "Centro de Formación:";
             // 
-            // label10
+            // label11
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(7, 58);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(41, 13);
-            this.label10.TabIndex = 2;
-            this.label10.Text = "Chofer:";
-            // 
-            // txtSolicitante
-            // 
-            this.txtSolicitante.Enabled = false;
-            this.txtSolicitante.Location = new System.Drawing.Point(72, 22);
-            this.txtSolicitante.Name = "txtSolicitante";
-            this.txtSolicitante.Size = new System.Drawing.Size(213, 20);
-            this.txtSolicitante.TabIndex = 3;
-            // 
-            // txtChofer
-            // 
-            this.txtChofer.Enabled = false;
-            this.txtChofer.Location = new System.Drawing.Point(72, 55);
-            this.txtChofer.Name = "txtChofer";
-            this.txtChofer.Size = new System.Drawing.Size(213, 20);
-            this.txtChofer.TabIndex = 4;
-            // 
-            // txtAprobador
-            // 
-            this.txtAprobador.Enabled = false;
-            this.txtAprobador.Location = new System.Drawing.Point(72, 86);
-            this.txtAprobador.Name = "txtAprobador";
-            this.txtAprobador.Size = new System.Drawing.Size(213, 20);
-            this.txtAprobador.TabIndex = 5;
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(300, 11);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(58, 13);
+            this.label11.TabIndex = 7;
+            this.label11.Text = "Asistentes:";
             // 
             // dgvFuncionarios
             // 
@@ -348,30 +332,56 @@
             this.dgvFuncionarios.Size = new System.Drawing.Size(282, 118);
             this.dgvFuncionarios.TabIndex = 6;
             // 
-            // label11
+            // txtAprobador
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(300, 11);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(58, 13);
-            this.label11.TabIndex = 7;
-            this.label11.Text = "Asistentes:";
+            this.txtAprobador.Enabled = false;
+            this.txtAprobador.Location = new System.Drawing.Point(72, 86);
+            this.txtAprobador.Name = "txtAprobador";
+            this.txtAprobador.Size = new System.Drawing.Size(213, 20);
+            this.txtAprobador.TabIndex = 5;
             // 
-            // label12
+            // txtChofer
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(7, 123);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(108, 13);
-            this.label12.TabIndex = 8;
-            this.label12.Text = "Centro de Formación:";
+            this.txtChofer.Enabled = false;
+            this.txtChofer.Location = new System.Drawing.Point(72, 55);
+            this.txtChofer.Name = "txtChofer";
+            this.txtChofer.Size = new System.Drawing.Size(213, 20);
+            this.txtChofer.TabIndex = 4;
             // 
-            // txtCentro
+            // txtSolicitante
             // 
-            this.txtCentro.Location = new System.Drawing.Point(121, 120);
-            this.txtCentro.Name = "txtCentro";
-            this.txtCentro.Size = new System.Drawing.Size(164, 20);
-            this.txtCentro.TabIndex = 9;
+            this.txtSolicitante.Enabled = false;
+            this.txtSolicitante.Location = new System.Drawing.Point(72, 22);
+            this.txtSolicitante.Name = "txtSolicitante";
+            this.txtSolicitante.Size = new System.Drawing.Size(213, 20);
+            this.txtSolicitante.TabIndex = 3;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(7, 58);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(41, 13);
+            this.label10.TabIndex = 2;
+            this.label10.Text = "Chofer:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 25);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(59, 13);
+            this.label9.TabIndex = 1;
+            this.label9.Text = "Solicitante:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 89);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(59, 13);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Aprobador:";
             // 
             // groupBox5
             // 
@@ -394,73 +404,29 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Información del Vehículo:";
             // 
-            // label13
+            // label18
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(11, 21);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(37, 13);
-            this.label13.TabIndex = 0;
-            this.label13.Text = "Placa:";
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(485, 50);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(50, 13);
+            this.label18.TabIndex = 11;
+            this.label18.Text = "Licencia:";
             // 
-            // txtPlaca
+            // txtLicencia
             // 
-            this.txtPlaca.BackColor = System.Drawing.SystemColors.Info;
-            this.txtPlaca.Enabled = false;
-            this.txtPlaca.Location = new System.Drawing.Point(54, 18);
-            this.txtPlaca.Name = "txtPlaca";
-            this.txtPlaca.Size = new System.Drawing.Size(92, 20);
-            this.txtPlaca.TabIndex = 1;
+            this.txtLicencia.BackColor = System.Drawing.SystemColors.Info;
+            this.txtLicencia.Location = new System.Drawing.Point(544, 47);
+            this.txtLicencia.Name = "txtLicencia";
+            this.txtLicencia.Size = new System.Drawing.Size(40, 20);
+            this.txtLicencia.TabIndex = 10;
             // 
-            // label14
+            // textBox1
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(164, 21);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(85, 13);
-            this.label14.TabIndex = 2;
-            this.label14.Text = "Marca y modelo:";
-            // 
-            // txtMarca
-            // 
-            this.txtMarca.Enabled = false;
-            this.txtMarca.Location = new System.Drawing.Point(255, 18);
-            this.txtMarca.Name = "txtMarca";
-            this.txtMarca.Size = new System.Drawing.Size(100, 20);
-            this.txtMarca.TabIndex = 3;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(11, 50);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(108, 13);
-            this.label15.TabIndex = 4;
-            this.label15.Text = "Centro de Fromacion:";
-            // 
-            // txtCentroVeh
-            // 
-            this.txtCentroVeh.Enabled = false;
-            this.txtCentroVeh.Location = new System.Drawing.Point(121, 47);
-            this.txtCentroVeh.Name = "txtCentroVeh";
-            this.txtCentroVeh.Size = new System.Drawing.Size(234, 20);
-            this.txtCentroVeh.TabIndex = 5;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(372, 21);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(51, 13);
-            this.label16.TabIndex = 6;
-            this.label16.Text = "Gasolina:";
-            // 
-            // txtGasolina
-            // 
-            this.txtGasolina.Location = new System.Drawing.Point(429, 18);
-            this.txtGasolina.Name = "txtGasolina";
-            this.txtGasolina.Size = new System.Drawing.Size(155, 20);
-            this.txtGasolina.TabIndex = 7;
+            this.textBox1.Location = new System.Drawing.Point(439, 47);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(40, 20);
+            this.textBox1.TabIndex = 9;
             // 
             // label17
             // 
@@ -471,38 +437,73 @@
             this.label17.TabIndex = 8;
             this.label17.Text = "Capacidad:";
             // 
-            // textBox1
+            // txtGasolina
             // 
-            this.textBox1.Location = new System.Drawing.Point(439, 47);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(40, 20);
-            this.textBox1.TabIndex = 9;
+            this.txtGasolina.Location = new System.Drawing.Point(429, 18);
+            this.txtGasolina.Name = "txtGasolina";
+            this.txtGasolina.Size = new System.Drawing.Size(155, 20);
+            this.txtGasolina.TabIndex = 7;
             // 
-            // txtLicencia
+            // label16
             // 
-            this.txtLicencia.BackColor = System.Drawing.SystemColors.Info;
-            this.txtLicencia.Location = new System.Drawing.Point(544, 47);
-            this.txtLicencia.Name = "txtLicencia";
-            this.txtLicencia.Size = new System.Drawing.Size(40, 20);
-            this.txtLicencia.TabIndex = 10;
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(372, 21);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(51, 13);
+            this.label16.TabIndex = 6;
+            this.label16.Text = "Gasolina:";
             // 
-            // label18
+            // txtCentroVeh
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(485, 50);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(50, 13);
-            this.label18.TabIndex = 11;
-            this.label18.Text = "Licencia:";
+            this.txtCentroVeh.Enabled = false;
+            this.txtCentroVeh.Location = new System.Drawing.Point(121, 47);
+            this.txtCentroVeh.Name = "txtCentroVeh";
+            this.txtCentroVeh.Size = new System.Drawing.Size(234, 20);
+            this.txtCentroVeh.TabIndex = 5;
             // 
-            // label19
+            // label15
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(11, 37);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(68, 13);
-            this.label19.TabIndex = 16;
-            this.label19.Text = "Justificación:";
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(11, 50);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(108, 13);
+            this.label15.TabIndex = 4;
+            this.label15.Text = "Centro de Fromacion:";
+            // 
+            // txtMarca
+            // 
+            this.txtMarca.Enabled = false;
+            this.txtMarca.Location = new System.Drawing.Point(255, 18);
+            this.txtMarca.Name = "txtMarca";
+            this.txtMarca.Size = new System.Drawing.Size(100, 20);
+            this.txtMarca.TabIndex = 3;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(164, 21);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(85, 13);
+            this.label14.TabIndex = 2;
+            this.label14.Text = "Marca y modelo:";
+            // 
+            // txtPlaca
+            // 
+            this.txtPlaca.BackColor = System.Drawing.SystemColors.Info;
+            this.txtPlaca.Enabled = false;
+            this.txtPlaca.Location = new System.Drawing.Point(54, 18);
+            this.txtPlaca.Name = "txtPlaca";
+            this.txtPlaca.Size = new System.Drawing.Size(92, 20);
+            this.txtPlaca.TabIndex = 1;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(11, 21);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(37, 13);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "Placa:";
             // 
             // btnSalir
             // 
@@ -525,6 +526,7 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmConsultaSolicitud";

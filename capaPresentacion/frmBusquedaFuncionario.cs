@@ -1,5 +1,6 @@
 ﻿using capaEntidades;
 using capaLogica;
+using capaLógica;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,7 +21,7 @@ namespace capaPresentacion
 
         private int banderaIdentificacion;
 
-        //la siguiente variable global indica que tipo de busqueda se está haciendo: si (1) de solicitante o (2) de funcionario.
+        //la siguiente variable global indica que tipo de busqueda se está haciendo: si (1) de solicitante o (2) de funcionario o (3) de aprobador.
 
         private int tipoBusqueda;
 
@@ -100,7 +101,7 @@ namespace capaPresentacion
         }
 
         //el siguiente botón buscar genera la condición conforme a la opción seleccionada en el combo, ya sea buscar por
-        //identificación o buscar por nombre y apellido, para posteriormente hacer la solicitud de búsqueda.
+        //identificación o buscar por nombre y apellido, para posteriormente hacer la solicitud de búsqueda. Nótese que la consulta es compleja pues evita traer aquellos funcionarios que según el tipo de busqueda filtrará aquellos funcionarios que no estén disponibles en alguna fecha, o no estén activos, o son aprobadores.
         private void btnBuscar_Click(object sender, EventArgs e)
         {
 
@@ -116,12 +117,12 @@ namespace capaPresentacion
                         if (cboTipo.SelectedIndex == 1)
                         {
 
-                            condicion = $"CONCAT(NOMBRE, ' ', APELLIDO_UNO, ' ', APELLIDO_DOS) LIKE '%{txtInfo.Text}%' AND ACTIVO = 0";
+                            condicion = $"CONCAT(NOMBRE, ' ', APELLIDO_UNO, ' ', APELLIDO_DOS) LIKE '%{txtInfo.Text}%' AND ACTIVO = 1";
 
                         }
                         else
                         {
-                            condicion = $"IDENTIFICACION LIKE '%{txtInfo.Text}%' AND ACTIVO = 0";
+                            condicion = $"IDENTIFICACION LIKE '%{txtInfo.Text}%' AND ACTIVO = 1";
                         }
                     }
                     else if (tipoBusqueda == 2)
@@ -129,13 +130,13 @@ namespace capaPresentacion
                         if (cboTipo.SelectedIndex == 1)
                         {
 
-                            condicion = $"CONCAT(NOMBRE, ' ', APELLIDO_UNO, ' ', APELLIDO_DOS) LIKE '%{txtInfo.Text}%' AND ACTIVO = 0 AND IDENTIFICACION NOT IN (SELECT CHOFER FROM SOLICITUDES_GIRAS WHERE ESTADO='APROBADA' AND (('{fechaInicio}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFinal}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFinal}') OR (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFinal}'))) AND IDENTIFICACION NOT IN (SELECT IDENTIFICACION FROM ACOMPANIANTES INNER JOIN SOLICITUDES_GIRAS ON ACOMPANIANTES.ID_GIRA = SOLICITUDES_GIRAS.ID_GIRA WHERE  ESTADO='APROBADA' AND  (('{fechaFinal}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFinal}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFinal}') OR  (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFinal}')))";
+                            condicion = $"CONCAT(NOMBRE, ' ', APELLIDO_UNO, ' ', APELLIDO_DOS) LIKE '%{txtInfo.Text}%' AND ACTIVO = 1 AND IDENTIFICACION NOT IN (SELECT CHOFER FROM SOLICITUDES_GIRAS WHERE ESTADO='APROBADA' AND (('{fechaInicio}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFinal}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFinal}') OR (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFinal}'))) AND IDENTIFICACION NOT IN (SELECT IDENTIFICACION FROM ACOMPANIANTES INNER JOIN SOLICITUDES_GIRAS ON ACOMPANIANTES.ID_GIRA = SOLICITUDES_GIRAS.ID_GIRA WHERE  ESTADO='APROBADA' AND  (('{fechaFinal}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFinal}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFinal}') OR  (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFinal}')))";
 
                         }
                         else
                         {
 
-                            condicion = $"IDENTIFICACION LIKE '%{txtInfo.Text}%' AND ACTIVO = 0 AND IDENTIFICACION NOT IN (SELECT CHOFER FROM SOLICITUDES_GIRAS WHERE  ESTADO='APROBADA' AND  (('{fechaInicio}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFinal}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFinal}') OR (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFinal}'))) AND IDENTIFICACION NOT IN (SELECT IDENTIFICACION FROM ACOMPANIANTES INNER JOIN SOLICITUDES_GIRAS ON ACOMPANIANTES.ID_GIRA = SOLICITUDES_GIRAS.ID_GIRA WHERE  ESTADO='APROBADA' AND  (('{fechaFinal}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFinal}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFinal}') OR  (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFinal}')))" +
+                            condicion = $"IDENTIFICACION LIKE '%{txtInfo.Text}%' AND ACTIVO = 1 AND IDENTIFICACION NOT IN (SELECT CHOFER FROM SOLICITUDES_GIRAS WHERE  ESTADO='APROBADA' AND  (('{fechaInicio}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFinal}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFinal}') OR (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFinal}'))) AND IDENTIFICACION NOT IN (SELECT IDENTIFICACION FROM ACOMPANIANTES INNER JOIN SOLICITUDES_GIRAS ON ACOMPANIANTES.ID_GIRA = SOLICITUDES_GIRAS.ID_GIRA WHERE  ESTADO='APROBADA' AND  (('{fechaFinal}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFinal}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFinal}') OR  (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFinal}')))" +
                                 $"";
 
                         }
@@ -145,13 +146,13 @@ namespace capaPresentacion
                         if (cboTipo.SelectedIndex == 1)
                         {
 
-                            condicion = $"CONCAT(NOMBRE, ' ', APELLIDO_UNO, ' ', APELLIDO_DOS) LIKE '%{txtInfo.Text}%' AND ACTIVO = 0 AND APROBADOR = 1";
+                            condicion = $"CONCAT(NOMBRE, ' ', APELLIDO_UNO, ' ', APELLIDO_DOS) LIKE '%{txtInfo.Text}%' AND ACTIVO = 1 AND APROBADOR = 1";
 
                         }
                         else
                         {
 
-                            condicion = $"IDENTIFICACION LIKE '%{txtInfo.Text}%' AND ACTIVO = 0 AND APROBADOR = 1";
+                            condicion = $"IDENTIFICACION LIKE '%{txtInfo.Text}%' AND ACTIVO = 1 AND APROBADOR = 1";
 
                         }
                     }
@@ -209,7 +210,7 @@ namespace capaPresentacion
         }
 
 
-        //la siguiente función envía los datos de un formulario a otro.
+        //la siguiente función envía los datos de un formulario a otro si la busqueda es para un solicitante. (1)
         private void SeleccionarSolicitante()
         {
             try
@@ -231,7 +232,8 @@ namespace capaPresentacion
                 throw ex;
             }
         }
-
+        
+        //la siguiente función envía los datos de un formulario a otro si la búsqueda es para un funcionario. (2)
         private void SeleccionarFuncionario() 
         {
             try
@@ -250,10 +252,10 @@ namespace capaPresentacion
             catch (Exception ex)
             {
                 throw ex;
-                throw;
             }
         }
 
+        //la siguiente función envía los datos seleccionados de un formulario a otro si la búsqueda es para un aprobador (3)
         private void SeleccionarAprobador()
         {
             try
@@ -275,7 +277,7 @@ namespace capaPresentacion
                 throw;
             }
         }
-        //la siguiente función ejecuta la función para mandar info de un método a otro al dar doble click al datagrid
+        //la siguiente función ejecuta la función para mandar info de un método a otro al dar doble click al datagrid. Según el tipo de búsqueda, hará una selección diferente.
         private void grdSolicitante_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -328,7 +330,7 @@ namespace capaPresentacion
             }
         }
 
-        //evento de cancelación, no envía ningún dato al formulario
+        //evento de cancelación, no envía ningún dato al formulario y se guia por el tipo de busqueda.
         private void btnSalir_Click(object sender, EventArgs e)
         {
             identificacionSolicitante = "-1";
@@ -354,10 +356,16 @@ namespace capaPresentacion
 
         private void Limpiar()
         {
+            List<entidadFuncionario> listaVacia = new List<entidadFuncionario>;
             cboTipo.SelectedIndex = 0;
             txtInfo.Text = string.Empty;
-            grdSolicitante.ClearSelection();
+            grdSolicitante.DataSource = listaVacia;
             
+        }
+
+        private void btnInformacion_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("En caso de que no encuentre el acompañante deseado puede ser por: el funcionario no se encuentra disponible entre las fechas elegidas para la gira o el funcionario no está activo. Sin embargo, si busca solicitante solamente no aparecerán aquellos que no estén activos pues cualquier funcionario puede mandar una solicitud de gira.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)

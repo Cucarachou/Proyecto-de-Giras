@@ -17,12 +17,18 @@ namespace capaPresentacion
     public partial class frmBusquedaChofer : Form
     {
 
+        //la siguiente variable indica que tipo de busqueda está realizando el usuario, si por nombre o por identificacion del chofer.
         int banderaIdentificacion = 0;
+
+        //variable global que guarda la identificacion del chofer seleccionado.
         string identificacionChofer;
+
+        //variables globales que traen las fechas seleccionadas por el usuario desde la solicitud para poder verificar que el chofer está disponible.
         string fechaInicio, fechaFin;
         public EventHandler AceptarChofer;
+        //variable global que guarda la licencia del vehiculo en caso de que haya sido seleccionado de primero que el chofer.
         private string licenciaVehiculo;
-        private string justificacionExtemporanea;
+
         //las siguientes propiedades son valores que se obtienen al abrir este formulario desde el principal de solicitud gira,
         //el de licencia de vehiculo es opcional, pues se da el valor solo si el usuario ha seleccionado un automovil antes
         public string FechaInicio { get => fechaInicio; set => fechaInicio = value; }
@@ -34,22 +40,25 @@ namespace capaPresentacion
             InitializeComponent();
         }
 
+        //asigna las fechas seleccionadas por el usuario desde la solicitud de gira e inicializa el combo box.
         private void frmBusquedaChofer_Load(object sender, EventArgs e)
         {
             txtInicio.Text = fechaInicio;
             txtFinal.Text = fechaFin;
             cboTipo.SelectedIndex = 0;
-            justificacionExtemporanea = string.Empty;
         }
 
+        //limpia el datagrid asignando una lista vacia y los demas campos ademas de reiniciar el combo box.
         private void Limpiar()
         {
+            List<entidadChofer> listaVacia = new List<entidadChofer>();
             cboTipo.SelectedIndex = 0;
             txtInfo.Text = string.Empty;
-            grdLista.ClearSelection();
+            grdLista.DataSource = listaVacia;
 
         }
 
+        //el siguiente evento cambia la información que digitará el usuario para buscar chofer según el indice seleccionado en el combo box.
         private void cboTipo_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -69,6 +78,7 @@ namespace capaPresentacion
             }
         }
 
+        //la siguiente funcion impide que el usuario escriba numeros o letras dependiendo si esta buscando por identificacion o por nombre y apellidos
         private void txtInfo_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (Char.IsLetter(e.KeyChar) && banderaIdentificacion == 0)
@@ -81,6 +91,7 @@ namespace capaPresentacion
             }
         }
 
+        //funcion que carga la lista de choferes y las asigna al datagrid mediante una lista.
         private void CargarChoferes(string condicion = "")
         {
             logicaFuncionario logica = new logicaFuncionario(Configuracion.getConnectiongString);
@@ -100,6 +111,8 @@ namespace capaPresentacion
 
 
         }
+
+        //la siguiente verificación arma la condición para buscar al chofer según el indice seleccionado en el combo box. Nótese que la condición es compleja pues evita traer aquellos choferes que no están disponibles entre las fechas de la solicitud, así como los funcionarios que no son choferes o no están activos.
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             string condicion = string.Empty;
@@ -111,11 +124,11 @@ namespace capaPresentacion
                 {
                     if (cboTipo.SelectedIndex == 1)
                     {
-                        condicion = $"CONCAT(NOMBRE, ' ', APELLIDO_UNO, ' ', APELLIDO_DOS) LIKE '%{txtInfo.Text}%' AND ACTIVO = 0 AND CHOFER = 1 AND IDENTIFICACION NOT IN (SELECT CHOFER FROM SOLICITUDES_GIRAS WHERE  ESTADO='APROBADA' AND  (('{fechaInicio}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFin}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFin}') OR (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFin}'))) AND IDENTIFICACION NOT IN (SELECT IDENTIFICACION FROM ACOMPANIANTES INNER JOIN SOLICITUDES_GIRAS ON ACOMPANIANTES.ID_GIRA = SOLICITUDES_GIRAS.ID_GIRA WHERE ESTADO='APROBADA' AND  (('{fechaFin}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFin}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFin}') OR  (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFin}')))";
+                        condicion = $"CONCAT(NOMBRE, ' ', APELLIDO_UNO, ' ', APELLIDO_DOS) LIKE '%{txtInfo.Text}%' AND ACTIVO = 1 AND CHOFER = 1 AND IDENTIFICACION NOT IN (SELECT CHOFER FROM SOLICITUDES_GIRAS WHERE  ESTADO='APROBADA' AND  (('{fechaInicio}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFin}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFin}') OR (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFin}'))) AND IDENTIFICACION NOT IN (SELECT IDENTIFICACION FROM ACOMPANIANTES INNER JOIN SOLICITUDES_GIRAS ON ACOMPANIANTES.ID_GIRA = SOLICITUDES_GIRAS.ID_GIRA WHERE ESTADO='APROBADA' AND  (('{fechaFin}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFin}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFin}') OR  (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFin}')))";
                     }
                     else
                     {
-                        condicion = $"IDENTIFICACION LIKE '%{txtInfo.Text}%' AND ACTIVO = 0 AND CHOFER = 1 AND IDENTIFICACION NOT IN (SELECT CHOFER FROM SOLICITUDES_GIRAS WHERE ESTADO='APROBADA' AND (('{fechaInicio}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFin}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFin}') OR (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFin}'))) AND IDENTIFICACION NOT IN (SELECT IDENTIFICACION FROM ACOMPANIANTES INNER JOIN SOLICITUDES_GIRAS ON ACOMPANIANTES.ID_GIRA = SOLICITUDES_GIRAS.ID_GIRA WHERE ESTADO='APROBADA' AND (('{fechaFin}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFin}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFin}') OR  (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFin}')))";
+                        condicion = $"IDENTIFICACION LIKE '%{txtInfo.Text}%' AND ACTIVO = 1 AND CHOFER = 1 AND IDENTIFICACION NOT IN (SELECT CHOFER FROM SOLICITUDES_GIRAS WHERE ESTADO='APROBADA' AND (('{fechaInicio}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFin}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFin}') OR (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFin}'))) AND IDENTIFICACION NOT IN (SELECT IDENTIFICACION FROM ACOMPANIANTES INNER JOIN SOLICITUDES_GIRAS ON ACOMPANIANTES.ID_GIRA = SOLICITUDES_GIRAS.ID_GIRA WHERE ESTADO='APROBADA' AND (('{fechaFin}' BETWEEN DIA_INICIO AND DIA_FINAL) OR ('{fechaFin}' BETWEEN DIA_INICIO AND DIA_FINAL) OR (DIA_INICIO BETWEEN '{fechaInicio}' AND '{fechaFin}') OR  (DIA_FINAL BETWEEN '{fechaInicio}' AND '{fechaFin}')))";
                     }
                     CargarChoferes(condicion);
                 }
@@ -131,6 +144,7 @@ namespace capaPresentacion
             }
         }
 
+        //la siguiente función asigna a la variable global de identificacion la identificacion del chofer según la fila seleccionada en el datagrid. Además, en caso de que el usuario haya seleccionado primero un vehículo utiliza una función para verificar que dicho chofer posee la licencia necesaria para manejar ese vehículo.
         private void SeleccionarChofer()
         {
             try
@@ -265,6 +279,7 @@ namespace capaPresentacion
             return false;
         }
 
+        //evento al dar doble click al datagrid, hace lo mismo que el botón aceptar.
         private void grdLista_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -291,6 +306,7 @@ namespace capaPresentacion
             }
         }
 
+        //envia -1 en caso de que el usuario seleccione salir.
         private void btnSalir_Click(object sender, EventArgs e)
         {
             identificacionChofer = "-1";
@@ -299,6 +315,7 @@ namespace capaPresentacion
             Close();
         }
 
+        //el siguiente evento muestra al usuario las licencias que posee el chofer seleccionado mediante una función que crea un string con las licencias que posee el chofer.
         private void btnLicencias_Click(object sender, EventArgs e)
         {
             string mensaje;
@@ -351,13 +368,19 @@ namespace capaPresentacion
             return mensaje;
         }
 
+    
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
-            List<entidadChofer> listaVacia = new List<entidadChofer>();
-            grdLista.DataSource = listaVacia;
-            txtInfo.Text = string.Empty;
+            Limpiar();
         }
 
+
+        private void btnInformacion_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("En caso de que no encuentre el chofer deseado puede ser por: el funcionario no posee permisos para ser chofer, o el funcionario no se encuentra disponible entre las fechas elegidas para la gira o el funcionario no está activo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        //evento que muestra la información del chofer seleccionado una vez en el datagrid. Esto lo muestra en la info, por lo que depende de la opción seleccionada en el combo box.
         private void grdLista_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (cboTipo.SelectedIndex == 0)

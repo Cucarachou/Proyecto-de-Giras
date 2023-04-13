@@ -835,6 +835,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(951, 429);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.label18);
@@ -849,8 +850,9 @@
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmSolicitudGira";
-            this.Text = " ";
+            this.Text = " Solicitud de Gira";
             this.Load += new System.EventHandler(this.frmSolicitudGira_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

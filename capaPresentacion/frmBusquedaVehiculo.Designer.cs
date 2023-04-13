@@ -28,19 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBusquedaVehiculo));
             this.dgvVehiculos = new System.Windows.Forms.DataGridView();
-            this.nudCantidadF = new System.Windows.Forms.NumericUpDown();
-            this.txtInfo = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.btnBuscar = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cboTipo = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnLimpiar = new System.Windows.Forms.Button();
-            this.btnAceptar = new System.Windows.Forms.Button();
-            this.btnSalir = new System.Windows.Forms.Button();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,6 +39,19 @@
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nudCantidadF = new System.Windows.Forms.NumericUpDown();
+            this.txtInfo = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnBuscar = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cboTipo = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnInformacion = new System.Windows.Forms.Button();
+            this.btnLimpiar = new System.Windows.Forms.Button();
+            this.btnAceptar = new System.Windows.Forms.Button();
+            this.btnSalir = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVehiculos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidadF)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -81,6 +83,63 @@
             this.dgvVehiculos.Size = new System.Drawing.Size(657, 218);
             this.dgvVehiculos.TabIndex = 0;
             this.dgvVehiculos.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVehiculos_CellContentDoubleClick);
+            // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "Placa";
+            this.Column1.HeaderText = "Placa";
+            this.Column1.Name = "Column1";
+            // 
+            // Column9
+            // 
+            this.Column9.DataPropertyName = "Estilo";
+            this.Column9.HeaderText = "Estilo";
+            this.Column9.Name = "Column9";
+            this.Column9.Visible = false;
+            // 
+            // Column2
+            // 
+            this.Column2.DataPropertyName = "Marca";
+            this.Column2.HeaderText = "Marca";
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.DataPropertyName = "Modelo";
+            this.Column3.HeaderText = "Modelo";
+            this.Column3.Name = "Column3";
+            // 
+            // Column4
+            // 
+            this.Column4.DataPropertyName = "Combustible";
+            this.Column4.HeaderText = "Combustible";
+            this.Column4.Name = "Column4";
+            // 
+            // Column5
+            // 
+            this.Column5.DataPropertyName = "Disponibilidad";
+            this.Column5.HeaderText = "Disponibilidad";
+            this.Column5.Name = "Column5";
+            this.Column5.Visible = false;
+            // 
+            // Column6
+            // 
+            this.Column6.DataPropertyName = "Id_Centro";
+            this.Column6.HeaderText = "Id_Centro";
+            this.Column6.Name = "Column6";
+            this.Column6.Visible = false;
+            // 
+            // Column7
+            // 
+            this.Column7.DataPropertyName = "Capacidad";
+            this.Column7.HeaderText = "Capacidad";
+            this.Column7.Name = "Column7";
+            // 
+            // Column8
+            // 
+            this.Column8.DataPropertyName = "LicenciaRequerida";
+            this.Column8.HeaderText = "Licencia Requerida";
+            this.Column8.Name = "Column8";
             // 
             // nudCantidadF
             // 
@@ -182,6 +241,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnInformacion);
             this.groupBox2.Controls.Add(this.btnLimpiar);
             this.groupBox2.Controls.Add(this.btnAceptar);
             this.groupBox2.Controls.Add(this.btnSalir);
@@ -192,6 +252,16 @@
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Información";
+            // 
+            // btnInformacion
+            // 
+            this.btnInformacion.Location = new System.Drawing.Point(90, 243);
+            this.btnInformacion.Name = "btnInformacion";
+            this.btnInformacion.Size = new System.Drawing.Size(75, 23);
+            this.btnInformacion.TabIndex = 4;
+            this.btnInformacion.Text = "Información";
+            this.btnInformacion.UseVisualStyleBackColor = true;
+            this.btnInformacion.Click += new System.EventHandler(this.btnInformacion_Click);
             // 
             // btnLimpiar
             // 
@@ -222,72 +292,17 @@
             this.btnSalir.UseVisualStyleBackColor = true;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
-            // Column1
-            // 
-            this.Column1.DataPropertyName = "Placa";
-            this.Column1.HeaderText = "Placa";
-            this.Column1.Name = "Column1";
-            // 
-            // Column9
-            // 
-            this.Column9.DataPropertyName = "Estilo";
-            this.Column9.HeaderText = "Estilo";
-            this.Column9.Name = "Column9";
-            this.Column9.Visible = false;
-            // 
-            // Column2
-            // 
-            this.Column2.DataPropertyName = "Marca";
-            this.Column2.HeaderText = "Marca";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.DataPropertyName = "Modelo";
-            this.Column3.HeaderText = "Modelo";
-            this.Column3.Name = "Column3";
-            // 
-            // Column4
-            // 
-            this.Column4.DataPropertyName = "Combustible";
-            this.Column4.HeaderText = "Combustible";
-            this.Column4.Name = "Column4";
-            // 
-            // Column5
-            // 
-            this.Column5.DataPropertyName = "Disponibilidad";
-            this.Column5.HeaderText = "Disponibilidad";
-            this.Column5.Name = "Column5";
-            this.Column5.Visible = false;
-            // 
-            // Column6
-            // 
-            this.Column6.DataPropertyName = "Id_Centro";
-            this.Column6.HeaderText = "Id_Centro";
-            this.Column6.Name = "Column6";
-            this.Column6.Visible = false;
-            // 
-            // Column7
-            // 
-            this.Column7.DataPropertyName = "Capacidad";
-            this.Column7.HeaderText = "Capacidad";
-            this.Column7.Name = "Column7";
-            // 
-            // Column8
-            // 
-            this.Column8.DataPropertyName = "LicenciaRequerida";
-            this.Column8.HeaderText = "Licencia Requerida";
-            this.Column8.Name = "Column8";
-            // 
             // frmBusquedaVehiculo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(698, 353);
-            this.ControlBox = false;
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmBusquedaVehiculo";
             this.Text = "Búsqueda de Vehículo";
             ((System.ComponentModel.ISupportInitialize)(this.dgvVehiculos)).EndInit();
@@ -323,5 +338,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        private System.Windows.Forms.Button btnInformacion;
     }
 }

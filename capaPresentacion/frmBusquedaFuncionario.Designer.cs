@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBusquedaFuncionario));
             this.label1 = new System.Windows.Forms.Label();
             this.txtInfo = new System.Windows.Forms.TextBox();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -47,6 +48,7 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.cboTipo = new System.Windows.Forms.ComboBox();
             this.lblTipo = new System.Windows.Forms.Label();
+            this.btnInformacion = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grdSolicitante)).BeginInit();
             this.SuspendLayout();
             // 
@@ -176,7 +178,7 @@
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(459, 202);
+            this.btnAceptar.Location = new System.Drawing.Point(459, 201);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 4;
@@ -186,7 +188,7 @@
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(15, 202);
+            this.btnSalir.Location = new System.Drawing.Point(15, 201);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(75, 23);
             this.btnSalir.TabIndex = 5;
@@ -196,7 +198,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(378, 202);
+            this.btnLimpiar.Location = new System.Drawing.Point(378, 201);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 6;
@@ -226,11 +228,23 @@
             this.lblTipo.TabIndex = 8;
             this.lblTipo.Text = "Identificación:";
             // 
+            // btnInformacion
+            // 
+            this.btnInformacion.Location = new System.Drawing.Point(97, 201);
+            this.btnInformacion.Name = "btnInformacion";
+            this.btnInformacion.Size = new System.Drawing.Size(75, 23);
+            this.btnInformacion.TabIndex = 9;
+            this.btnInformacion.Text = "Información";
+            this.btnInformacion.UseVisualStyleBackColor = true;
+            this.btnInformacion.Click += new System.EventHandler(this.btnInformacion_Click);
+            // 
             // frmBusquedaFuncionario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(546, 229);
+            this.Controls.Add(this.btnInformacion);
             this.Controls.Add(this.lblTipo);
             this.Controls.Add(this.cboTipo);
             this.Controls.Add(this.btnLimpiar);
@@ -240,6 +254,8 @@
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.txtInfo);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmBusquedaFuncionario";
             this.Text = "Búsqueda de Funcionarios";
@@ -271,5 +287,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Correo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.Button btnInformacion;
     }
 }

@@ -13,6 +13,8 @@ namespace capaPresentacion
     public partial class frmExtemporanea : Form
     {
         public EventHandler AceptarJustificación;
+
+        //la siguiente variable global guarda la justificacion escrita.
         private string justificacion;
 
         public string Justificacion { get => justificacion; set => justificacion = value; }
@@ -22,12 +24,13 @@ namespace capaPresentacion
             InitializeComponent();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void btnLimpiar_Click(object sender, EventArgs e)
         {
             rtbJustificacion.Clear();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        //envia la justificacion de extemporanea al formulario de solicitudes que lo abrió.
+        private void btnAceptar_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(rtbJustificacion.Text))
             {
@@ -44,7 +47,8 @@ namespace capaPresentacion
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        //en caso de cancelar la solicitud en el otro formulario se procede a limpiar las fechas pues el usuario no digitó una justificación para la fecha extemporanea.
+        private void btnCancelar_Click(object sender, EventArgs e)
         {
             frmExtemporanea frm = (frmExtemporanea)this.FindForm();
 

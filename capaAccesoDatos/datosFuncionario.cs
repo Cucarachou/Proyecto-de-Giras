@@ -74,7 +74,7 @@ namespace capaAccesoDatos
             SqlCommand command = new SqlCommand();
             command.Connection = connection;
             SqlDataReader datos;
-            string sentencia = "SELECT IDENTIFICACION, NOMBRE, APELLIDO_UNO, APELLIDO_DOS, TELEFONO, CORREO, ACTIVO, ID_CENTRO FROM FUNCIONARIOS";
+            string sentencia = "SELECT IDENTIFICACION, NOMBRE, APELLIDO_UNO, APELLIDO_DOS, TELEFONO, CORREO, ACTIVO, ID_CENTRO, APROBADOR, CHOFER FROM FUNCIONARIOS";
 
             if (!string.IsNullOrEmpty(condicion))
             {
@@ -99,7 +99,8 @@ namespace capaAccesoDatos
                     funcionario.Correo = datos.GetString(5);
                     funcionario.Activo = datos.GetBoolean(6);
                     funcionario.IdCentro = datos.GetInt32(7);
-
+                    funcionario.Aprobador = datos.GetBoolean(8);
+                    funcionario.Chofer = datos.GetBoolean(9);
 
                 }
 
@@ -142,7 +143,9 @@ namespace capaAccesoDatos
                                     Telefono = Convert.ToString(registro[4]),
                                     Correo = Convert.ToString(registro[5]),
                                     Activo = Convert.ToBoolean(registro[6]),
-                                    IdCentro = Convert.ToInt32(registro[7])
+                                    Aprobador = Convert.ToBoolean(registro[7]),
+                                    IdCentro = Convert.ToInt32(registro[8])
+
                 }).ToList();
             }
             catch (Exception ex)
@@ -358,9 +361,177 @@ namespace capaAccesoDatos
             return resultado;
         }
 
+
+        public List<entidadFuncionario> ListarFuncionarios(string condicion = "")
+        {
+            DataSet datos = new DataSet();
+            SqlConnection connection = new SqlConnection(cadenaConexion);
+            SqlDataAdapter adapter = null;
+            List<entidadFuncionario> funcionarios = new List<entidadFuncionario>();
+            string sentencia = "SELECT IDENTIFICACION, NOMBRE, APELLIDO_UNO, APELLIDO_DOS, TELEFONO, CORREO, ACTIVO, APROBADOR, CHOFER, ID_CENTRO FROM FUNCIONARIOS";
+
+            if (!string.IsNullOrEmpty(condicion))
+            {
+                sentencia = $"{sentencia} WHERE {condicion}";
+            }
+
+            try
+            {
+                adapter = new SqlDataAdapter(sentencia, connection);
+                adapter.Fill(datos, "Funcionarios");
+
+                funcionarios = (from DataRow registro in datos.Tables[0].Rows
+                                select new entidadFuncionario()
+                                {
+                                    Identificacion = Convert.ToString(registro[0]),
+                                    Nombre = Convert.ToString(registro[1]),
+                                    ApellidoUno = Convert.ToString(registro[2]),
+                                    ApellidoDos = Convert.ToString(registro[3]),
+                                    Telefono = Convert.ToString(registro[4]),
+                                    Correo = Convert.ToString(registro[5]),
+                                    Activo = Convert.ToBoolean(registro[6]),
+                                    Aprobador = Convert.ToBoolean(registro[7]),
+                                    Chofer = Convert.ToBoolean(registro[8]),
+                                    IdCentro = Convert.ToInt32(registro[9])
+
+                                }).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return funcionarios;
+        }
+
+        public bool EliminarFuncionario(string identificacion)
+        {
+            int resultado = -1;
+            SqlConnection cnn = new SqlConnection(cadenaConexion);
+            SqlCommand comando = new SqlCommand();
+            comando.Connection = cnn;
+            string sentencia;
+            try
+            {
+                sentencia = $"DELETE FROM FUNCIONARIOS WHERE IDENTIFICACION='{identificacion}'";
+                comando.CommandText = sentencia;
+                comando.CommandType = CommandType.Text;
+
+                cnn.Open();
+
+                resultado = (int)comando.ExecuteNonQuery();
+                cnn.Close();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            if (resultado > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+
+        public string InsertarFuncionario(entidadFuncionario funcionario)
+        {
+            string resultado = string.Empty;
+            SqlConnection cnn = new SqlConnection(cadenaConexion);
+            SqlCommand comando = new SqlCommand();
+            comando.Connection = cnn;
+            string sentencia;
+            try
+            {
+                sentencia = "INSERT INTO FUNCIONARIOS(IDENTIFICACION, NOMBRE, APELLIDO_UNO, APELLIDO_DOS, TELEFONO, CORREO, ACTIVO, APROBADOR, CHOFER, ID_CENTRO) OUTPUT INSERTED.IDENTIFICACION VALUES (@IDENTIFICACION, @NOMBRE, @APELLIDO_UNO, @APELLIDO_DOS, @TELEFONO, @CORREO, @ACTIVO, @APROBADOR, @CHOFER, @ID_CENTRO)";
+
+                comando.CommandText = sentencia;
+                comando.CommandType = CommandType.Text;
+                //parametros de entrada
+                comando.Parameters.AddWithValue("@IDENTIFICACION", funcionario.Identificacion);
+                comando.Parameters.AddWithValue("@NOMBRE", funcionario.Nombre);
+                comando.Parameters.AddWithValue("@APELLIDO_UNO", funcionario.ApellidoUno);
+                comando.Parameters.AddWithValue("@APELLIDO_DOS", funcionario.ApellidoDos);
+                comando.Parameters.AddWithValue("@TELEFONO", funcionario.Telefono);
+                comando.Parameters.AddWithValue("@CORREO", funcionario.Correo);
+                comando.Parameters.AddWithValue("@ACTIVO", funcionario.Activo);
+                comando.Parameters.AddWithValue("@APROBADOR", funcionario.Activo);
+                comando.Parameters.AddWithValue("@CHOFER", funcionario.Chofer);
+                comando.Parameters.AddWithValue("@ID_CENTRO", funcionario.IdCentro);
+
+                //parametros de salida
+                cnn.Open();
+                resultado = (string)comando.ExecuteScalar();
+
+                cnn.Close();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return resultado;
+        }
+
+
+        public bool ModificarFuncionario(entidadFuncionario funcionario)
+        {
+            int resultado = -1;
+            SqlConnection cnn = new SqlConnection(cadenaConexion);
+            SqlCommand comando = new SqlCommand();
+            comando.Connection = cnn;
+            string sentencia;
+            try
+            {
+                sentencia = "UPDATE FUNCIONARIOS SET NOMBRE = @NOMBRE, APELLIDO_UNO = @APELLIDO_UNO, APELLIDO_DOS = @APELLIDO_DOS, TELEFONO = @TELEFONO, CORREO = @CORREO, APROBADOR = @APROBADOR, CHOFER = @CHOFER, ID_CENTRO = @ID_CENTRO WHERE IDENTIFICACION = @IDENTIFICACION";
+
+                comando.CommandText = sentencia;
+                comando.CommandType = CommandType.Text;
+                //parametros de entrada
+                comando.Parameters.AddWithValue("@IDENTIFICACION", funcionario.Identificacion);
+                comando.Parameters.AddWithValue("@NOMBRE", funcionario.Nombre);
+                comando.Parameters.AddWithValue("@APELLIDO_UNO", funcionario.ApellidoUno);
+                comando.Parameters.AddWithValue("@APELLIDO_DOS", funcionario.ApellidoDos);
+                comando.Parameters.AddWithValue("@TELEFONO", funcionario.Telefono);
+                comando.Parameters.AddWithValue("@CORREO", funcionario.Correo);
+                comando.Parameters.AddWithValue("@APROBADOR", funcionario.Aprobador);
+                comando.Parameters.AddWithValue("@CHOFER", funcionario.Chofer);
+                comando.Parameters.AddWithValue("@ID_CENTRO", funcionario.IdCentro);
+
+                //parametros de salida
+                cnn.Open();
+                resultado = (int)comando.ExecuteNonQuery();
+
+                cnn.Close();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            if (resultado > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
     }
 
-    
+
 
 
 }

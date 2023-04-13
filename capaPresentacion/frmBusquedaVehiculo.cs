@@ -28,17 +28,20 @@ namespace capaPresentacion
         private int tipoBusqueda;
         //la siguiente variable global guarda la placa del vehículo
         private string placa;
-        //
+        //la siguientes variables de fecha se asignan al abrir al formulario para verificar que el vehiculo este disponible en dichas fechas.
         private DateTime giraFechaInicio, giraFechaFinal;
-        //
+        //la siguiente lista trae las licencias del chofer en caso de que haya sido seleccionado primero que el vehículo.
         List<entidadLicencia> licenciaLista = null;
-        //
+        
         public EventHandler AceptarVehiculo;
+
+        //propiedades para asignar las variables globales.
         public int CantidadAsistentes { get => cantidadAsistentes; set => cantidadAsistentes = value; }
         public DateTime GiraFechaInicio { get => giraFechaInicio; set => giraFechaInicio = value; }
         public DateTime GiraFechaFinal { get => giraFechaFinal; set => giraFechaFinal = value; }
         public List<entidadLicencia> LicenciaLista { get => licenciaLista; set => licenciaLista = value; }
 
+        //constrcutor que trae las fechas y la cantidad de asistentes, además de que inicializa en nud en caso de que la cantidad de asistentes no haya sido ingresada (osea, no se hayan seleccionado vehiculos)
         public frmBusquedaVehiculo(int _cantidadAsistentes)
         {
             InitializeComponent();
@@ -55,6 +58,7 @@ namespace capaPresentacion
             }
         }
 
+        //el siguiente evento permite al usuario elegir por qué datos buscará al vehículo, y asigna un tipo de busqueda para usarlo más adelante al buscar.
         private void cboTipo_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cboTipo.SelectedIndex == 0)
@@ -80,6 +84,7 @@ namespace capaPresentacion
             }
         }
 
+        //el siguiente evento no permite al usuario seleccionar menos de la cantidad de asistentes en caso de que los haya seleccionado antes de buscar el vehículo. Siempre deberá buscar más o igual a los asistentes que ya tiene.
         private void nudCantidadF_ValueChanged(object sender, EventArgs e)
         {
             if (cantidadAsistentes != -1)
@@ -92,6 +97,7 @@ namespace capaPresentacion
             }
         }
 
+        //el siguiente evento busca los vehículos según el indice seleccionado en el combo box. Nótese que las consultas son complejas pues buscarán únicamente aquellos vehículos que estén disponibles en las fechas elegidas por el usuario en el formulario de solicitud. Además, buscará solo vehículos que no tengan una próxima revisión durante las fechas elegidas, y los vehículos que tengan marchamo y seguro al día.
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             string condicion = string.Empty;
@@ -131,6 +137,7 @@ namespace capaPresentacion
             }
         }
 
+        //la siguiente función recibe una condicion y carga la lista de vehículos filtrados en el datagrid.
         private void CargarVehiculos(string condicion = "")
         {
             logicaVehiculo logica = new logicaVehiculo(Configuracion.getConnectiongString);
@@ -151,6 +158,8 @@ namespace capaPresentacion
 
         }
 
+
+        //boton de aceptar.
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             try
@@ -164,6 +173,8 @@ namespace capaPresentacion
             }
         }
 
+
+        //la siguiente función verifica que el usuario haya seleccionado un vehículo y si seleccionó primeramente un chofer deberá tener las licencia requerida para manejar el vehículo seleccionado. Caso contrario no dejará elegirlo. Posteriormente manda la información de un formulario a otro.
         private void SeleccionarVehiculo()
         {
             try
@@ -206,6 +217,7 @@ namespace capaPresentacion
             }
         }
 
+        //la siguiente función es igual que la del formulario busquedachofer y verifica que el chofer seleccionado antes (si este fue el caso) posea la licencia necesaria para manejar el vehiculo.
         private bool VerificarLicencia()
         {
             logicaLicencia logica = new logicaLicencia(Configuracion.getConnectiongString);
@@ -215,7 +227,7 @@ namespace capaPresentacion
             {
                 if (dgvVehiculos.SelectedRows[0].Cells[5].Value.ToString() == "A2")
                 {
-                    if (LicenciaLista[i].TipoLicencia == "A2" || LicenciaLista[i].TipoLicencia == "A3" || LicenciaLista[i].TipoLicencia == "E1" || LicenciaLista[i].TipoLicencia == "E1=2")
+                    if (LicenciaLista[i].TipoLicencia == "A2" || LicenciaLista[i].TipoLicencia == "A3" || LicenciaLista[i].TipoLicencia == "E1" || LicenciaLista[i].TipoLicencia == "E2")
                     {
                         return true;
                     }
@@ -295,6 +307,7 @@ namespace capaPresentacion
             return false;
         }
 
+        //evento al doble click del datagrid, igual que el boton de aceptar.
         private void dgvVehiculos_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -306,6 +319,11 @@ namespace capaPresentacion
 
                 MessageBox.Show(ex.Message, "Error de excepción", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnInformacion_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("En caso de que no encuentre el vehículo deseado puede ser por: el vehículo no está disponible entre las fechas de la gira, esto pues puede tener una revisión técnica o en un taller pendiente, o el vehículo no tiene marchamo en el año actual, o no tiene seguro activo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnSalir_Click(object sender, EventArgs e)

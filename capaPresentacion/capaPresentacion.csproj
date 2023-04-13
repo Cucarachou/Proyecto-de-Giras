@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmAniadirFuncionario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAniadirFuncionario.Designer.cs">
+      <DependentUpon>frmAniadirFuncionario.cs</DependentUpon>
+    </Compile>
     <Compile Include="Configuracion.cs" />
     <Compile Include="frmAprobarGira.cs">
       <SubType>Form</SubType>
@@ -80,6 +86,12 @@
     <Compile Include="frmBusquedaVehiculo.Designer.cs">
       <DependentUpon>frmBusquedaVehiculo.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCerrarGira.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCerrarGira.Designer.cs">
+      <DependentUpon>frmCerrarGira.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmConsultaSolicitud.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +110,12 @@
     <Compile Include="frmInicio.Designer.cs">
       <DependentUpon>frmInicio.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMantenimientoFuncionarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMantenimientoFuncionarios.Designer.cs">
+      <DependentUpon>frmMantenimientoFuncionarios.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSolicitudGira.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,6 +124,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmAniadirFuncionario.resx">
+      <DependentUpon>frmAniadirFuncionario.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAprobarGira.resx">
       <DependentUpon>frmAprobarGira.cs</DependentUpon>
     </EmbeddedResource>
@@ -121,6 +142,9 @@
     <EmbeddedResource Include="frmBusquedaVehiculo.resx">
       <DependentUpon>frmBusquedaVehiculo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmCerrarGira.resx">
+      <DependentUpon>frmCerrarGira.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmConsultaSolicitud.resx">
       <DependentUpon>frmConsultaSolicitud.cs</DependentUpon>
     </EmbeddedResource>
@@ -129,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmInicio.resx">
       <DependentUpon>frmInicio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMantenimientoFuncionarios.resx">
+      <DependentUpon>frmMantenimientoFuncionarios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSolicitudGira.resx">
       <DependentUpon>frmSolicitudGira.cs</DependentUpon>

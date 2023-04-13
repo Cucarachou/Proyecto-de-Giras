@@ -233,7 +233,7 @@ namespace capaAccesoDatos
             return solicitud;
         }
 
-        public bool AprobarSolicitud(string condicion, string aprobador)
+        public bool ActualizarSolicitud(string condicion, string aprobador)
         {
 
             string sentencia = $"UPDATE SOLICITUDES_GIRAS SET ESTADO = 'APROBADA', APROBADOR = '{aprobador}' WHERE {condicion}";
@@ -246,6 +246,100 @@ namespace capaAccesoDatos
 
             if (filasAfectadas > 0) { return true; } else { return false; }
 
+        }
+
+        public bool ActualizarSolicitud(string condicion, string aprobador, int tipoRechazo)
+        {
+            string sentencia;
+            int filasAfectadas = 0;
+
+            try
+            {
+                if (tipoRechazo == 1)
+                {
+                    sentencia = $"UPDATE SOLICITUDES_GIRAS SET ESTADO = 'RECHAZADA', APROBADOR = '{aprobador}' WHERE {condicion}";
+                }
+                else
+                {
+                    sentencia = $"UPDATE SOLICITUDES_GIRAS SET ESTADO = 'VENCIDA', APROBADOR = '{aprobador}' WHERE {condicion}";
+                }
+
+                SqlConnection connection = new SqlConnection(cadenaConexion);
+                SqlCommand command = new SqlCommand(sentencia, connection);
+
+                connection.Open();
+                filasAfectadas = command.ExecuteNonQuery();
+                connection.Close();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            if (filasAfectadas > 0) { return true; } else { return false; }
+
+        }
+
+        public bool CerrarSolicitud(string condicion)
+        {
+
+            string sentencia = $"UPDATE SOLICITUDES_GIRAS SET ESTADO = 'TERMINADA' WHERE {condicion}";
+            int filasAfectadas = 0;
+
+            try
+            {
+                SqlConnection connection = new SqlConnection(cadenaConexion);
+                SqlCommand command = new SqlCommand(sentencia, connection);
+
+                connection.Open();
+                filasAfectadas = command.ExecuteNonQuery();
+                connection.Close();
+
+                if (filasAfectadas > 0) { return true; } else { return false; }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+
+        }
+
+        public int InsertarIncidencia(string incidencia, string funcionario, int gira)
+        {
+            int resultado = -1;
+            SqlConnection cnn = new SqlConnection(cadenaConexion);
+            SqlCommand comando = new SqlCommand();
+            comando.Connection = cnn;
+            string sentencia;
+            try
+            {
+                sentencia = "INSERT INTO INCIDENCIAS(ID_GIRA, DETALLES, IDENTIFICACION) OUTPUT INSERTED.NUM_INCIDENCIA VALUES (@ID_GIRA, @DETALLES, @IDENTIFICACION)";
+                comando.CommandText = sentencia;
+                comando.CommandType = CommandType.Text;
+                //parametros de entrada
+                comando.Parameters.AddWithValue("@ID_GIRA", gira);
+                comando.Parameters.AddWithValue("@DETALLES", incidencia);
+                comando.Parameters.AddWithValue("@IDENTIFICACION", funcionario);
+
+
+
+                //parametros de salida
+                cnn.Open();
+
+                resultado = (int)comando.ExecuteScalar();
+                cnn.Close();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return resultado;
         }
     }
 }

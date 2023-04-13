@@ -521,10 +521,9 @@ namespace capaPresentacion
 
                     if (advertencia == DialogResult.Yes)
                     {
-                        banderaConfirmarFecha = 0;
-                        limpiarLugares();
-                        btnConfirmar_Click(sender, e);
                         ReiniciarTodo(true);
+                        btnConfirmar_Click(sender, e);
+
                     }
                     else
                     {
@@ -861,6 +860,7 @@ namespace capaPresentacion
                 }
                 else
                 {
+                    txtCentro.Text = string.Empty;
                     MessageBox.Show("No fue seleccionado ningún centro de formación.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -1068,10 +1068,6 @@ namespace capaPresentacion
 
         }
 
-        private void chkExtemporanea_CheckedChanged(object sender, EventArgs e)
-        {
-        }
-
         private void btnEnviar_Click(object sender, EventArgs e)
         {
             entidadSolicitudGira solicitud;
@@ -1205,6 +1201,7 @@ namespace capaPresentacion
             else
             {
                 MessageBox.Show("Para proceder debe digitar una justificación pues la solicitud es extemporánea.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ReiniciarTodo(false);
                 justificacion = string.Empty;
             }
 
@@ -1361,10 +1358,6 @@ namespace capaPresentacion
             txtMarca.Text = string.Empty;
         }
 
-        private void ReiniciarPorFechas()
-        {
-
-        }
         private void ReiniciarTodo(bool reinicioFechas = false)
         {
             if (!reinicioFechas)
@@ -1375,15 +1368,13 @@ namespace capaPresentacion
                 horaFinal = string.Empty;
                 horaInicio = string.Empty;
                 giraFechaFinal = DateTime.MinValue;
-                cboInicio.SelectedIndex = 0;
-                asignarHorasFin("08:00");
-                chkExtemporanea.Checked = false;
+                cboInicio.SelectedIndex = -1;
+                cboFin.SelectedIndex = -1;
                 JustificacionExtemporanea = string.Empty;
+                grdLugares.Rows.Clear();
             }
 
-
-
-            limpiarLugares();
+            banderaConfirmarFecha = 0;
             grdLugares.Rows.Clear();
             txtSolicitante.Text = string.Empty;
             txtSolicitante.Tag = string.Empty;
@@ -1397,13 +1388,11 @@ namespace capaPresentacion
             txtCantidad.Text = "0";
             licenciasChofer = null;
             eventoBotonAgregar = false;
-            lugares.Clear();
             funcionarios.Clear();
-            banderaConfirmarFecha = 0;
             limpiarVehiculo();
             idCentro = -1;
             txtCentroDeForm.Text = string.Empty;
-
+            chkExtemporanea.Checked = false;
         }
 
         //la siguiente función verifica si la día de solicitud y la fecha de inicio tienen siete días menos de diferencia
@@ -1415,7 +1404,7 @@ namespace capaPresentacion
 
             if (diferencia.TotalDays <= 12)
             {
-                if (fechaSolicitud.DayOfWeek - 7 != DayOfWeek.Monday || fechaSolicitud.DayOfWeek - 7 != DayOfWeek.Tuesday)
+                if (fechaSolicitud.DayOfWeek - 7 == DayOfWeek.Monday || fechaSolicitud.DayOfWeek - 7 == DayOfWeek.Tuesday)
                 {
                     return true;
                 }

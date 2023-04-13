@@ -60,6 +60,24 @@ namespace capaLogica
             return resultado;
         }
 
+        public entidadFuncionario ObtenerFuncionario(string condicion)
+        {
+            entidadFuncionario resultado;
+            datosFuncionario accesoDatos = new datosFuncionario(CadenaConexion);
+
+            try
+            {
+                resultado = accesoDatos.ObtenerFuncionario(condicion);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return resultado;
+        }
+
         //método que obtiene una lista de funcionarios que son chóferes y cumplen una condición
 
         public List<entidadChofer> ListarChoferes(string condicion = "")
@@ -148,6 +166,74 @@ namespace capaLogica
                 throw ex;
             }
 
+            return resultado;
+        }
+
+        public List<entidadFuncionario> ListarFuncionarios(string condicion = "")
+        {
+            List<entidadFuncionario> resultado;
+            datosFuncionario accesoDatos = new datosFuncionario(CadenaConexion);
+
+            try
+            {
+                resultado = accesoDatos.ListarFuncionarios(condicion);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return resultado;
+        }
+
+
+        public bool EliminarFuncionario(string identificacion)
+        {
+            bool resultado;
+            datosFuncionario accesoDatos = new datosFuncionario(CadenaConexion);
+
+            try
+            {
+                resultado = accesoDatos.EliminarFuncionario(identificacion);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return resultado;
+        }
+
+
+        public string InsertarFuncionario(entidadFuncionario funcionario)
+        {
+            string resultado = string.Empty;
+            datosFuncionario AccesoDatos = new datosFuncionario(cadenaConexion);
+            try
+            {
+                resultado = AccesoDatos.InsertarFuncionario(funcionario);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return resultado;
+        }
+
+        public bool ModificarFuncionario(entidadFuncionario funcionario)
+        {
+            bool resultado = false;
+            datosFuncionario AccesoDatos = new datosFuncionario(cadenaConexion);
+            try
+            {
+                resultado = AccesoDatos.ModificarFuncionario(funcionario);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
             return resultado;
         }
     }

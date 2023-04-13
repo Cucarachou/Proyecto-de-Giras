@@ -16,18 +16,23 @@ namespace capaPresentacion
     public partial class frmBusquedaCentro : Form
     {
 
+        //la siguiente variable almacena la id del centro seleccionado para posteriormente pasarla al formulario que mandó a llamar a BusquedaCentro.
         public int idCentro;
+
+        //el siguiente evento pasa el id del centro seleccionado al formulario que abrió este.
         public EventHandler AceptarCentro;
         public frmBusquedaCentro()
         {
             InitializeComponent();
         }
 
+        //función que asigna el valor inicial al combo box de tipo.
         private void frmBusquedaCentro_Load(object sender, EventArgs e)
         {
             cboTipo.SelectedIndex = 0;
         }
 
+        //función que según el índice del combo box seleccionado cambia un label para que le indique al usuario que información digitar para buscar el centro.
         private void cboTipo_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cboTipo.SelectedIndex == 0)
@@ -40,6 +45,7 @@ namespace capaPresentacion
             }
         }
 
+        //la siguiente función arma una condición según el indice seleccionado en el combo box y manda a llamar a la función de cargar centros para que se encargue del resto.
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             string condicion = string.Empty;
@@ -71,6 +77,7 @@ namespace capaPresentacion
             }
         }
 
+        //la siguiente función llama a la lógica de centro de formación para obtener una lista coincidente con la condición y asignarla al datagrid.
         private void CargarCentros(string condicion = "")
         {
             logicaCentroFormacion logica = new logicaCentroFormacion(Configuracion.getConnectiongString);
@@ -91,21 +98,7 @@ namespace capaPresentacion
 
         }
 
-
-        //boton aceptar:
-        private void button1_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                SeleccionarCentro();
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message, "Error de excepción", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
+        //la siguiente función da valor a la variable global de idcentro según la fila seleccionada en el datagrid y la manda al formulario que abrió este.
         private void SeleccionarCentro()
         {
             try
@@ -131,6 +124,7 @@ namespace capaPresentacion
             }
         }
 
+        //la siguiente función se encarga de mostrar la información del centro de formación seleccionado según el valor del combo box. Esto se realiza posterior a una búsqueda, además, asigna a la variable idcentro la id de la fila seleccionada.
         private void dgvLista_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (cboTipo.SelectedIndex == 0)
@@ -145,6 +139,7 @@ namespace capaPresentacion
             idCentro = Convert.ToInt32(dgvLista.SelectedRows[0].Cells[0].Value);
         }
 
+        //evento que se dispara al dar doble click al datagrid y hace lo mismo que el botón aceptar.
         private void dgvLista_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -158,6 +153,7 @@ namespace capaPresentacion
             }
         }
 
+        //asigna una lista vacia al datagrid para limpiarlo.
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             List<entidadCentroFormacion> listaVacia = new List<entidadCentroFormacion>();
@@ -165,12 +161,27 @@ namespace capaPresentacion
             txtInfo.Text = string.Empty;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        //en caso de no seleccionar nada, manda -1 como resultado al formulario que abrió este.
+        private void btnSalir_Click(object sender, EventArgs e)
         {
             idCentro = -1;
 
             AceptarCentro(idCentro, null);
             Close();
+        }
+
+        //boton aceptar, llama a la función seleccionarcentro
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SeleccionarCentro();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Error de excepción", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

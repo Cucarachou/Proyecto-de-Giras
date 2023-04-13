@@ -115,14 +115,14 @@ namespace logicaSolicitante
             return resultado;
         }
 
-        public bool AprobarSolicitud(string condicion, string aprobador)
+        public bool ActualizarSolicitud(string condicion, string aprobador)
         {
             bool resultado = false;
             datosSolicitudGira accesoDatos = new datosSolicitudGira(CadenaConexion);
 
             try
             {
-                resultado = accesoDatos.AprobarSolicitud(condicion, aprobador);
+                resultado = accesoDatos.ActualizarSolicitud(condicion, aprobador);
             }
             catch (Exception ex)
             {
@@ -131,6 +131,57 @@ namespace logicaSolicitante
             }
 
             return resultado;
-        } 
+        }
+
+        public bool ActualizarSolicitud(string condicion, string aprobador, int tipoRechazo)
+        {
+            bool resultado = false;
+            datosSolicitudGira accesoDatos = new datosSolicitudGira(CadenaConexion);
+
+            try
+            {
+                resultado = accesoDatos.ActualizarSolicitud(condicion, aprobador, tipoRechazo);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return resultado;
+        }
+
+        public bool CerrarSolicitud(string condicion)
+        {
+            bool resultado = false;
+            datosSolicitudGira accesoDatos = new datosSolicitudGira(CadenaConexion);
+
+            try
+            {
+                resultado = accesoDatos.CerrarSolicitud(condicion);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return resultado;
+        }
+
+        public int InsertarIncidencia(string incidencia, string funcionario, int gira)
+        {
+            int resultado = -1;
+            datosSolicitudGira AccesoDatos = new datosSolicitudGira(cadenaConexion);
+            try
+            {
+                resultado = AccesoDatos.InsertarIncidencia(incidencia, funcionario, gira);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return resultado;
+        }
     }
 }

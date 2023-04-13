@@ -21,20 +21,32 @@ namespace capaPresentacion
             InitializeComponent();
         }
 
+        //al cargar el formulario, se asigna al combo box de tipo la primera opción.
         private void frmAprobarGira_Load(object sender, EventArgs e)
         {
             cboTipo.SelectedIndex = 0;
 
         }
 
+        //el siguiente evento busca un funcionario que pueda aprobar o rechazar giras. Esto lo hace asignándole al constructor del formulario un tipo de busqueda (numero 3 = busqueda de aprobador) y posteriormente lo recibe con la función aceptar aprobador.
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            frmBusquedaFuncionario form = new frmBusquedaFuncionario();
-            form.TipoBusqueda = 3;
-            form.AceptarAprobador = new EventHandler(AceptarAprobador);
-            form.Show();
+            try
+            {
+                frmBusquedaFuncionario form = new frmBusquedaFuncionario();
+                form.TipoBusqueda = 3;
+                form.AceptarAprobador = new EventHandler(AceptarAprobador);
+                form.Show();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Error de excepción", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+
         }
 
+        //la siguiente función recibe el aprobador desde el anterior evento y verifica que sí se haya seleccionado uno, para posteriormente llamar a la función de buscar aprobador.
         private void AceptarAprobador(object idSolicitante, EventArgs e)
         {
             try
@@ -57,6 +69,7 @@ namespace capaPresentacion
             }
         }
 
+        //la siguiente función verifica que el aprobador traído desde el formulario de BuscarFuncionario con el tipo de busqueda numero 3 exista en caso de cualquier fallo, para posteriormente asignar el nombre completo al texto y la identificacion al tag.
         private void BuscarAprobador(string idAprobador)
         {
             entidadFuncionario aprobador;
@@ -91,6 +104,7 @@ namespace capaPresentacion
             Close();
         }
 
+        //el siguiente evento se dispara en caso de que el usuario cambie el valor del combo box, haciendo que el texto de informacion cambie a pendiente o que permita escribir informacion según la opcion del combo box seleccionada.
         private void cboTipo_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cboTipo.SelectedIndex == 0)
@@ -104,6 +118,8 @@ namespace capaPresentacion
                 txtInfo.Enabled = true;
             }
         }
+
+        //el siguiente evento se encarga de crear la condicion para buscar la gira según la opción que el usuario haya seleccionado en el combo box. Posteriormente carga todas las solicitudes con ayuda de la función CargarSolicitudes.
 
         private void btnBuscarGira_Click(object sender, EventArgs e)
         {
@@ -147,6 +163,7 @@ namespace capaPresentacion
             }
         }
 
+        //la siguiente función llama a la lógica de solicitud y crea una lista de solicitudes para posteriormente cargarla en el datagrid.
         private void CargarSolicitudes(string condicion = "")
         {
             logicaSolicitudGira logica = new logicaSolicitudGira(Configuracion.getConnectiongString);
@@ -167,25 +184,35 @@ namespace capaPresentacion
 
         }
 
+        //el siguiente evento se dispara al presioanr el boton de consultar y abre el formulario para poder consultar una gria, mandándole la entidad que se obtiene mediante la logica de la solicitud con la id de la gira de la fila seleccionada en el datagrid.
         private void btnConsultar_Click(object sender, EventArgs e)
         {
             entidadSolicitudGira solicitudConsultada;
             logicaSolicitudGira logicaSolicitud = new logicaSolicitudGira(Configuracion.getConnectiongString);
-
-            if (dgvSolicitudes.SelectedRows.Count > 0)
+            try
             {
-                solicitudConsultada = logicaSolicitud.ObtenerSolicitud($"ID_GIRA = {dgvSolicitudes.SelectedRows[0].Cells[7].Value}");
+                if (dgvSolicitudes.SelectedRows.Count > 0)
+                {
+                    solicitudConsultada = logicaSolicitud.ObtenerSolicitud($"ID_GIRA = {dgvSolicitudes.SelectedRows[0].Cells[7].Value}");
 
-                frmConsultaSolicitud form = new frmConsultaSolicitud(solicitudConsultada);
-                form.SolicitudConsultada = solicitudConsultada;
-                form.Show();
+                    frmConsultaSolicitud form = new frmConsultaSolicitud(solicitudConsultada);
+                    form.SolicitudConsultada = solicitudConsultada;
+                    form.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, seleccione la solicitud que desea consultar.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Por favor, seleccione la solicitud que desea consultar.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                MessageBox.Show(ex.Message, "Error de excepción", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+
         }
 
+        //el siguiente evento permite al funcionario aprobar una gira. Para esto, primeramente asigna las variables de fehca inicio, fecha final, placa e id de chofer e id de gira las cuales provienen de la fila seleccionada en el datagridview. Después hace varias verificaciones con ayuda de varias funciones; esto se hace para verificar que un funcionario o un chofer no estén en una gira aprobada dentro de las fechas de fin y final de la gira que se va a aceptar. Al igual que con la placa del vehículo, se verifica que el vehículo tenga seguro, marchamo al día, y que no tenga próximas revisiones pendientes, así como que no esté en ninguna gira aprobada durante las dos fechas de la gira a aprobar. Posteriormente actualiza la solicitud con una función desde la lógica y limpia la lista una vez aprobada.
         private void btnAprobar_Click(object sender, EventArgs e)
         {
             List<entidadFuncionario> asistentes = new List<entidadFuncionario>();
@@ -238,18 +265,20 @@ namespace capaPresentacion
                                     if (!logicaVehiculo.VerificarDisponibilidadVehiculo($"V JOIN REVISIONES_TALLER RT ON V.PLACA = RT.PLACA WHERE V.PLACA = '{placaVehiculo}' AND (NOT EXISTS (SELECT PLACA FROM MARCHAMOS WHERE PLACA = '{placaVehiculo}' AND YEAR(FECHA) = YEAR('{fechaInicio}') OR YEAR (FECHA) = YEAR('{fechaFinal}')) OR EXISTS (SELECT 1 FROM REVISIONES_TALLER WHERE PLACA = '{placaVehiculo}' AND PROXIMA_REVISION BETWEEN '{fechaInicio}' AND '{fechaFinal}') OR EXISTS (SELECT 1 FROM REVISIONES_TECNICAS WHERE PLACA = '{placaVehiculo}' AND PROXIMA_FECHA BETWEEN '{fechaInicio}' AND '{fechaFinal}') OR EXISTS (SELECT 1 FROM SEGUROS_VEHICULOS WHERE PLACA = '{placaVehiculo}' AND VENCIMIENTO < '{fechaInicio}' OR VENCIMIENTO < '{fechaFinal}'))"))
                                     {
 
-                                        if (logicaSolicitud.AprobarSolicitud($"ID_GIRA = {idGira}", txtFuncionario.Tag.ToString()))
+                                        if (logicaSolicitud.ActualizarSolicitud($"ID_GIRA = {idGira}", txtFuncionario.Tag.ToString         ()))
                                         {
-                                            MessageBox.Show("Gira aprobada correctamente.", "Solicitud aprobada", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                            MessageBox.Show("Gira aprobada correctamente.", "Solicitud aprobada",                               MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                            LimpiarLista();
                                         }
                                         else
                                         {
-                                            MessageBox.Show("La gira no pudo ser aprobada.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            MessageBox.Show("La gira no pudo ser aprobada.", "Error de datos", MessageBoxButtons.OK,            MessageBoxIcon.Error);
                                         }
                                     }
                                     else
                                     {
-                                        MessageBox.Show("El vehículo de la solicitud se encuentra en una gira dentro de las fechas de la solicitud que quiere aprobar, o no tiene marchamo o seguro al día, o asistirá a una revisión, por lo que no fue posible aprobarla.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        MessageBox.Show("El vehículo de la solicitud se encuentra en una gira dentro de las fechas de       la solicitud que quiere aprobar, o no tiene marchamo o seguro al día, o asistirá a una               revisión, por lo que no fue posible aprobarla.", "Error de datos", MessageBoxButtons.OK,             MessageBoxIcon.Error);
                                     }
 
 
@@ -266,7 +295,9 @@ namespace capaPresentacion
                         }
                         else
                         {
-                            MessageBox.Show("La gira que desea aprobar ya se encuentra vencida pues el día de inicio es menor o igual a la fecha actual.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            logicaSolicitud.ActualizarSolicitud($"ID_GIRA = {idGira}", txtFuncionario.Tag.ToString(), 2);
+                            LimpiarLista();
+                            MessageBox.Show("La gira que desea aprobar ya se encuentra vencida pues el día de inicio es menor o igual a la fecha actual. Se ha actualizado el estado de la gira a vencida.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else
@@ -287,6 +318,7 @@ namespace capaPresentacion
             
         }
 
+        //el siguiente evento de rechazar hace lo mismo que el anterior evento pero con menos verificaciones. Este verifica que la fecha de inicio de la gira a aprobar no sea menor a la fecha de aprobacion (hoy) y en ese caso la actuatilizará como vencida. Si esto no pasa, simplemente actualiza la gira mediante una función sobrecargada y pone el estado en rechazada.
         private void btnRechazar_Click(object sender, EventArgs e)
         {
             logicaSolicitudGira logicaSolicitud = new logicaSolicitudGira(Configuracion.getConnectiongString);
@@ -306,9 +338,10 @@ namespace capaPresentacion
 
                         if (Convert.ToDateTime(fechaInicio) > (DateTime.Now.Date))
                         {
-                            if (logicaSolicitud.AprobarSolicitud($"ID_GIRA = {idGira}", txtFuncionario.Tag.ToString()))
+                            if (logicaSolicitud.ActualizarSolicitud($"ID_GIRA = {idGira}", txtFuncionario.Tag.ToString(), 1))
                             {
-                                MessageBox.Show("Gira rechazada correctamente.", "Solicitud aprobada", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                LimpiarLista();
+                                MessageBox.Show("Gira rechazada correctamente.", "Solicitud rechazada", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                             }
                             else
                             {
@@ -317,6 +350,8 @@ namespace capaPresentacion
                         }
                         else
                         {
+                            logicaSolicitud.ActualizarSolicitud($"ID_GIRA = {idGira}", txtFuncionario.Tag.ToString(), 2 );
+                            LimpiarLista();
                             MessageBox.Show("La gira que desea rechazar ya se encuentra vencida pues el día de inicio es menor o igual a la fecha actual. El estado de la gira se ha actualizado a vencida.", "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
@@ -333,9 +368,17 @@ namespace capaPresentacion
             catch (Exception ex)
             {
 
-                MessageBox.Show(ex.Message, "Error de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error de excepción", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+
+        }
+
+        private void LimpiarLista()
+        {
+            List<entidadSolicitudGira> lista = null;
+
+            dgvSolicitudes.DataSource = lista;
         }
     }
 }

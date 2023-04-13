@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBusquedaChofer));
             this.label1 = new System.Windows.Forms.Label();
             this.cboTipo = new System.Windows.Forms.ComboBox();
             this.lblTipo = new System.Windows.Forms.Label();
@@ -52,6 +53,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtFinal = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnInformacion = new System.Windows.Forms.Button();
             this.btnLicencias = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.grdLista)).BeginInit();
@@ -277,6 +279,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnInformacion);
             this.groupBox1.Controls.Add(this.btnLicencias);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.cboTipo);
@@ -291,6 +294,16 @@
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Chófer de la Gira";
+            // 
+            // btnInformacion
+            // 
+            this.btnInformacion.Location = new System.Drawing.Point(90, 221);
+            this.btnInformacion.Name = "btnInformacion";
+            this.btnInformacion.Size = new System.Drawing.Size(75, 23);
+            this.btnInformacion.TabIndex = 9;
+            this.btnInformacion.Text = "Información";
+            this.btnInformacion.UseVisualStyleBackColor = true;
+            this.btnInformacion.Click += new System.EventHandler(this.btnInformacion_Click);
             // 
             // btnLicencias
             // 
@@ -319,12 +332,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(569, 332);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.btnSalir);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmBusquedaChofer";
             this.Text = "Búsqueda de Chofer";
             this.Load += new System.EventHandler(this.frmBusquedaChofer_Load);
@@ -365,5 +382,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Correo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.Button btnLicencias;
+        private System.Windows.Forms.Button btnInformacion;
     }
 }
